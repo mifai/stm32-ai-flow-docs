@@ -1,0 +1,22 @@
+﻿{
+    "generated_at":  "2026-03-16T18:52:27",
+    "source_repo":  "C:\\tests\\stm32-ai-flow",
+    "managed_files":  [
+                          "docs/agent-communication-guide.md",
+                          "docs/example-project-development-path.md",
+                          "docs/handbook.md",
+                          "docs/prerequisites.md",
+                          "docs/public-docs-policy.md",
+                          "docs/user-manual.md",
+                          "docs/workflow-safety.md",
+                          "docs\\assets\\example-project-stepper-control-ui.png",
+                          "docs\\assets\\topology-central.svg",
+                          "docs\\assets\\topology-vendored.svg",
+                          "docs\\pdf\\agent-communication-guide.pdf",
+                          "docs\\pdf\\example-project-development-path.pdf",
+                          "docs\\pdf\\handbook.pdf",
+                          "docs\\pdf\\user-manual.pdf",
+                          "docs\\pdf\\workflow-safety.pdf",
+                          "README.md"
+                      ]
+}
