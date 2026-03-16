@@ -21,7 +21,8 @@ maintainer internals behind the starter implementation.
 > The reusable STM32 AI Flow starter kit is still under active testing and is
 > not yet broadly published. This public docs set is meant to explain the
 > workflow and show its direction. If you would like early access or want to
-> participate as an early adopter/tester, access may be available on request.
+> participate as an early adopter/tester, please open a GitHub Discussion in
+> this repository. Access may be available on request.
 
 ## 0A. The Shortest Reason To Try It
 

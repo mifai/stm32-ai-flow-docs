@@ -15,7 +15,8 @@ while important parts are still evolving.
 
 If you are interested in early access, would like to evaluate the workflow for
 a real STM32 project, or would be happy to participate as an early adopter or
-tester, access may be provided on request.
+tester, please open a GitHub Discussion in this repository. Access may be
+provided on request.
 
 Start here:
 
