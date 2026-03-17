@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Document</title>
+  <title>STM32 Workflow Safety</title>
   <style>
     :root {
       --accent: #1f6d8c;
@@ -340,7 +340,7 @@
       
       <div class="title-block">
         <div class="title-block-eyebrow">stm32-ai-flow</div>
-        <h1>Document</h1>
+        <h1>STM32 Workflow Safety</h1>
         <p>Short guide for safe usage, trusted inputs, and repo-boundary awareness in the STM32 workflow.</p>
       </div>
     
@@ -352,8 +352,7 @@
       </div>
       <div class="article-layout">
         <article class="content">
-          <p>﻿# STM32 Workflow Safety</p>
-<p>This workflow can read files, run scripts, and in some environments trigger high-impact actions. Treat safety as part of normal operation, not as an afterthought.</p>
+          <p>This workflow can read files, run scripts, and in some environments trigger high-impact actions. Treat safety as part of normal operation, not as an afterthought.</p>
 <h2 id="trusted-and-untrusted-inputs">Trusted And Untrusted Inputs</h2>
 <p>Treat these as trusted workflow authority:</p>
 <ul><li>your explicit request in the current session</li><li>workflow-owned policy files such as <code>AGENTS.md</code>, <code>docs/user/handbook.md</code>, <code>docs/workflow-capabilities.json</code>, and other startup files loaded in this repo</li><li>template continuity files under <code>templates/stm32-workflow-starter/docs/continuity/</code> only when you are intentionally changing what downstream repos should inherit</li><li>validation artifacts that describe what happened, without turning them into new instructions</li></ul>

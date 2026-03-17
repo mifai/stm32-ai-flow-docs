@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Document</title>
+  <title>STM32 AI Flow User Manual</title>
   <style>
     :root {
       --accent: #1f6d8c;
@@ -340,7 +340,7 @@
       
       <div class="title-block">
         <div class="title-block-eyebrow">stm32-ai-flow</div>
-        <h1>Document</h1>
+        <h1>STM32 AI Flow User Manual</h1>
         <p>Human-readable guide for onboarding, daily use, and workflow choices.</p>
       </div>
     
@@ -352,11 +352,10 @@
       </div>
       <div class="article-layout">
         <article class="content">
-          <p>﻿# STM32 AI Flow User Manual</p>
-<p>This manual is written for the person who wants to use STM32 AI Flow without first reverse-engineering the repository.</p>
+          <p>This manual is written for the person who wants to use STM32 AI Flow without first reverse-engineering the repository.</p>
 <p>It explains the workflow as a human process, not just as a list of scripts.</p>
 <p>This manual is for the public starter-kit repo. It is not the maintainer-governance manual, and it is not written for a downstream test project that happens to exercise the workflow.</p>
-<blockquote><p><strong>At a glance</strong></p><p>Use this manual for explanation and choice.</p><p>Use <code>docs/user/handbook.md</code> for the day-to-day operating path.</p><p>Use <code>docs/reference/workflow-safety.md</code> for trusted-input and high-risk-action rules.</p><p>Use <code>docs/user/simple-example.md</code> if you want the smallest realistic first bring-up on a real Nucleo board.</p><p>Use <code>docs/user/project-case-study.md</code> if you want a larger case study of how one STM32 project can grow with this workflow.</p><p>Use <code>docs/reference/workflow-scripts.md</code> only when you need exact manual commands.</p></blockquote>
+<blockquote><p><strong>At a glance</strong> Use this manual for explanation and choice. Use <code>docs/user/handbook.md</code> for the day-to-day operating path. Use <code>docs/reference/workflow-safety.md</code> for trusted-input and high-risk-action rules. Use <code>docs/user/simple-example.md</code> if you want the smallest realistic first bring-up on a real Nucleo board. Use <code>docs/user/project-case-study.md</code> if you want a larger case study of how one STM32 project can grow with this workflow. Use <code>docs/reference/workflow-scripts.md</code> only when you need exact manual commands.</p></blockquote>
 <h2 id="0a-the-shortest-reason-to-try-it">0A. The Shortest Reason To Try It</h2>
 <p>The value is not just that the agent can generate code.</p>
 <p>The value is that this starter kit gives the agent a stable operating model:</p>
@@ -400,7 +399,7 @@
 <h3 id="case-a-you-do-not-have-a-project-repo-yet">Case A: You Do Not Have A Project Repo Yet</h3>
 <p>This means you are starting from the starter kit and creating a separate new project repo.</p>
 <ol><li>Clone the starter-kit repo to your machine if you do not already have it.</li><li>Open that starter-kit repo in your AI workspace.</li><li>Ask the agent to create a new STM32 project repo from the starter kit in <code>central</code> or <code>vendored</code> mode, under your chosen parent directory.</li><li>Open the new project repo in your AI workspace.</li><li>In CubeMX, create the target project and save its <code>.ioc</code> inside the new repo.</li><li>Ask the agent to initialize workflow config from that <code>.ioc</code>.</li><li>Add or generate the project-specific firmware tree and board files for your target if they are not already present.</li><li>Ask the agent to check the toolchain, workflow config, and board visibility.</li><li>Ask the agent to run a CubeMX smoke test if you want an early generated-code sanity check.</li><li>Ask the agent to run the normal development workflow.</li></ol>
-<blockquote><p><strong>Important</strong></p><p>In CubeMX <code>Project Manager</code>, choose <code>CMake</code> when this workflow is expected to own the build path.</p></blockquote>
+<blockquote><p><strong>Important</strong> In CubeMX <code>Project Manager</code>, choose <code>CMake</code> when this workflow is expected to own the build path.</p></blockquote>
 <p>The important detail is easy to miss:</p>
 <ul><li>the starter-kit clone is only the source used to create the new repo</li><li>the new repo gets the workflow layer by default</li><li>the new repo starts with its own git history instead of inheriting the starter-kit repo history</li><li>project-specific assets such as firmware source, a board <code>.ioc</code>, linker script, startup files, and host tools still need to be added intentionally for your own target</li></ul>
 <p>Typical prompts:</p>
@@ -419,7 +418,7 @@
 <h3 id="the-one-rule-that-is-easy-to-miss">The One Rule That Is Easy To Miss</h3>
 <p>For a brand-new STM32 project, the first real project file is usually the <code>.ioc</code>.</p>
 <p>That matters because this starter kit assumes <code>.ioc</code> is the source of truth for generated hardware and middleware configuration. If the <code>.ioc</code> does not exist yet, the workflow is not really initialized.</p>
-<blockquote><p><strong>Important</strong></p><p>Treat <code>.ioc</code> as authoritative for generated configuration. Do not quietly hand-edit generated settings in source files and expect the workflow to stay coherent.</p></blockquote>
+<blockquote><p><strong>Important</strong> Treat <code>.ioc</code> as authoritative for generated configuration. Do not quietly hand-edit generated settings in source files and expect the workflow to stay coherent.</p></blockquote>
 <h3 id="where-to-look-for-more-detail">Where To Look For More Detail</h3>
 <ul><li><code>docs/guides/cubemx-new-project-onboarding.md</code> for the new-project path</li><li><code>docs/guides/migrating-existing-cubeide-cubemx-projects.md</code> for existing repos</li><li><code>docs/guides/workflow-topology.md</code> for vendored versus central workflow layout</li><li><code>docs/reference/workflow-safety.md</code> for safe usage and trusted-input boundaries</li><li><code>docs/reference/workflow-scripts.md</code> for exact manual commands</li></ul>
 <h2 id="4-why-use-the-starter-kit-instead-of-starting-from-scratch">4. Why Use The Starter Kit Instead Of Starting From Scratch</h2>
@@ -446,25 +445,23 @@
 <p>Why keep the others optional:</p>
 <ul><li>not every board exposes the same transports</li><li>not every project needs the same debug surface</li><li>every default capability becomes another thing to maintain and explain</li></ul>
 <p>Choose only the core when you want the smallest stable path. Choose optional modules only when they remove work you are already repeating.</p>
-<blockquote><p><strong>Important</strong></p><p>The default <code>flash</code> stage requires a connected supported programming probe</p><p>that STM32CubeProgrammer can see. In this workflow today, that means ST-LINK</p><p>unless a project deliberately adds another flash path.</p></blockquote>
-<p>&gt;</p>
-<blockquote><p>Some STM32 projects may instead use the MCU&#x27;s built-in bootloader over</p><p>transports such as DFU, UART, or USB. That can be a valid project-specific</p><p>workflow, but it is not the default flash path in this repo today.</p></blockquote>
+<blockquote><p><strong>Important</strong> The default <code>flash</code> stage requires a connected supported programming probe that STM32CubeProgrammer can see. In this workflow today, that means ST-LINK unless a project deliberately adds another flash path.</p><p>Some STM32 projects may instead use the MCU&#x27;s built-in bootloader over transports such as DFU, UART, or USB. That can be a valid project-specific workflow, but it is not the default flash path in this repo today.</p></blockquote>
 <p>The starter kit now also supports explicit gate policy in workflow config:</p>
 <ul><li>strict gate behavior can block the run early when the flash probe or configured serial port is missing</li><li>lenient gate behavior can report the same condition and skip that step cleanly for hardware-light runs</li></ul>
 <p>That policy lives in <code>validation_policy</code> in the workflow config instead of being left only to implicit profile behavior.</p>
 <p>The starter kit now also supports suggestion-first HAL sync guidance:</p>
 <ul><li><code>scripts/stm32.ps1 hal-suggest</code> inspects <code>.ioc</code>-enabled peripherals against the repo-local HAL driver tree, HAL config defines, and the CMake driver list</li><li><code>reconcile</code> and the normal workflow surface the same suggestions automatically before build</li><li>the workflow suggests exact <code>hal-sync</code> commands without silently mutating the repo</li></ul>
-<blockquote><p><strong>Practical rule</strong></p><p>Start with the core only. Add optional modules one at a time, and only when they replace work you already do often enough to justify the extra surface.</p></blockquote>
+<blockquote><p><strong>Practical rule</strong> Start with the core only. Add optional modules one at a time, and only when they replace work you already do often enough to justify the extra surface.</p></blockquote>
 <h2 id="4b-vendored-and-central-two-ways-to-carry-the-workflow">4B. Vendored And Central: Two Ways To Carry The Workflow</h2>
 <p>There are two valid ways to organize the workflow layer.</p>
 <p><code>vendored</code> means the workflow core is copied into the same repo as the project.</p>
-<p><img src="../user/assets/topology-vendored.svg" alt="Vendored topology diagram"></p>
+<p><img src="../assets/topology-vendored.svg" alt="Vendored topology diagram"></p>
 <p><code>central</code> means the generic workflow core stays in one toolkit repo, while project repos keep only their local layer plus wrappers.</p>
-<p><img src="../user/assets/topology-central.svg" alt="Central topology diagram"></p>
+<p><img src="../assets/topology-central.svg" alt="Central topology diagram"></p>
 <p>The practical difference is simple:</p>
 <ul><li><code>vendored</code> is easier when the workflow is still evolving with the project</li><li><code>central</code> is better when the shared core is already stable and several projects should use the same toolkit</li></ul>
 <p>The important nuance is that project-specific growth still happens in both models. Topology changes where the reusable core lives. It does not mean every project need should be pushed into the shared core.</p>
-<blockquote><p><strong>What the topology choice does not mean</strong></p><p>It does not mean the shared core should absorb product code, board-specific assumptions, or every local convenience. Project growth still belongs in the project repo.</p></blockquote>
+<blockquote><p><strong>What the topology choice does not mean</strong> It does not mean the shared core should absorb product code, board-specific assumptions, or every local convenience. Project growth still belongs in the project repo.</p></blockquote>
 <h2 id="5-what-you-should-remember">5. What You Should Remember</h2>
 <p>This starter kit is repo-based, not editor-specific.</p>
 <p>While it was developed with VS Code and the Codex extension, it is not tied to them or to one exact model. It is still intended primarily for Windows today.</p>
@@ -490,7 +487,7 @@
 <ul><li>&quot;Check whether this machine can run the STM32 workflow.&quot;</li><li>&quot;Initialize workflow config from my <code>.ioc</code>.&quot;</li><li>&quot;Run the normal development workflow for this project.&quot;</li></ul>
 <p>If you want a compact guide for writing more useful prompts in this workflow, read <code>docs/user/agent-communication-guide.md</code>.</p>
 <p>For safe usage guidance about untrusted content, prompt injection, and high-risk actions, read <code>docs/reference/workflow-safety.md</code>.</p>
-<blockquote><p><strong>Still unsure? Ask the agent directly before guessing.</strong></p><p>Example: &quot;This part of the workflow is unclear to me. Explain how it works in this repo and what I should do next.&quot;</p></blockquote>
+<blockquote><p><strong>Still unsure? Ask the agent directly before guessing.</strong> Example: &quot;This part of the workflow is unclear to me. Explain how it works in this repo and what I should do next.&quot;</p></blockquote>
 <p>That is enough to get real work done.</p>
 <p>CubeIDE can coexist with this starter-kit workflow.</p>
 <p>The cleanest version is usually:</p>
@@ -519,7 +516,7 @@
 <p>In CubeMX-managed projects, <code>.ioc</code> is not just another file. It is the place where generated hardware and middleware configuration is supposed to come from.</p>
 <p>That is why the workflow prefers:</p>
 <ul><li><code>.ioc</code> first</li><li>regeneration second</li><li>custom behavior in USER CODE blocks or separate modules</li><li>running the repo reconcile step before build/flash if code was generated manually in CubeMX</li></ul>
-<blockquote><p><strong>Most important habit</strong></p><p>Edit <code>.ioc</code> first, then regenerate or reconcile, then build.</p><p>Reversing that order is one of the fastest ways to create drift.</p></blockquote>
+<blockquote><p><strong>Most important habit</strong> Edit <code>.ioc</code> first, then regenerate or reconcile, then build. Reversing that order is one of the fastest ways to create drift.</p></blockquote>
 <p>This may feel strict at first, but it saves time later.</p>
 <p>The practical version is:</p>
 <ol><li>edit and save <code>.ioc</code> in CubeMX</li><li>generate code in CubeMX if you want to work there directly</li><li>run <code>powershell -NoProfile -ExecutionPolicy Bypass -File scripts/stm32.ps1 reconcile -ConfigPath .\stm32-workflow.local.json</code></li><li>then build or run the normal workflow</li></ol>
@@ -532,7 +529,7 @@
 <ul><li>validate</li><li>build</li><li>flash</li><li>verify honestly</li></ul>
 <p>Everything else should earn its place.</p>
 <p>If you are unsure, start with the core and add one optional module at a time.</p>
-<blockquote><p><strong>Good default</strong></p><p>If you are uncertain whether a helper belongs in the workflow, leave it out until a real repeated task proves that it should exist.</p></blockquote>
+<blockquote><p><strong>Good default</strong> If you are uncertain whether a helper belongs in the workflow, leave it out until a real repeated task proves that it should exist.</p></blockquote>
 <h2 id="10-what-makes-a-good-success-claim">10. What Makes A Good Success Claim</h2>
 <p>&quot;The build passed&quot; is not the same as &quot;the workflow succeeded.&quot;</p>
 <p>A useful report tells you:</p>

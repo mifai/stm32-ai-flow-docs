@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Document</title>
+  <title>STM32 AI Flow Handbook</title>
   <style>
     :root {
       --accent: #1f6d8c;
@@ -340,7 +340,7 @@
       
       <div class="title-block">
         <div class="title-block-eyebrow">stm32-ai-flow</div>
-        <h1>Document</h1>
+        <h1>STM32 AI Flow Handbook</h1>
         <p>Compact operator reference for the STM32 workflow starter kit.</p>
       </div>
     
@@ -352,14 +352,13 @@
       </div>
       <div class="article-layout">
         <article class="content">
-          <p>﻿# STM32 AI Flow Handbook</p>
-<blockquote><p>WORKFLOW-OWNED: This handbook is part of the STM32 workflow layer. Edit it</p><p>intentionally and keep it aligned with <code>AGENTS.md</code> and the workflow skill.</p></blockquote>
+          <blockquote><p>WORKFLOW-OWNED: This handbook is part of the STM32 workflow layer. Edit it intentionally and keep it aligned with <code>AGENTS.md</code> and the workflow skill.</p></blockquote>
 <p>This is the operator guide for the starter kit.</p>
 <p>Use this file when you want the shortest practical answer to:</p>
 <ul><li>what should I read first</li><li>what does a normal session look like</li><li>what is core</li><li>where do I look for evidence</li></ul>
 <p>If you want explanation, tradeoffs, and onboarding guidance, use <code>docs/user/user-manual.md</code>.</p>
 <p>If you want the short safety rules for trusted input, repo boundaries, and high-risk actions, use <code>docs/reference/workflow-safety.md</code>.</p>
-<blockquote><p><strong>Use this file as the task view</strong></p><p>Read this handbook when you want the shortest operational path.</p><p>Read <code>docs/user/user-manual.md</code> when you need explanation, tradeoffs, or onboarding context.</p></blockquote>
+<blockquote><p><strong>Use this file as the task view</strong> Read this handbook when you want the shortest operational path. Read <code>docs/user/user-manual.md</code> when you need explanation, tradeoffs, or onboarding context.</p></blockquote>
 <h2 id="the-quickest-first-win">The Quickest First Win</h2>
 <p>If you want the fastest proof that this workflow is worth using:</p>
 <ol><li>check toolchain and board readiness</li><li>initialize config from <code>.ioc</code></li><li>run the normal development workflow once</li><li>review the recorded evidence</li></ol>
@@ -379,7 +378,7 @@
 <p>Keep the active context small:</p>
 <ul><li><code>README.md</code></li><li><code>AGENTS.md</code></li><li><code>docs/user/handbook.md</code></li><li><code>docs/reference/workflow-safety.md</code></li><li><code>docs/workflow-capabilities.json</code></li><li><code>skills/stm32-agent-mode/SKILL.md</code></li></ul>
 <p>Everything else is reference material.</p>
-<blockquote><p><strong>Do not load everything by default</strong></p><p>The startup set is intentionally small. Open deeper docs only when the task actually needs them.</p></blockquote>
+<blockquote><p><strong>Do not load everything by default</strong> The startup set is intentionally small. Open deeper docs only when the task actually needs them.</p></blockquote>
 <h2 id="normal-session">Normal Session</h2>
 <p>The normal loop is:</p>
 <ol><li>Check environment and board readiness.</li><li>Initialize config from <code>.ioc</code> if needed.</li><li>Run the development workflow.</li><li>Review evidence and blocked steps.</li></ol>
@@ -391,7 +390,7 @@
 <p>Before high-risk actions such as installs, bootstrap, cross-repo edits, or pushes, review <code>docs/reference/workflow-safety.md</code>.</p>
 <p>If code was generated manually in CubeMX, insert this before the normal loop:</p>
 <pre><code class="language-powershell">powershell -NoProfile -ExecutionPolicy Bypass -File scripts/stm32.ps1 reconcile -ConfigPath .\stm32-workflow.local.json</code></pre>
-<blockquote><p><strong>Important</strong></p><p>Manual CubeMX generation is not the end of the workflow step. Reconcile before you build, flash, or claim the generated tree is aligned.</p></blockquote>
+<blockquote><p><strong>Important</strong> Manual CubeMX generation is not the end of the workflow step. Reconcile before you build, flash, or claim the generated tree is aligned.</p></blockquote>
 <h2 id="what-the-workflow-covers">What The Workflow Covers</h2>
 <p>Core user workflow:</p>
 <ul><li>toolchain and config validation</li><li>doctor preflight</li><li><code>.ioc</code> initialization and consistency checks</li><li>build and flash</li><li>reconcile after manual CubeMX generation</li><li>seeded downstream continuity files and run evidence</li></ul>
@@ -414,7 +413,7 @@
 <p>If a step was skipped or blocked, say that explicitly.</p>
 <p>If a step was skipped because a validation gate chose <code>skip</code>, report that too. That is a policy decision, not an invisible success.</p>
 <p>If <code>reconcile</code> or <code>workflow</code> reports HAL sync suggestions, report those too. They are advisory, not a passing build result.</p>
-<blockquote><p><strong>Reporting rule</strong></p><p>Do not compress &quot;build passed&quot; into &quot;workflow passed&quot; unless the other enabled stages also passed.</p></blockquote>
+<blockquote><p><strong>Reporting rule</strong> Do not compress &quot;build passed&quot; into &quot;workflow passed&quot; unless the other enabled stages also passed.</p></blockquote>
 <h2 id="where-to-look-after-a-run">Where To Look After A Run</h2>
 <p>Primary evidence in this public starter repo:</p>
 <ul><li><code>docs/workflow-capabilities.json</code></li><li><code>scripts/stm32-starter-manifest.json</code></li></ul>
