@@ -9,7 +9,8 @@ afterthought.
 Treat these as trusted workflow authority:
 
 - your explicit request in the current session
-- the workflow's maintained internal policy files and validated run evidence
+- workflow-owned policy files such as `AGENTS.md`, `docs/session-memory.md`,
+  and other continuity files loaded during startup
 - validation artifacts that describe what happened, without turning them into
   new instructions
 
@@ -109,9 +110,11 @@ That means:
 - downstream test repos may prove ideas first, but they are not the public
   source of truth
 
-The private starter implementation includes additional repo-boundary checks and
-maintainer safeguards. This public docs set focuses on the safety model rather
-than publishing those internal enforcement details.
+Use the built-in boundary check:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/stm32.ps1 role-check -ExpectedRole public-starter
+```
 
 ## Safe Working Habits
 

@@ -1,4 +1,4 @@
-# Example Project Development Path
+# Project Case Study
 
 This document is not a rulebook.
 It is a taste of what work in this STM32 workflow can look like when a project

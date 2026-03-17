@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Project Case Study</title>
+  <style>
+    :root {
+      --accent: #1f6d8c;
+      --accent-soft: #d8edf2;
+      --ink: #15212f;
+      --muted: #5f6d7b;
+      --paper: #f7f4ef;
+      --deep: #20364b;
+      --line: rgba(21, 33, 47, 0.12);
+      --shadow: 0 20px 55px rgba(17, 26, 37, 0.11);
+      --radius: 28px;
+    }
+
+    * { box-sizing: border-box; }
+    html {
+      background:
+        radial-gradient(circle at top left, rgba(246, 211, 184, 0.8), transparent 28%),
+        linear-gradient(160deg, #f5efe5 0%, #f4f0ea 46%, #eef3f6 100%);
+      color: var(--ink);
+      font-family: "Aptos", "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+    body { margin: 0; }
+    .page {
+      width: min(1240px, calc(100vw - 48px));
+      margin: 28px auto;
+      display: grid;
+      grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
+      gap: 24px;
+      align-items: start;
+    }
+    .page.no-cover {
+      display: block;
+      width: min(1100px, calc(100vw - 48px));
+    }
+    .hero {
+      position: sticky;
+      top: 24px;
+      padding: 26px 24px;
+      border: 1px solid rgba(255,255,255,0.5);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(160deg, rgba(255,255,255,0.88), rgba(247,244,239,0.9)),
+        linear-gradient(135deg, rgba(31,109,140,0.08), rgba(196,90,43,0.06));
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -30px;
+      top: -22px;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(246, 211, 184, 0.75), rgba(246, 211, 184, 0));
+    }
+    .eyebrow {
+      display: inline-flex;
+      padding: 6px 11px;
+      border-radius: 999px;
+      background: rgba(31,109,140,0.09);
+      color: var(--deep);
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .hero h1 {
+      margin: 16px 0 12px;
+      font-family: "Georgia", "Palatino Linotype", serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.03;
+      letter-spacing: -0.02em;
+      max-width: 12ch;
+    }
+    .hero p {
+      margin: 0 0 16px;
+      color: var(--deep);
+      font-size: 1.02rem;
+    }
+    .meta {
+      display: grid;
+      gap: 10px;
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+    .meta strong { color: var(--ink); }
+    .article-shell {
+      padding: 34px 40px;
+      border: 1px solid rgba(255,255,255,0.52);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.9);
+      box-shadow: var(--shadow);
+    }
+    .article-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 24px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line);
+    }
+    .title-block {
+      margin: 0 0 24px;
+      padding: 0 0 20px;
+      border-bottom: 1px solid var(--line);
+    }
+    .title-block-eyebrow {
+      margin-bottom: 10px;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .title-block h1 {
+      margin: 0 0 10px;
+      color: var(--deep);
+      font-family: "Georgia", "Palatino Linotype", serif;
+      font-size: clamp(2.2rem, 4vw, 3.4rem);
+      line-height: 1.04;
+      letter-spacing: -0.03em;
+      max-width: 14ch;
+    }
+    .title-block p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.04rem;
+      max-width: 60ch;
+    }
+    .article-top-copy p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 60ch;
+    }
+    .marker {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), #ebb07a);
+      box-shadow: 0 0 0 8px rgba(196, 90, 43, 0.12);
+      flex: 0 0 auto;
+      margin-top: 3px;
+    }
+    .article-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(220px, 270px);
+      gap: 26px;
+      align-items: start;
+    }
+    .content h2,
+    .content h3,
+    .content h4 {
+      color: var(--deep);
+      font-family: "Georgia", "Palatino Linotype", serif;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+    .content h2 {
+      margin: 34px 0 12px;
+      font-size: 1.95rem;
+      page-break-after: avoid;
+    }
+    .content h3 {
+      margin: 26px 0 10px;
+      font-size: 1.28rem;
+    }
+    .content h4 {
+      margin: 20px 0 8px;
+      font-size: 1.08rem;
+    }
+    .content p,
+    .content li,
+    .content blockquote {
+      font-size: 1rem;
+    }
+    .content p {
+      margin: 0 0 14px;
+      max-width: 68ch;
+    }
+    .content ul,
+    .content ol {
+      margin: 0 0 16px;
+      padding-left: 1.25rem;
+    }
+    .content li { margin-bottom: 8px; }
+    .content li::marker {
+      color: var(--accent);
+      font-weight: 700;
+    }
+    .content code {
+      padding: 0.14rem 0.38rem;
+      border-radius: 0.45rem;
+      background: rgba(31,109,140,0.08);
+      font-family: "Consolas", "Cascadia Mono", monospace;
+      font-size: 0.92em;
+    }
+    .content pre {
+      margin: 0 0 18px;
+      padding: 15px 17px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: #fbfcfd;
+      overflow: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .content blockquote {
+      margin: 0 0 18px;
+      padding: 14px 18px;
+      border-left: 4px solid var(--accent);
+      border-radius: 0 16px 16px 0;
+      background: rgba(196, 90, 43, 0.08);
+      color: var(--deep);
+    }
+    .content blockquote p {
+      margin: 0;
+    }
+    .content blockquote p + p {
+      margin-top: 8px;
+    }
+    .content blockquote p:first-child strong {
+      display: block;
+    }
+    .content img {
+      display: block;
+      width: min(100%, 760px);
+      margin: 14px 0 20px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: white;
+      box-shadow: 0 10px 30px rgba(17, 26, 37, 0.08);
+    }
+    .toc-panel {
+      position: sticky;
+      align-self: start;
+      top: 24px;
+      padding: 18px 18px 22px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: linear-gradient(180deg, rgba(247, 244, 239, 0.94), rgba(255,255,255,0.94));
+    }
+    .panel-label {
+      margin-bottom: 10px;
+      color: var(--muted);
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .toc-list {
+      margin: 0;
+      padding-left: 1rem;
+      display: grid;
+      gap: 8px;
+      font-size: 0.96rem;
+    }
+    .toc-level-3 {
+      margin-left: 10px;
+      color: var(--muted);
+    }
+    a {
+      color: var(--deep);
+      text-decoration-color: rgba(31,109,140,0.35);
+    }
+    @page {
+      margin: 18mm;
+      size: A4;
+    }
+    @media print {
+      html {
+        background: white;
+      }
+      .page {
+        width: auto;
+        margin: 0;
+        display: block;
+      }
+      
+      .hero {
+        display: none;
+      }
+      .article-shell {
+        padding: 0;
+        border: 0;
+        box-shadow: none;
+      }
+      .article-top {
+        margin-bottom: 18px;
+        padding-bottom: 18px;
+      }
+    
+      .article-layout {
+        display: block;
+      }
+      .title-block {
+        margin: 0 0 16px;
+        padding-bottom: 14px;
+      }
+      .title-block h1 {
+        font-size: 24pt;
+      }
+      .title-block p {
+        font-size: 11pt;
+      }
+      .toc-panel {
+        display: none;
+      }
+    }
+    @media (max-width: 980px) {
+      .page {
+        grid-template-columns: 1fr;
+      }
+      .hero,
+      .toc-panel {
+        position: relative;
+        top: auto;
+      }
+      .article-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page no-cover">
+    
+    <section class="article-shell">
+      
+      <div class="title-block">
+        <div class="title-block-eyebrow">stm32-ai-flow</div>
+        <h1>Project Case Study</h1>
+        <p>Beginner-friendly example of how one STM32 project can evolve with this workflow, including prompts, tradeoffs, and host-tool growth.</p>
+      </div>
+    
+      <div class="article-top">
+        <div class="article-top-copy">
+          <p>Beginner-friendly example of how one STM32 project can evolve with this workflow, including prompts, tradeoffs, and host-tool growth.</p>
+        </div>
+        <div class="marker" aria-hidden="true"></div>
+      </div>
+      <div class="article-layout">
+        <article class="content">
+          <p>This document is not a rulebook. It is a taste of what work in this STM32 workflow can look like when a project grows from a simple board bring-up into a more complete firmware and host-tool system.</p>
+<p>It is written as a beginner-facing example on purpose:</p>
+<ul><li>it shows the kind of prompts a user might give</li><li>it shows the kinds of changes the workflow can help organize</li><li>it focuses on project development rather than starter-kit maintenance</li></ul>
+<blockquote><p><strong>Important</strong></p><p>Treat this as an example journey, not as a required sequence.</p><p>Real projects will take different paths depending on the board, peripherals,</p><p>and product goals.</p></blockquote>
+<h2 id="at-a-glance">At A Glance</h2>
+<p>The fastest way to understand this example project is to look at the main development steps first.</p>
+<p>This is the shape of the project the workflow helped build:</p>
+<ol><li>initialize a reproducible STM32 project from the workflow</li><li>implement interrupt-driven UART communication</li><li>add optional debug output over the same serial path without breaking normal control replies</li><li>implement STEP/DIR stepper-motor control using MCU timers</li><li>implement analog signal acquisition with ADC + DMA buffering + averaging</li><li>build a text-based serial control interface for motion, status, and config</li><li>port the runtime to a multitasking model with FreeRTOS</li><li>implement the USB device interface</li><li>implement a binary USB control protocol that coexists with the text UART interface</li><li>implement a C# graphical host application for motor control and monitoring</li></ol>
+<p>The exact order overlapped in places, and real projects often move back and forth between these steps. But as a first impression, this list shows what the project is about much faster than the detailed story does.</p>
+<h2 id="what-this-example-is-trying-to-show">What This Example Is Trying To Show</h2>
+<p>A new user usually does not need a full theory of the workflow first. What they often want is a feeling for questions like:</p>
+<ul><li>what would I actually ask the agent to do</li><li>what kinds of project steps fit this workflow well</li><li>how does the work move from <code>.ioc</code> and generated code into real firmware</li><li>what does &quot;build, flash, validate, and keep evidence&quot; feel like in practice</li></ul>
+<p>This example answers those questions by showing one realistic project path.</p>
+<h2 id="the-general-pattern">The General Pattern</h2>
+<p>In this workflow, project work often looks like this:</p>
+<ol><li>describe the next concrete goal in plain language</li><li>let the agent inspect the repo, config, and generated boundaries</li><li>implement one project-facing step</li><li>validate honestly</li><li>keep the repo state, evidence, and docs coherent</li></ol>
+<p>That pattern is useful for much more than just &quot;build the firmware.&quot; It also helps with:</p>
+<ul><li>restructuring code safely</li><li>keeping <code>.ioc</code> and code generation aligned</li><li>adding peripherals such as timers, ADC, USB, and RTOS</li><li>designing control and debug interfaces</li><li>growing into host-side tools and UI work</li></ul>
+<h2 id="phase-1-start-from-a-reproducible-base">Phase 1: Start From A Reproducible Base</h2>
+<p>The project begins with a starter workflow and a real target board. The first goal is not polish. The first goal is to get to a clean, reproducible baseline.</p>
+<p>Example prompt:</p>
+<blockquote><p>&quot;Check the toolchain, config, and board readiness. Then set up a minimal STM32</p><p>project structure from the current <code>.ioc</code> and tell me what is missing.&quot;</p></blockquote>
+<p>Typical outcome:</p>
+<ul><li>toolchain and config are checked first</li><li>the project gets a repeatable build path</li><li>the <code>.ioc</code> becomes the source of truth for generated configuration</li><li>the repo starts collecting evidence instead of relying on memory</li></ul>
+<p>Why this matters:</p>
+<ul><li>the project starts from something that can be rebuilt and checked later</li><li>environment problems are discovered early instead of after a lot of coding</li></ul>
+<h2 id="phase-2-turn-generated-code-into-a-real-firmware-structure">Phase 2: Turn Generated Code Into A Real Firmware Structure</h2>
+<p>A generated CubeMX project is only a starting shell. Very quickly, the project needs a real internal architecture.</p>
+<p>Example prompt:</p>
+<blockquote><p>&quot;Refactor this STM32 project into a clean application structure. Keep</p><p><code>main.c</code> minimal, move feature logic into modules, and preserve the generated</p><p>boundaries so CubeMX regeneration stays manageable.&quot;</p></blockquote>
+<p>Typical project changes:</p>
+<ul><li>keep <code>main.c</code> as orchestration only</li><li>add modules such as:</li><li><code>app</code></li><li><code>stepper</code></li><li><code>motor_protocol</code></li><li><code>a2d</code></li><li><code>uart_console</code></li><li>route HAL callbacks through a controlled app layer</li><li>keep generated code and project code from mixing chaotically</li></ul>
+<p>Why this matters:</p>
+<ul><li>later feature work becomes easier</li><li>CubeMX regeneration is less dangerous</li><li>review becomes more readable</li></ul>
+<h2 id="phase-3-add-the-stepper-control-core">Phase 3: Add The Stepper Control Core</h2>
+<p>Once the structure exists, the real product behavior starts to appear. For this example project, that meant building the motion-control core.</p>
+<p>Example prompt:</p>
+<blockquote><p>&quot;Implement a stepper-control core with enable, move, jog, stop, and zero</p><p>operations. Use HAL timers, keep the motion logic in its own module, and make</p><p>the results easy to validate from a command interface.&quot;</p></blockquote>
+<p>Typical project changes:</p>
+<ul><li>add timer-based pulse generation</li><li>add a control timer for motion updates</li><li>support practical motion operations:</li><li>enable/disable</li><li>relative move</li><li>absolute move</li><li>jog</li><li>stop</li><li>zero</li><li>keep stepper behavior behind a dedicated module instead of scattering it through generated files</li></ul>
+<p>What the workflow contributes here:</p>
+<ul><li>it encourages small, testable steps</li><li>it makes it natural to rebuild, flash, and validate after each capability</li><li>it keeps the codebase from collapsing into one giant <code>main.c</code></li></ul>
+<blockquote><p><strong>Hypothetical Discussion Example</strong></p><p>This is the kind of back-and-forth a user might have with the agent while</p><p>deciding how stepper pulses should be generated.</p></blockquote>
+<p>&gt;</p>
+<blockquote><p><strong>Agent:</strong> We could count pulses in an interrupt after each pulse event, or we</p><p>could rely more heavily on hardware timers and counters to reduce CPU load.</p></blockquote>
+<p>&gt;</p>
+<blockquote><p><strong>User:</strong> Hardware counting is efficient, but interrupt-driven updates give us</p><p>more freedom for acceleration, deceleration, and custom motion behavior.</p></blockquote>
+<p>&gt;</p>
+<blockquote><p><strong>Agent:</strong> That tradeoff is real. A hardware-centered path is attractive when</p><p>low CPU overhead and simple motion behavior are the main goals. An</p><p>interrupt-driven path is better when the motion profile needs tighter software</p><p>control.</p></blockquote>
+<p>&gt;</p>
+<blockquote><p><strong>User:</strong> If both are reasonable, we should not force a false either/or</p><p>decision too early.</p></blockquote>
+<p>&gt;</p>
+<blockquote><p><strong>Agent:</strong> Then a practical design is to implement both modes and expose the</p><p>choice as a project configuration option.</p></blockquote>
+<p>&gt;</p>
+<blockquote><p><strong>User:</strong> Could there also be a third option where hardware timing is combined</p><p>with DMA-fed table data so each pulse update loads the next timer value from</p><p>memory and follows an arbitrary precomputed profile?</p></blockquote>
+<p>&gt;</p>
+<blockquote><p><strong>Agent:</strong> Yes. A timer/DMA table-driven mode is also possible and can support</p><p>rich motion profiles with very low CPU load, but it adds setup complexity and</p><p>is usually best when the profile is known in advance.</p></blockquote>
+<p>&gt;</p>
+<blockquote><p><strong>Final implementation focus:</strong> for this project stage, implement the first</p><p>two modes, keep the tradeoff explicit, and leave the timer-plus-DMA-table</p><p>option documented as a valuable future path rather than building all three at</p><p>once.</p></blockquote>
+<p>Why this discussion is worth showing:</p>
+<ul><li>it demonstrates that the workflow can handle real design tradeoffs, not only straightforward coding tasks</li><li>it shows that the agent can help compare implementation strategies instead of only writing whichever one was mentioned first</li><li>it shows that additional options can be surfaced and deferred deliberately rather than forgotten</li><li>it gives the reader another example of how to challenge the agent until the design matches the project&#x27;s actual priorities</li></ul>
+<h2 id="phase-4-add-adc-and-dma-without-losing-coherence">Phase 4: Add ADC And DMA Without Losing Coherence</h2>
+<p>Many real projects need measurement, not just output control. This example project added ADC acquisition as part of the runtime picture.</p>
+<p>Example prompt:</p>
+<blockquote><p>&quot;Add ADC1 DMA circular acquisition for analog sampling. Keep the callbacks</p><p>safe, keep the <code>.ioc</code> and IRQ/DMA setup coherent, and expose the measured</p><p>value through the project status path.&quot;</p></blockquote>
+<p>Typical project changes:</p>
+<ul><li>enable ADC in <code>.ioc</code></li><li>configure DMA circular buffering</li><li>handle half-transfer and transfer-complete callbacks</li><li>compute stable project-facing values from the DMA buffer</li><li>keep the IRQ and DMA behavior explicit instead of hidden in ad-hoc code</li></ul>
+<p>Why this phase is a good workflow example:</p>
+<ul><li>it shows the value of treating <code>.ioc</code> as the hardware source of truth</li><li>it shows how the workflow can help keep DMA, NVIC, and firmware code aligned</li><li>it demonstrates a common STM32 pattern that is easy to get subtly wrong</li></ul>
+<blockquote><p><strong>Hypothetical Discussion Example</strong></p><p>This is the kind of timing discussion a user might have with the agent when a</p><p>DMA-based ADC design is technically possible but easy to reason about</p><p>incorrectly.</p></blockquote>
+<p>&gt;</p>
+<blockquote><p><strong>Agent:</strong> We should estimate the conversion timing, the full-buffer timing,</p><p>and the time available before the oldest circular-buffer samples are</p><p>overwritten.</p></blockquote>
+<p>&gt;</p>
+<blockquote><p><strong>Agent:</strong> A single circular DMA buffer with only a transfer-complete</p><p>interrupt can be risky. Safer alternatives include stopping DMA while</p><p>processing, using half-transfer plus transfer-complete callbacks, or using a</p><p>true double buffer.</p></blockquote>
+<p>&gt;</p>
+<blockquote><p><strong>User:</strong> The total interrupt duration is not the real question. What matters</p><p>is whether the ISR can read the first element before it is overwritten, then</p><p>keep reading each later element before its own overwrite time arrives.</p></blockquote>
+<p>&gt;</p>
+<blockquote><p><strong>Agent:</strong> That objection is valid. The correct criterion is not &quot;ISR time</p><p>must be shorter than one conversion.&quot; The correct criterion is whether the</p><p>processing pace stays ahead of the DMA overwrite pace for each element that</p><p>still belongs to the completed cycle.</p></blockquote>
+<p>&gt;</p>
+<blockquote><p><strong>User:</strong> Then if the timing margin is sufficient, there is no need to stop</p><p>DMA or add a second buffer just for safety theater.</p></blockquote>
+<p>&gt;</p>
+<blockquote><p><strong>Agent:</strong> Agreed. A single circular buffer with transfer-complete processing</p><p>can be valid, but it should be treated as a timing-proven design rather than</p><p>as a universal assumption. Half-transfer or double buffer still provide</p><p>stronger margin when rates or worst-case latency become tighter.</p></blockquote>
+<p>&gt;</p>
+<blockquote><p><strong>Final implementation focus:</strong> keep the ADC acquisition design explicit, use</p><p>a DMA-based buffered approach with coherent callback handling, and choose the</p><p>final single-buffer vs stronger-margin variant based on measured timing needs</p><p>rather than vague intuition.</p></blockquote>
+<p>Why this discussion is worth showing:</p>
+<ul><li>it demonstrates that a good user prompt can challenge the agent&#x27;s reasoning</li><li>it shows that disagreement can improve the final engineering conclusion</li><li>it gives the reader a model for how to ask follow-up questions when timing, concurrency, or coherence details matter</li></ul>
+<h2 id="phase-5-build-a-human-control-interface-first">Phase 5: Build A Human Control Interface First</h2>
+<p>Before a polished UI exists, a project still needs a practical way to operate the board. For many STM32 projects, a UART text interface is the fastest useful front door.</p>
+<p>Example prompt:</p>
+<blockquote><p>&quot;Create a human-friendly UART command interface for bring-up and service</p><p>work. Add <code>help</code>, <code>status</code>, motion commands, config commands, and clear</p><p>success/error replies.&quot;</p></blockquote>
+<p>Important framing:</p>
+<ul><li>this interface is part of the firmware the agent helped design and implement</li><li>the end user of the device is not expected to invent this command set by hand</li><li>the prompt asks for the kind of interface needed, and the workflow helps turn that into a concrete, testable command surface</li></ul>
+<p>Typical project changes:</p>
+<ul><li>add a UART console module</li><li>support line-based text commands</li><li>return clear <code>ok ...</code> and <code>err ...</code> responses</li><li>make commands readable enough for terminal-based bring-up</li><li>improve help output as the feature set grows</li></ul>
+<p>Agent-suggested resulting <code>help</code> response:</p>
+<pre><code class="language-text">&gt; help
+ok help topics
+topic: topics - list available help topics
+topic: cmds - list all commands
+topic: cmd &lt;name&gt; - show one command
+topic: cfg - show configuration items
+topic: units - show unit conversion rules
+topic: err - show error codes
+topic: examples - show examples
+ok help done</code></pre>
+<p>Agent-suggested resulting command-list response:</p>
+<pre><code class="language-text">&gt; help cmds
+ok help cmds
+cmd: ping - reply with protocol/version
+cmd: status - report motor and adc status
+cmd: en &lt;0|1&gt; - set enable output
+cmd: stop [soft|hard] - stop motion
+cmd: zero - set current position to zero
+cmd: move &lt;distance_steps&gt; &lt;speed_steps_s&gt; [accel_steps_s2] - relative move in steps
+cmd: goto &lt;abs_pos_steps&gt; &lt;speed_steps_s&gt; [accel_steps_s2] - absolute move in steps
+cmd: jog &lt;speed_steps_s&gt; [accel_steps_s2] - continuous move in steps/s
+cmd: cfg &lt;item&gt; &lt;value&gt; - set steps_per_rev, steps_per_mm, counter_mode, accel, decel
+cmd: dbg [0|1|status] - set or query deferred debug logging
+cmd: help [topics|cmds|cmd &lt;name&gt;|cfg|units|err|examples] - show help
+ok help done</code></pre>
+<p>What those examples show:</p>
+<ul><li>they show that the interface becomes self-describing</li><li>they reduce the amount of external documentation needed during bring-up</li><li>they make it clear that the AI-assisted workflow can help shape operator ergonomics, not only low-level driver code</li></ul>
+<p>Why the interface matters:</p>
+<ul><li>it gives the user a fast manual test surface</li><li>it reduces bring-up friction before a richer UI exists</li><li>it turns hardware validation into something practical</li></ul>
+<p>Additional useful capability in this project:</p>
+<ul><li>the same serial interface also became an agent-facing runtime path</li><li>the agent could use it to help confirm that new firmware was really running</li><li>it could query live board state during validation</li><li>it could benefit from temporary debug output inserted at useful points and then analyze the resulting board responses</li><li>the general idea, giving the agent a controlled way to communicate directly with the target board, can also be a very useful practice in other projects</li></ul>
+<p>Why the agent-facing path matters:</p>
+<ul><li>it shows that the interface can support not only manual operator work but also agent-assisted runtime validation</li><li>it gives the workflow a practical way to observe real board behavior after flashing, instead of stopping at build success alone</li><li>it makes temporary instrumentation and response analysis more useful during bring-up and troubleshooting</li></ul>
+<h2 id="phase-6-add-debug-visibility-without-breaking-the-control-path">Phase 6: Add Debug Visibility Without Breaking The Control Path</h2>
+<p>As projects grow, the need for debug output grows too. But casual debug prints often break timing, interleave messages badly, or fight with the main command channel.</p>
+<p>Example prompt:</p>
+<blockquote><p>&quot;Add deferred debug logging over the shared UART without breaking protocol</p><p>output. Keep it safe for task and ISR producers, and make debug enablement a</p><p>runtime command instead of a permanent flood.&quot;</p></blockquote>
+<p>Typical project changes:</p>
+<ul><li>add a dedicated logger task</li><li>keep UART ownership single-writer</li><li>allow non-blocking debug production from task and ISR context</li><li>prefix debug lines clearly</li><li>expose debug control through commands such as:</li><li><code>dbg</code></li><li><code>dbg status</code></li><li><code>dbg 1</code></li><li><code>dbg 0</code></li></ul>
+<p>Why this is a good workflow showcase:</p>
+<ul><li>it shows that the workflow is not only about build automation</li><li>it also supports disciplined runtime observability work</li></ul>
+<h2 id="phase-7-grow-into-rtos-and-more-robust-runtime-behavior">Phase 7: Grow Into RTOS And More Robust Runtime Behavior</h2>
+<p>A small project may begin with a simple loop, but it often needs a better runtime model as features accumulate.</p>
+<p>Example prompt:</p>
+<blockquote><p>&quot;Move this project toward a cleaner RTOS-based runtime. Keep CubeMX-generated</p><p>ownership where appropriate, move application logic behind module boundaries,</p><p>and keep the result compatible with regeneration.&quot;</p></blockquote>
+<p>Typical project changes:</p>
+<ul><li>integrate FreeRTOS and CMSIS-RTOS2</li><li>move app flow into scheduled tasks</li><li>replace blocking transmit paths with queued worker tasks</li><li>keep task ownership boundaries clear</li><li>keep <code>.ioc</code> task metadata and runtime code aligned</li></ul>
+<p>Why this matters:</p>
+<ul><li>the project becomes more scalable</li><li>concurrency decisions become more explicit</li><li>generated RTOS scaffolding and project-owned behavior can coexist more safely</li></ul>
+<h2 id="phase-8-keep-cubemx-generation-compatible-with-real-development">Phase 8: Keep CubeMX Generation Compatible With Real Development</h2>
+<p>A very practical part of STM32 work is dealing with regeneration. Users often adjust <code>.ioc</code>, regenerate, and then worry about what got damaged.</p>
+<p>Example prompt:</p>
+<blockquote><p>&quot;I changed the <code>.ioc</code> in CubeMX and regenerated code manually. Reconcile the</p><p>project, restore workflow-owned USER CODE boundaries, and verify that the</p><p>generated tree still matches the intended architecture.&quot;</p></blockquote>
+<p>Typical project changes:</p>
+<ul><li>regenerate from <code>.ioc</code></li><li>reconcile workflow-owned USER CODE areas</li><li>restore project trampolines or cleanup steps when needed</li><li>rerun checks before claiming the generated tree is aligned</li></ul>
+<p>Why this phase matters:</p>
+<ul><li>it shows a realistic STM32 pain point</li><li>it demonstrates that the workflow is meant to survive real CubeMX use, not just idealized greenfield coding</li></ul>
+<h2 id="phase-9-add-a-machine-facing-control-interface">Phase 9: Add A Machine-Facing Control Interface</h2>
+<p>After the human-facing CLI is useful, a project may need a cleaner path for host software. In this example, the project added a binary USB control plane while keeping the UART text interface for humans.</p>
+<p>Example prompt:</p>
+<blockquote><p>&quot;Keep UART as the human-facing CLI, but add a structured USB protocol for</p><p>host tools and UI work. Use framed messages, explicit errors, and ownership</p><p>rules so the two control paths do not fight each other.&quot;</p></blockquote>
+<p>Typical project changes:</p>
+<ul><li>add a framed USB protocol</li><li>define message ids, payloads, and result codes</li><li>expose motion, status, config, and ownership commands</li><li>keep the human and machine control surfaces separate</li><li>add runtime ownership rules when multiple front doors exist</li></ul>
+<p>Why this is a strong example:</p>
+<ul><li>it shows that the workflow can support system design, not just firmware files</li><li>it demonstrates protocol evolution and interface discipline</li></ul>
+<h2 id="phase-10-add-host-tools-and-an-operator-ui">Phase 10: Add Host Tools And An Operator UI</h2>
+<p>Once the machine-facing protocol exists, the project can grow beyond the board itself.</p>
+<p>Example prompt:</p>
+<blockquote><p>&quot;Build host-side tools around the device protocol: start with a probe tool,</p><p>then add a small Windows UI for connect, status, motion control, config, and</p><p>event logging.&quot;</p></blockquote>
+<p>Typical project changes:</p>
+<ul><li>add a reusable host-side protocol library</li><li>add a console probe tool</li><li>add an operator UI</li><li>validate the host path against the real device protocol</li></ul>
+<p>One example UI result from this kind of workflow-guided project:</p>
+<p><img src="../assets/example-project-stepper-control-ui.png" alt="Example Windows host UI for motion control, live status, calibration, and event logging"></p>
+<p>Caption: One later project outcome was a Windows operator panel for USB-based motion control, live status, calibration/config updates, ownership handling, and event monitoring.</p>
+<p>Why this matters:</p>
+<ul><li>the workflow now covers more than embedded code alone</li><li>the project becomes a firmware-plus-host-tool system</li></ul>
+<h2 id="what-a-beginner-should-notice">What A Beginner Should Notice</h2>
+<p>This example is not impressive because it is large. It is useful because the work stays understandable while it grows.</p>
+<p>The recurring themes are:</p>
+<ul><li>plain-language prompts are enough to drive meaningful work</li><li><code>.ioc</code> stays important throughout the project</li><li>generated code and project code are kept in a workable relationship</li><li>validation is repeated after meaningful steps</li><li>evidence matters</li><li>interfaces are designed deliberately instead of emerging as accidents</li></ul>
+<h2 id="a-small-set-of-example-prompts">A Small Set Of Example Prompts</h2>
+<p>If you want the shortest possible taste of how future work may feel, prompts like these are representative:</p>
+<blockquote><p>&quot;Check whether the toolchain, workflow config, and board connection are</p><p>healthy.&quot;</p></blockquote>
+<blockquote><p>&quot;Create a clean firmware structure from this <code>.ioc</code>. Keep <code>main.c</code> minimal</p><p>and move feature logic into modules.&quot;</p></blockquote>
+<blockquote><p>&quot;Implement timer-based stepper control with enable, move, jog, stop, and</p><p>zero, then build and validate what you can.&quot;</p></blockquote>
+<blockquote><p>&quot;Add ADC DMA circular sampling and expose a stable measurement through the</p><p>status path.&quot;</p></blockquote>
+<blockquote><p>&quot;Make the UART control interface more usable for bring-up and debugging.&quot;</p></blockquote>
+<blockquote><p>&quot;Add deferred debug logging without breaking the normal command responses.&quot;</p></blockquote>
+<blockquote><p>&quot;Reconcile the project after manual CubeMX generation and verify that the</p><p>generated tree is still aligned.&quot;</p></blockquote>
+<blockquote><p>&quot;Add a machine-facing USB protocol for host tools while keeping UART for</p><p>humans.&quot;</p></blockquote>
+<blockquote><p>&quot;Create a first host-side probe tool and operator UI around the device</p><p>protocol.&quot;</p></blockquote>
+<h2 id="final-impression">Final Impression</h2>
+<p>The main promise of this workflow is not that it removes engineering work. The promise is that it helps keep the work organized, reproducible, and easier to validate as the project gets more ambitious.</p>
+<p>That is the impression this example is meant to leave:</p>
+<ul><li>you can start small</li><li>you can add real embedded features gradually</li><li>you can grow into interfaces, protocols, and host tools</li><li>and the workflow can help keep the journey coherent</li></ul>
+        </article>
+        
+      <aside class="toc-panel">
+        <div class="panel-label">On this page</div>
+        <ol class="toc-list"><li class="toc-level-2"><a href="#at-a-glance">At A Glance</a></li><li class="toc-level-2"><a href="#what-this-example-is-trying-to-show">What This Example Is Trying To Show</a></li><li class="toc-level-2"><a href="#the-general-pattern">The General Pattern</a></li><li class="toc-level-2"><a href="#phase-1-start-from-a-reproducible-base">Phase 1: Start From A Reproducible Base</a></li><li class="toc-level-2"><a href="#phase-2-turn-generated-code-into-a-real-firmware-structure">Phase 2: Turn Generated Code Into A Real Firmware Structure</a></li><li class="toc-level-2"><a href="#phase-3-add-the-stepper-control-core">Phase 3: Add The Stepper Control Core</a></li><li class="toc-level-2"><a href="#phase-4-add-adc-and-dma-without-losing-coherence">Phase 4: Add ADC And DMA Without Losing Coherence</a></li><li class="toc-level-2"><a href="#phase-5-build-a-human-control-interface-first">Phase 5: Build A Human Control Interface First</a></li><li class="toc-level-2"><a href="#phase-6-add-debug-visibility-without-breaking-the-control-path">Phase 6: Add Debug Visibility Without Breaking The Control Path</a></li><li class="toc-level-2"><a href="#phase-7-grow-into-rtos-and-more-robust-runtime-behavior">Phase 7: Grow Into RTOS And More Robust Runtime Behavior</a></li><li class="toc-level-2"><a href="#phase-8-keep-cubemx-generation-compatible-with-real-development">Phase 8: Keep CubeMX Generation Compatible With Real Development</a></li><li class="toc-level-2"><a href="#phase-9-add-a-machine-facing-control-interface">Phase 9: Add A Machine-Facing Control Interface</a></li><li class="toc-level-2"><a href="#phase-10-add-host-tools-and-an-operator-ui">Phase 10: Add Host Tools And An Operator UI</a></li><li class="toc-level-2"><a href="#what-a-beginner-should-notice">What A Beginner Should Notice</a></li><li class="toc-level-2"><a href="#a-small-set-of-example-prompts">A Small Set Of Example Prompts</a></li><li class="toc-level-2"><a href="#final-impression">Final Impression</a></li></ol>
+      </aside>
+    
+      </div>
+    </section>
+  </div>
+</body>
+</html>

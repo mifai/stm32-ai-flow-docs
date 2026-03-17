@@ -32,8 +32,7 @@ Useful prompts are:
 - "Install the missing workflow prerequisites and then verify the environment."
 - "Check whether CubeMX and CubeProgrammer are visible to the workflow."
 
-The private starter kit includes the implementation scripts for environment
-validation and setup.
+If you want the exact installer commands, use `docs/workflow-scripts.md`.
 
 ## Manual ST Tool Installation
 

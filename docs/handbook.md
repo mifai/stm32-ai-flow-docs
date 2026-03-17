@@ -1,5 +1,8 @@
 # STM32 AI Flow Handbook
 
+> WORKFLOW-OWNED: This handbook is part of the STM32 workflow layer. Edit it
+> intentionally and keep it aligned with `AGENTS.md` and the workflow skill.
+
 This is the operator guide for the starter kit.
 
 Use this file when you want the shortest practical answer to:
@@ -31,8 +34,11 @@ If you want the fastest proof that this workflow is worth using:
 That first pass is enough to prove whether the machine, repo, and workflow path
 are coherent before you invest in product work.
 
+If you want the smallest practical first bring-up, read
+`docs/simple-example.md`.
+
 If you want one concrete example of what that kind of workflow can later grow
-into, read `docs/example-project-development-path.md`.
+into, read `docs/project-case-study.md`.
 
 ## Environment Assumption
 
@@ -49,6 +55,11 @@ It works best in an agent environment that can:
 If those capabilities are missing, the docs still transfer, but the operational
 workflow becomes partial.
 
+Instruction compatibility note:
+
+- `AGENTS.md` is the repo instruction contract
+- `.github/copilot-instructions.md` is the GitHub/Copilot-specific shim
+
 Practical note:
 
 - build-oriented use can be ported to Linux or macOS
@@ -60,12 +71,12 @@ Practical note:
 Keep the active context small:
 
 - `README.md`
+- `AGENTS.md`
 - `docs/handbook.md`
-- `docs/user-manual.md`
-- `docs/workflow-safety.md`
-- `docs/agent-communication-guide.md`
-- `docs/example-project-development-path.md`
-- `docs/prerequisites.md`
+- `docs/current-state.md`
+- `docs/session-memory.md`
+- `docs/progress.md`
+- `skills/stm32-agent-mode/SKILL.md`
 
 Everything else is reference material.
 
@@ -100,10 +111,14 @@ If you want a short guide for writing better prompts, use
 Before high-risk actions such as installs, bootstrap, cross-repo edits, or
 pushes, review `docs/workflow-safety.md`.
 
+If code was generated manually in CubeMX, insert this before the normal loop:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/stm32.ps1 reconcile -ConfigPath .\stm32-workflow.local.json
+```
+
 > **Important**
-> Manual CubeMX generation is not the end of the workflow step. In the full
-> starter implementation, generated output should be reconciled before you
-> build, flash, or claim the tree is aligned.
+> Manual CubeMX generation is not the end of the workflow step. Reconcile before you build, flash, or claim the generated tree is aligned.
 
 ## What The Workflow Covers
 
@@ -114,7 +129,7 @@ Core user workflow:
 - `.ioc` initialization and consistency checks
 - build and flash
 - reconcile after manual CubeMX generation
-- evidence and review of what actually passed, failed, or was skipped
+- continuity files and run evidence
 
 Because this repo is itself the public starter kit, maintainers also keep
 packaging safeguards such as lint, starter self-test, and hardware-light CI in
@@ -133,24 +148,30 @@ repeated work in a downstream repo.
 
 Practical note:
 
+- `scripts/stm32.ps1 doctor` now does a short STM32/ST-LINK rescan when the
+  first hardware probe is empty and reports last-known hardware context from
+  `docs/last-device-state.json` or workflow run history when available
 - `validation_policy` in workflow config now makes flash and serial gates
   explicit, so missing targets can either fail early with a clear message or
   skip cleanly for hardware-light runs
-- the starter implementation includes checks for likely HAL module gaps before
-  build and after manual CubeMX reconciliation
-- the starter implementation also includes diagnostics that help distinguish
-  normal browser usage from workflow-related headless browser activity during
-  tasks such as document export or CubeMX probing
-- the `.ioc` consistency checks accept valid CubeMX PLL source
+- `scripts/stm32.ps1 hal-suggest` now checks `.ioc`-enabled peripherals
+  against the local HAL driver tree and suggests exact `hal-sync` commands
+  after `reconcile` and before `build` when likely module gaps are found
+- `scripts/stm32.ps1 browser-diag` now classifies live browser processes so
+  it is easy to tell normal Edge usage from Edge headless PDF export and
+  STM32CubeMX JxBrowser Chromium trees
+- `scripts/stm32-ioc-consistency-check.ps1` now accepts valid CubeMX PLL source
   alias variants when the present keys agree, reducing false-positive clock warnings
-- the reconcile step is reviewable and reports what it restored versus what
-  was already aligned, plus the current `.ioc` warning or error summary
+- `scripts/stm32.ps1 reconcile` now reports what it actually restored versus
+  what was already aligned, plus the current `.ioc` warning/error summary
 - the default `flash` stage requires a connected supported programming probe
   visible to STM32CubeProgrammer; in this workflow today that means ST-LINK
   unless a project deliberately adds another flash path
 - some projects may choose a different flashing backend such as the MCU's
   built-in bootloader over DFU/UART/USB, but that is a project-specific
   workflow decision rather than the default path here
+- docs-only public export now belongs to the maintainer repo rather than this
+  public starter surface
 
 CubeIDE coexistence note:
 
@@ -168,9 +189,8 @@ That means:
 - generated code is regenerated rather than hand-edited outside USER CODE blocks
 - project behavior stays in modules, not generated glue
 
-The private starter implementation also keeps a more detailed generated-file
-ownership contract, but that internal reference is not part of this public docs
-set.
+If you need the full generated-file contract, use
+`docs/cubemx-user-code-contract.md`.
 
 ## What Counts As Success
 
@@ -194,18 +214,26 @@ They are advisory, not a passing build result.
 
 ## Where To Look After A Run
 
-In the full starter implementation, each run produces evidence about what
-passed, what was skipped, and what was blocked. This public docs set focuses on
-the workflow model and user experience rather than publishing the internal
-continuity and evidence files themselves.
+Primary evidence:
+
+- `docs/current-state.md`
+- `docs/progress.md`
+
+Workflow metadata:
+
+- `docs/workflow-capabilities.json`
 
 ## When To Open Other Docs
 
 Open these only when the task needs them:
 
 - `docs/user-manual.md` for onboarding and decision guidance
-- `docs/example-project-development-path.md` for a concrete example of how one STM32 project can grow with this workflow
-- `docs/workflow-safety.md` for trusted-input boundaries and high-risk actions
-- `docs/prerequisites.md` for tool and environment expectations
-- `docs/agent-communication-guide.md` for better prompt patterns
-- `docs/pdf/handbook.pdf` if you want a polished reading copy
+- `docs/simple-example.md` for the smallest concrete first-run scenario
+- `docs/project-case-study.md` for a larger real-project growth example
+- `docs/optional-modules.md` for core-versus-optional choices
+- `docs/workflow-topology.md` for vendored-versus-central layout
+- `docs/workflow-scripts.md` for exact commands
+- `docs/cubemx-new-project-onboarding.md` for new-project setup
+- `docs/migrating-existing-cubeide-cubemx-projects.md` for adoption work
+- `docs/maintainer-guide.md` for maintainer-only workflow operations
+- `docs/decisions.md`, `docs/open-issues.md`, and `docs/board-notes.md` only when the task needs deeper context

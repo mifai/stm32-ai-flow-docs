@@ -5,24 +5,17 @@ without first reverse-engineering the repository.
 
 It explains the workflow as a human process, not just as a list of scripts.
 
-This manual is for the public STM32 AI Flow documentation set.
-It explains the workflow for evaluation and onboarding, not the private
-maintainer internals behind the starter implementation.
+This manual is for the public starter-kit repo.
+It is not the maintainer-governance manual, and it is not written for a
+downstream test project that happens to exercise the workflow.
 
 > **At a glance**
 > Use this manual for explanation and choice.
 > Use `docs/handbook.md` for the day-to-day operating path.
 > Use `docs/workflow-safety.md` for trusted-input and high-risk-action rules.
-> Use `docs/example-project-development-path.md` if you want a concrete example of how one STM32 project can grow with this workflow.
-> This public docs set focuses on the workflow model and user experience rather
-> than the private implementation commands.
-
-> **Note**
-> The reusable STM32 AI Flow starter kit is still under active testing and is
-> not yet broadly published. This public docs set is meant to explain the
-> workflow and show its direction. If you would like early access or want to
-> participate as an early adopter/tester, please open a GitHub Discussion in
-> this repository. Access may be available on request.
+> Use `docs/simple-example.md` if you want the smallest realistic first bring-up on a real Nucleo board.
+> Use `docs/project-case-study.md` if you want a larger case study of how one STM32 project can grow with this workflow.
+> Use `docs/workflow-scripts.md` only when you need exact manual commands.
 
 ## 0A. The Shortest Reason To Try It
 
@@ -35,9 +28,11 @@ The value is that this starter kit gives the agent a stable operating model:
 - continuity docs that survive between sessions
 - evidence of what actually passed, failed, or was skipped
 
-If you only want one concrete proof that this is more than a documentation
-exercise, read `docs/example-project-development-path.md`. That example shows a
-real STM32 project growing from bring-up into:
+If you want the smallest practical proof first, read `docs/simple-example.md`.
+
+If you only want one larger concrete proof that this is more than a
+documentation exercise, read `docs/project-case-study.md`. That
+example shows a real STM32 project growing from bring-up into:
 
 - UART command and debug interfaces
 - stepper motion control
@@ -109,11 +104,11 @@ It is trying to give that assistance a stable operating model.
 
 If you want the quickest useful trial, do only this first:
 
-1. Read the handbook and this manual.
-2. Decide whether the workflow model fits the kind of STM32 project you want to build.
-3. Review the prerequisites for your machine and toolchain.
-4. Look through the example project development path.
-5. If you want to try the workflow early, request access to the starter kit.
+1. Clone the starter-kit repo and open it in your AI workspace.
+2. Create a new project repo from it.
+3. Save the new project's `.ioc`.
+4. Initialize workflow config from that `.ioc`.
+5. Run toolchain, config, and doctor checks.
 
 If those pass, you already know something important before product code starts:
 
@@ -138,28 +133,83 @@ For this workflow, that usually means:
 3. Open the relevant local repo in the AI workspace you are using so the agent
    can read files and run PowerShell commands there.
 
-Because the reusable starter kit is not yet broadly published, this public docs
-set does not include the operational files for creating, bootstrapping, or
-maintaining a project from the kit directly.
+If you are using the reusable starter kit, keep one local clone of that kit on
+your machine. The starter-kit clone is the place where a brand-new project repo
+is created from.
 
-What you can do from here:
+### Case A: You Do Not Have A Project Repo Yet
 
-1. Decide whether the workflow model fits your project and team.
-2. Check that your machine and toolchain match the prerequisites.
-3. Review the example project path to see what the workflow can realistically support.
-4. If you want to try it in a real project, request early access.
+This means you are starting from the starter kit and creating a separate new
+project repo.
 
-If you receive access to the starter kit, the typical adoption path is:
-
-1. create or open an STM32 project repo
-2. keep `.ioc` as the source of truth for generated configuration
-3. initialize workflow configuration from that `.ioc`
-4. run environment, config, and hardware checks first
-5. continue with build, flash, validation, and review of recorded evidence
+1. Clone the starter-kit repo to your machine if you do not already have it.
+2. Open that starter-kit repo in your AI workspace.
+3. Ask the agent to create a new STM32 project repo from the starter kit in
+   `central` or `vendored` mode, under your chosen parent directory.
+4. Open the new project repo in your AI workspace.
+5. In CubeMX, create the target project and save its `.ioc` inside the new repo.
+6. Ask the agent to initialize workflow config from that `.ioc`.
+7. Add or generate the project-specific firmware tree and board files for your
+   target if they are not already present.
+8. Ask the agent to check the toolchain, workflow config, and board visibility.
+9. Ask the agent to run a CubeMX smoke test if you want an early generated-code
+   sanity check.
+10. Ask the agent to run the normal development workflow.
 
 > **Important**
-> In CubeMX `Project Manager`, choose `CMake` when this workflow is expected to
-> own the build path.
+> In CubeMX `Project Manager`, choose `CMake` when this workflow is expected to own the build path.
+
+The important detail is easy to miss:
+
+- the starter-kit clone is only the source used to create the new repo
+- the new repo gets the workflow layer by default
+- the new repo starts with its own git history instead of inheriting the
+  starter-kit repo history
+- project-specific assets such as firmware source, a board `.ioc`, linker
+  script, startup files, and host tools still need to be added intentionally
+  for your own target
+
+Typical prompts:
+
+- "Create a new STM32 project from the starter kit under `C:\work` in central mode."
+- "Create a new STM32 project from the starter kit under `C:\work` in vendored mode."
+- "Initialize the workflow config from this `.ioc`."
+- "Check the toolchain, config, and board connection."
+- "Run the normal development workflow for this new project."
+
+### Case B: You Already Have A Repo With The Starter Kit In It
+
+This means the starter export already happened and you are now working inside
+the new project repo.
+
+1. Open that project repo in your AI workspace.
+2. Create and save the project's `.ioc` if it does not exist yet.
+3. Review and replace placeholder project identity fields in
+   `docs/workflow-capabilities.json` if they are still generic.
+4. Ask the agent to initialize workflow config from the `.ioc`.
+5. Add or generate the project-specific firmware tree if it is not present yet.
+6. Ask the agent to check environment and hardware visibility.
+7. Ask the agent to run the normal workflow.
+
+### Case C: You Are Adopting The Workflow In An Existing STM32 Repo
+
+Do not start with a full build migration immediately.
+
+1. Clone the starter-kit repo locally if you do not already have it.
+2. Open your existing STM32 repo in your AI workspace.
+3. Ask the agent to bootstrap the workflow into the current repo from your
+   local starter-kit clone.
+4. If the repo already has its own `AGENTS.md`, merge the copied
+   `AGENTS.stm32-agentic.md` guidance instead of overwriting local policy
+   blindly.
+5. Generate workflow config from the existing `.ioc`.
+6. Point the workflow at the known-good artifact if needed.
+7. Run config validation and doctor preflight first.
+8. Run the workflow in non-invasive mode before attempting a broader migration.
+
+For that path, read:
+
+- `docs/migrating-existing-cubeide-cubemx-projects.md`
 
 Coexistence with CubeIDE is supported.
 
@@ -183,9 +233,11 @@ yet, the workflow is not really initialized.
 
 ### Where To Look For More Detail
 
+- `docs/cubemx-new-project-onboarding.md` for the new-project path
+- `docs/migrating-existing-cubeide-cubemx-projects.md` for existing repos
+- `docs/workflow-topology.md` for vendored versus central workflow layout
 - `docs/workflow-safety.md` for safe usage and trusted-input boundaries
-- `docs/prerequisites.md` for machine and tool expectations
-- `docs/handbook.md` for the shortest operator view
+- `docs/workflow-scripts.md` for exact manual commands
 
 ## 4. Why Use The Starter Kit Instead Of Starting From Scratch
 
@@ -218,9 +270,10 @@ Side by side, the trade looks like this:
   - clearer validation and continuity rules
   - easier reuse in the next STM32 project
 
-The continuity part is explicit. In the full starter implementation, repos keep
-lightweight continuity and evidence so new sessions can recover context from
-repo state instead of relying on memory alone.
+The continuity part is explicit. Seed repos should keep a short
+`current-state.md`, a dated `progress.md`, durable defaults in
+`session-memory.md`, and only open `decisions.md`, `open-issues.md`, and
+`board-notes.md` when the task needs that extra detail.
 
 The time savings usually come from avoided setup and avoided confusion, not from
 one magic command. In practice, a serious project often saves several hours to a
@@ -295,12 +348,13 @@ being left only to implicit profile behavior.
 
 The starter kit now also supports suggestion-first HAL sync guidance:
 
-- the starter implementation can inspect `.ioc`-enabled peripherals against the
-  repo-local HAL driver tree, HAL config defines, and build-time driver lists
+- `scripts/stm32.ps1 hal-suggest` inspects `.ioc`-enabled peripherals against
+  the repo-local HAL driver tree, HAL config defines, and the CMake driver
+  list
 - `reconcile` and the normal workflow surface the same suggestions
   automatically before build
-- the workflow suggests the missing driver work without silently mutating the
-  repo
+- the workflow suggests exact `hal-sync` commands without silently mutating
+  the repo
 
 > **Practical rule**
 > Start with the core only. Add optional modules one at a time, and only when they replace work you already do often enough to justify the extra surface.
@@ -341,9 +395,9 @@ them or to one exact model. It is still intended primarily for Windows today.
 It should work in other agent environments when they can:
 
 - read the repo
-- run the workflow steps
+- run the workflow scripts
 - edit files safely
-- follow repo-native instructions and local workflow guidance
+- follow repo-native instructions such as `AGENTS.md`
 
 If an environment is chat-only and cannot inspect files or run commands, only
 the documentation part transfers cleanly, not the full workflow behavior.
@@ -543,10 +597,16 @@ That is one of the quiet strengths of the starter kit.
 If you want the operator's view:
 
 - `docs/handbook.md`
+- `docs/current-state.md`
+- `docs/optional-modules.md`
 - `docs/agent-communication-guide.md`
-- `docs/example-project-development-path.md`
-- `docs/prerequisites.md`
+- `docs/simple-example.md`
+- `docs/project-case-study.md`
 - `docs/pdf/handbook.pdf`
+
+If you want the exact command mapping:
+
+- `docs/workflow-scripts.md`
 
 If you want the action-risk policy:
 
@@ -555,9 +615,16 @@ If you want the action-risk policy:
 If you want a styled printable copy:
 
 - `docs/pdf/user-manual.pdf`
-- `docs/pdf/example-project-development-path.pdf`
-- `docs/pdf/agent-communication-guide.pdf`
-- `docs/pdf/workflow-safety.pdf`
+- `docs/pdf/simple-example.pdf`
+- `docs/pdf/project-case-study.pdf`
+
+If you want the CubeMX and generated-code rules:
+
+- `docs/cubemx-user-code-contract.md`
+
+If you want migration guidance for an existing project:
+
+- `docs/migrating-existing-cubeide-cubemx-projects.md`
 
 ## 12. Final Advice
 

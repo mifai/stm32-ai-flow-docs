@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="220" viewBox="0 0 980 220" role="img" aria-labelledby="title desc">
+  <title id="title">STM32 AI Flow simple example flow</title>
+  <desc id="desc">Starter creation, board facts, CubeMX generation, minimal blink code, build and flash, hardware verification.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f7f4ea; }
+      .box { fill: #fffdf7; stroke: #264653; stroke-width: 2; rx: 14; ry: 14; }
+      .text { font-family: "Segoe UI", Arial, sans-serif; font-size: 18px; fill: #1f2933; }
+      .small { font-size: 14px; fill: #52606d; }
+      .arrow { stroke: #2a9d8f; stroke-width: 4; fill: none; marker-end: url(#arrowhead); }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#2a9d8f" />
+    </marker>
+  </defs>
+  <rect class="bg" x="0" y="0" width="980" height="220" rx="18" ry="18" />
+  <rect class="box" x="24" y="56" width="162" height="98" />
+  <text class="text" x="105" y="92" text-anchor="middle">Create Project</text>
+  <text class="small" x="105" y="118" text-anchor="middle">from starter kit</text>
+  <rect class="box" x="212" y="56" width="162" height="98" />
+  <text class="text" x="293" y="92" text-anchor="middle">Find Board Facts</text>
+  <text class="small" x="293" y="118" text-anchor="middle">agent first, manual fallback</text>
+  <rect class="box" x="400" y="56" width="162" height="98" />
+  <text class="text" x="481" y="92" text-anchor="middle">Create .ioc</text>
+  <text class="small" x="481" y="118" text-anchor="middle">and generate in CubeMX</text>
+  <rect class="box" x="588" y="56" width="162" height="98" />
+  <text class="text" x="669" y="92" text-anchor="middle">Add Bring-Up</text>
+  <text class="small" x="669" y="118" text-anchor="middle">blink plus optional button</text>
+  <rect class="box" x="776" y="56" width="180" height="98" />
+  <text class="text" x="866" y="92" text-anchor="middle">Build, Flash, Verify</text>
+  <text class="small" x="866" y="118" text-anchor="middle">ST-LINK and visible LED result</text>
+  <path class="arrow" d="M187 105 H210" />
+  <path class="arrow" d="M375 105 H398" />
+  <path class="arrow" d="M563 105 H586" />
+  <path class="arrow" d="M751 105 H774" />
+</svg>

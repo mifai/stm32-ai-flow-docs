@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>STM32 AI Flow Handbook</title>
+  <style>
+    :root {
+      --accent: #1f6d8c;
+      --accent-soft: #d8edf2;
+      --ink: #15212f;
+      --muted: #5f6d7b;
+      --paper: #f7f4ef;
+      --deep: #20364b;
+      --line: rgba(21, 33, 47, 0.12);
+      --shadow: 0 20px 55px rgba(17, 26, 37, 0.11);
+      --radius: 28px;
+    }
+
+    * { box-sizing: border-box; }
+    html {
+      background:
+        radial-gradient(circle at top left, rgba(246, 211, 184, 0.8), transparent 28%),
+        linear-gradient(160deg, #f5efe5 0%, #f4f0ea 46%, #eef3f6 100%);
+      color: var(--ink);
+      font-family: "Aptos", "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+    body { margin: 0; }
+    .page {
+      width: min(1240px, calc(100vw - 48px));
+      margin: 28px auto;
+      display: grid;
+      grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
+      gap: 24px;
+      align-items: start;
+    }
+    .page.no-cover {
+      display: block;
+      width: min(1100px, calc(100vw - 48px));
+    }
+    .hero {
+      position: sticky;
+      top: 24px;
+      padding: 26px 24px;
+      border: 1px solid rgba(255,255,255,0.5);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(160deg, rgba(255,255,255,0.88), rgba(247,244,239,0.9)),
+        linear-gradient(135deg, rgba(31,109,140,0.08), rgba(196,90,43,0.06));
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -30px;
+      top: -22px;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(246, 211, 184, 0.75), rgba(246, 211, 184, 0));
+    }
+    .eyebrow {
+      display: inline-flex;
+      padding: 6px 11px;
+      border-radius: 999px;
+      background: rgba(31,109,140,0.09);
+      color: var(--deep);
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .hero h1 {
+      margin: 16px 0 12px;
+      font-family: "Georgia", "Palatino Linotype", serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.03;
+      letter-spacing: -0.02em;
+      max-width: 12ch;
+    }
+    .hero p {
+      margin: 0 0 16px;
+      color: var(--deep);
+      font-size: 1.02rem;
+    }
+    .meta {
+      display: grid;
+      gap: 10px;
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+    .meta strong { color: var(--ink); }
+    .article-shell {
+      padding: 34px 40px;
+      border: 1px solid rgba(255,255,255,0.52);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.9);
+      box-shadow: var(--shadow);
+    }
+    .article-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 24px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line);
+    }
+    .title-block {
+      margin: 0 0 24px;
+      padding: 0 0 20px;
+      border-bottom: 1px solid var(--line);
+    }
+    .title-block-eyebrow {
+      margin-bottom: 10px;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .title-block h1 {
+      margin: 0 0 10px;
+      color: var(--deep);
+      font-family: "Georgia", "Palatino Linotype", serif;
+      font-size: clamp(2.2rem, 4vw, 3.4rem);
+      line-height: 1.04;
+      letter-spacing: -0.03em;
+      max-width: 14ch;
+    }
+    .title-block p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.04rem;
+      max-width: 60ch;
+    }
+    .article-top-copy p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 60ch;
+    }
+    .marker {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), #ebb07a);
+      box-shadow: 0 0 0 8px rgba(196, 90, 43, 0.12);
+      flex: 0 0 auto;
+      margin-top: 3px;
+    }
+    .article-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(220px, 270px);
+      gap: 26px;
+      align-items: start;
+    }
+    .content h2,
+    .content h3,
+    .content h4 {
+      color: var(--deep);
+      font-family: "Georgia", "Palatino Linotype", serif;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+    .content h2 {
+      margin: 34px 0 12px;
+      font-size: 1.95rem;
+      page-break-after: avoid;
+    }
+    .content h3 {
+      margin: 26px 0 10px;
+      font-size: 1.28rem;
+    }
+    .content h4 {
+      margin: 20px 0 8px;
+      font-size: 1.08rem;
+    }
+    .content p,
+    .content li,
+    .content blockquote {
+      font-size: 1rem;
+    }
+    .content p {
+      margin: 0 0 14px;
+      max-width: 68ch;
+    }
+    .content ul,
+    .content ol {
+      margin: 0 0 16px;
+      padding-left: 1.25rem;
+    }
+    .content li { margin-bottom: 8px; }
+    .content li::marker {
+      color: var(--accent);
+      font-weight: 700;
+    }
+    .content code {
+      padding: 0.14rem 0.38rem;
+      border-radius: 0.45rem;
+      background: rgba(31,109,140,0.08);
+      font-family: "Consolas", "Cascadia Mono", monospace;
+      font-size: 0.92em;
+    }
+    .content pre {
+      margin: 0 0 18px;
+      padding: 15px 17px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: #fbfcfd;
+      overflow: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .content blockquote {
+      margin: 0 0 18px;
+      padding: 14px 18px;
+      border-left: 4px solid var(--accent);
+      border-radius: 0 16px 16px 0;
+      background: rgba(196, 90, 43, 0.08);
+      color: var(--deep);
+    }
+    .content blockquote p {
+      margin: 0;
+    }
+    .content blockquote p + p {
+      margin-top: 8px;
+    }
+    .content blockquote p:first-child strong {
+      display: block;
+    }
+    .content img {
+      display: block;
+      width: min(100%, 760px);
+      margin: 14px 0 20px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: white;
+      box-shadow: 0 10px 30px rgba(17, 26, 37, 0.08);
+    }
+    .toc-panel {
+      position: sticky;
+      align-self: start;
+      top: 24px;
+      padding: 18px 18px 22px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: linear-gradient(180deg, rgba(247, 244, 239, 0.94), rgba(255,255,255,0.94));
+    }
+    .panel-label {
+      margin-bottom: 10px;
+      color: var(--muted);
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .toc-list {
+      margin: 0;
+      padding-left: 1rem;
+      display: grid;
+      gap: 8px;
+      font-size: 0.96rem;
+    }
+    .toc-level-3 {
+      margin-left: 10px;
+      color: var(--muted);
+    }
+    a {
+      color: var(--deep);
+      text-decoration-color: rgba(31,109,140,0.35);
+    }
+    @page {
+      margin: 18mm;
+      size: A4;
+    }
+    @media print {
+      html {
+        background: white;
+      }
+      .page {
+        width: auto;
+        margin: 0;
+        display: block;
+      }
+      
+      .hero {
+        display: none;
+      }
+      .article-shell {
+        padding: 0;
+        border: 0;
+        box-shadow: none;
+      }
+      .article-top {
+        margin-bottom: 18px;
+        padding-bottom: 18px;
+      }
+    
+      .article-layout {
+        display: block;
+      }
+      .title-block {
+        margin: 0 0 16px;
+        padding-bottom: 14px;
+      }
+      .title-block h1 {
+        font-size: 24pt;
+      }
+      .title-block p {
+        font-size: 11pt;
+      }
+      .toc-panel {
+        display: none;
+      }
+    }
+    @media (max-width: 980px) {
+      .page {
+        grid-template-columns: 1fr;
+      }
+      .hero,
+      .toc-panel {
+        position: relative;
+        top: auto;
+      }
+      .article-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page no-cover">
+    
+    <section class="article-shell">
+      
+      <div class="title-block">
+        <div class="title-block-eyebrow">stm32-ai-flow</div>
+        <h1>STM32 AI Flow Handbook</h1>
+        <p>Compact operator reference for the STM32 workflow starter kit.</p>
+      </div>
+    
+      <div class="article-top">
+        <div class="article-top-copy">
+          <p>Compact operator reference for the STM32 workflow starter kit.</p>
+        </div>
+        <div class="marker" aria-hidden="true"></div>
+      </div>
+      <div class="article-layout">
+        <article class="content">
+          <blockquote><p>WORKFLOW-OWNED: This handbook is part of the STM32 workflow layer. Edit it</p><p>intentionally and keep it aligned with <code>AGENTS.md</code> and the workflow skill.</p></blockquote>
+<p>This is the operator guide for the starter kit.</p>
+<p>Use this file when you want the shortest practical answer to:</p>
+<ul><li>what should I read first</li><li>what does a normal session look like</li><li>what is core</li><li>where do I look for evidence</li></ul>
+<p>If you want explanation, tradeoffs, and onboarding guidance, use <code>docs/user-manual.md</code>.</p>
+<p>If you want the short safety rules for trusted input, repo boundaries, and high-risk actions, use <code>docs/workflow-safety.md</code>.</p>
+<blockquote><p><strong>Use this file as the task view</strong></p><p>Read this handbook when you want the shortest operational path.</p><p>Read <code>docs/user-manual.md</code> when you need explanation, tradeoffs, or onboarding context.</p></blockquote>
+<h2 id="the-quickest-first-win">The Quickest First Win</h2>
+<p>If you want the fastest proof that this workflow is worth using:</p>
+<ol><li>check toolchain and board readiness</li><li>initialize config from <code>.ioc</code></li><li>run the normal development workflow once</li><li>review the recorded evidence</li></ol>
+<p>That first pass is enough to prove whether the machine, repo, and workflow path are coherent before you invest in product work.</p>
+<p>If you want the smallest practical first bring-up, read <code>docs/simple-example.md</code>.</p>
+<p>If you want one concrete example of what that kind of workflow can later grow into, read <code>docs/project-case-study.md</code>.</p>
+<h2 id="environment-assumption">Environment Assumption</h2>
+<p>This workflow is repo-native, not VS Code specific. It is intended primarily for Windows today.</p>
+<p>It works best in an agent environment that can:</p>
+<ul><li>read repo files</li><li>run shell commands</li><li>edit files</li><li>follow repo-local instructions</li></ul>
+<p>If those capabilities are missing, the docs still transfer, but the operational workflow becomes partial.</p>
+<p>Instruction compatibility note:</p>
+<ul><li><code>AGENTS.md</code> is the repo instruction contract</li><li><code>.github/copilot-instructions.md</code> is the GitHub/Copilot-specific shim</li></ul>
+<p>Practical note:</p>
+<ul><li>build-oriented use can be ported to Linux or macOS</li><li>full parity still needs the Windows-specific install, discovery, and export assumptions to be replaced</li><li>the workflow is git-host neutral; <code>.github/workflows/ci.yml</code> is the provided CI example, not a GitHub lock-in</li></ul>
+<h2 id="read-these-first">Read These First</h2>
+<p>Keep the active context small:</p>
+<ul><li><code>README.md</code></li><li><code>AGENTS.md</code></li><li><code>docs/handbook.md</code></li><li><code>docs/current-state.md</code></li><li><code>docs/session-memory.md</code></li><li><code>docs/progress.md</code></li><li><code>skills/stm32-agent-mode/SKILL.md</code></li></ul>
+<p>Everything else is reference material.</p>
+<blockquote><p><strong>Do not load everything by default</strong></p><p>The startup set is intentionally small. Open deeper docs only when the task actually needs them.</p></blockquote>
+<h2 id="normal-session">Normal Session</h2>
+<p>The normal loop is:</p>
+<ol><li>Check environment and board readiness.</li><li>Initialize config from <code>.ioc</code> if needed.</li><li>Run the development workflow.</li><li>Review evidence and blocked steps.</li></ol>
+<p>Typical prompts:</p>
+<ul><li>&quot;Check whether the STM32 workflow prerequisites and board connection are ready.&quot;</li><li>&quot;Initialize workflow config from this <code>.ioc</code>.&quot;</li><li>&quot;Run the normal development workflow for this project.&quot;</li></ul>
+<p>Operator note:</p>
+<ul><li>when the agent has shell access to this repo, it should run the relevant scripts and checks itself rather than asking the user to do that work</li><li>ask the user only when the agent is blocked, a high-risk action needs confirmation, or the intended action is genuinely unclear</li></ul>
+<p>If you want a short guide for writing better prompts, use <code>docs/agent-communication-guide.md</code>.</p>
+<p>Before high-risk actions such as installs, bootstrap, cross-repo edits, or pushes, review <code>docs/workflow-safety.md</code>.</p>
+<p>If code was generated manually in CubeMX, insert this before the normal loop:</p>
+<pre><code class="language-powershell">powershell -NoProfile -ExecutionPolicy Bypass -File scripts/stm32.ps1 reconcile -ConfigPath .\stm32-workflow.local.json</code></pre>
+<blockquote><p><strong>Important</strong></p><p>Manual CubeMX generation is not the end of the workflow step. Reconcile before you build, flash, or claim the generated tree is aligned.</p></blockquote>
+<h2 id="what-the-workflow-covers">What The Workflow Covers</h2>
+<p>Core user workflow:</p>
+<ul><li>toolchain and config validation</li><li>doctor preflight</li><li><code>.ioc</code> initialization and consistency checks</li><li>build and flash</li><li>reconcile after manual CubeMX generation</li><li>continuity files and run evidence</li></ul>
+<p>Because this repo is itself the public starter kit, maintainers also keep packaging safeguards such as lint, starter self-test, and hardware-light CI in place. Treat those as repo-level protection for the kit, not as part of the normal downstream user loop.</p>
+<p>Optional modules:</p>
+<ul><li>serial validation and live monitoring</li><li>IOC profile automation</li><li>debug tooling</li><li>migration aids and other heavier helpers</li></ul>
+<p>Use the core by default. Add optional modules only when they remove real repeated work in a downstream repo.</p>
+<p>Practical note:</p>
+<ul><li><code>scripts/stm32.ps1 doctor</code> now does a short STM32/ST-LINK rescan when the first hardware probe is empty and reports last-known hardware context from <code>docs/last-device-state.json</code> or workflow run history when available</li><li><code>validation_policy</code> in workflow config now makes flash and serial gates explicit, so missing targets can either fail early with a clear message or skip cleanly for hardware-light runs</li><li><code>scripts/stm32.ps1 hal-suggest</code> now checks <code>.ioc</code>-enabled peripherals against the local HAL driver tree and suggests exact <code>hal-sync</code> commands after <code>reconcile</code> and before <code>build</code> when likely module gaps are found</li><li><code>scripts/stm32.ps1 browser-diag</code> now classifies live browser processes so it is easy to tell normal Edge usage from Edge headless PDF export and STM32CubeMX JxBrowser Chromium trees</li><li><code>scripts/stm32-ioc-consistency-check.ps1</code> now accepts valid CubeMX PLL source alias variants when the present keys agree, reducing false-positive clock warnings</li><li><code>scripts/stm32.ps1 reconcile</code> now reports what it actually restored versus what was already aligned, plus the current <code>.ioc</code> warning/error summary</li><li>the default <code>flash</code> stage requires a connected supported programming probe visible to STM32CubeProgrammer; in this workflow today that means ST-LINK unless a project deliberately adds another flash path</li><li>some projects may choose a different flashing backend such as the MCU&#x27;s built-in bootloader over DFU/UART/USB, but that is a project-specific workflow decision rather than the default path here</li><li>docs-only public export now belongs to the maintainer repo rather than this public starter surface</li></ul>
+<p>CubeIDE coexistence note:</p>
+<ul><li>coexistence is supported</li><li>the preferred hybrid mode is CMake/workflow for build outputs and CubeIDE for debug/inspection</li><li>avoid running two separate build systems in parallel unless the project really needs that complexity</li></ul>
+<h2 id="ioc-rule"><code>.ioc</code> Rule</h2>
+<p>If the project is CubeMX-managed, <code>.ioc</code> is the configuration source of truth.</p>
+<p>That means:</p>
+<ul><li>configuration changes start in <code>.ioc</code></li><li>generated code is regenerated rather than hand-edited outside USER CODE blocks</li><li>project behavior stays in modules, not generated glue</li></ul>
+<p>If you need the full generated-file contract, use <code>docs/cubemx-user-code-contract.md</code>.</p>
+<h2 id="what-counts-as-success">What Counts As Success</h2>
+<p>A clean result says which enabled stages passed:</p>
+<ul><li>validation</li><li>build</li><li>flash</li><li>serial validation</li></ul>
+<p>If a step was skipped or blocked, say that explicitly.</p>
+<p>If a step was skipped because a validation gate chose <code>skip</code>, report that too. That is a policy decision, not an invisible success.</p>
+<p>If <code>reconcile</code> or <code>workflow</code> reports HAL sync suggestions, report those too. They are advisory, not a passing build result.</p>
+<blockquote><p><strong>Reporting rule</strong></p><p>Do not compress &quot;build passed&quot; into &quot;workflow passed&quot; unless the other enabled stages also passed.</p></blockquote>
+<h2 id="where-to-look-after-a-run">Where To Look After A Run</h2>
+<p>Primary evidence:</p>
+<ul><li><code>docs/current-state.md</code></li><li><code>docs/progress.md</code></li></ul>
+<p>Workflow metadata:</p>
+<ul><li><code>docs/workflow-capabilities.json</code></li></ul>
+<h2 id="when-to-open-other-docs">When To Open Other Docs</h2>
+<p>Open these only when the task needs them:</p>
+<ul><li><code>docs/user-manual.md</code> for onboarding and decision guidance</li><li><code>docs/simple-example.md</code> for the smallest concrete first-run scenario</li><li><code>docs/project-case-study.md</code> for a larger real-project growth example</li><li><code>docs/optional-modules.md</code> for core-versus-optional choices</li><li><code>docs/workflow-topology.md</code> for vendored-versus-central layout</li><li><code>docs/workflow-scripts.md</code> for exact commands</li><li><code>docs/cubemx-new-project-onboarding.md</code> for new-project setup</li><li><code>docs/migrating-existing-cubeide-cubemx-projects.md</code> for adoption work</li><li><code>docs/maintainer-guide.md</code> for maintainer-only workflow operations</li><li><code>docs/decisions.md</code>, <code>docs/open-issues.md</code>, and <code>docs/board-notes.md</code> only when the task needs deeper context</li></ul>
+        </article>
+        
+      <aside class="toc-panel">
+        <div class="panel-label">On this page</div>
+        <ol class="toc-list"><li class="toc-level-2"><a href="#the-quickest-first-win">The Quickest First Win</a></li><li class="toc-level-2"><a href="#environment-assumption">Environment Assumption</a></li><li class="toc-level-2"><a href="#read-these-first">Read These First</a></li><li class="toc-level-2"><a href="#normal-session">Normal Session</a></li><li class="toc-level-2"><a href="#what-the-workflow-covers">What The Workflow Covers</a></li><li class="toc-level-2"><a href="#ioc-rule">`.ioc` Rule</a></li><li class="toc-level-2"><a href="#what-counts-as-success">What Counts As Success</a></li><li class="toc-level-2"><a href="#where-to-look-after-a-run">Where To Look After A Run</a></li><li class="toc-level-2"><a href="#when-to-open-other-docs">When To Open Other Docs</a></li></ol>
+      </aside>
+    
+      </div>
+    </section>
+  </div>
+</body>
+</html>

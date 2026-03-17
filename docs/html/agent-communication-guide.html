@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Human-Agent Prompt Guide</title>
+  <style>
+    :root {
+      --accent: #1f6d8c;
+      --accent-soft: #d8edf2;
+      --ink: #15212f;
+      --muted: #5f6d7b;
+      --paper: #f7f4ef;
+      --deep: #20364b;
+      --line: rgba(21, 33, 47, 0.12);
+      --shadow: 0 20px 55px rgba(17, 26, 37, 0.11);
+      --radius: 28px;
+    }
+
+    * { box-sizing: border-box; }
+    html {
+      background:
+        radial-gradient(circle at top left, rgba(246, 211, 184, 0.8), transparent 28%),
+        linear-gradient(160deg, #f5efe5 0%, #f4f0ea 46%, #eef3f6 100%);
+      color: var(--ink);
+      font-family: "Aptos", "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+    body { margin: 0; }
+    .page {
+      width: min(1240px, calc(100vw - 48px));
+      margin: 28px auto;
+      display: grid;
+      grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
+      gap: 24px;
+      align-items: start;
+    }
+    .page.no-cover {
+      display: block;
+      width: min(1100px, calc(100vw - 48px));
+    }
+    .hero {
+      position: sticky;
+      top: 24px;
+      padding: 26px 24px;
+      border: 1px solid rgba(255,255,255,0.5);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(160deg, rgba(255,255,255,0.88), rgba(247,244,239,0.9)),
+        linear-gradient(135deg, rgba(31,109,140,0.08), rgba(196,90,43,0.06));
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -30px;
+      top: -22px;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(246, 211, 184, 0.75), rgba(246, 211, 184, 0));
+    }
+    .eyebrow {
+      display: inline-flex;
+      padding: 6px 11px;
+      border-radius: 999px;
+      background: rgba(31,109,140,0.09);
+      color: var(--deep);
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .hero h1 {
+      margin: 16px 0 12px;
+      font-family: "Georgia", "Palatino Linotype", serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.03;
+      letter-spacing: -0.02em;
+      max-width: 12ch;
+    }
+    .hero p {
+      margin: 0 0 16px;
+      color: var(--deep);
+      font-size: 1.02rem;
+    }
+    .meta {
+      display: grid;
+      gap: 10px;
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+    .meta strong { color: var(--ink); }
+    .article-shell {
+      padding: 34px 40px;
+      border: 1px solid rgba(255,255,255,0.52);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.9);
+      box-shadow: var(--shadow);
+    }
+    .article-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 24px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line);
+    }
+    .title-block {
+      margin: 0 0 24px;
+      padding: 0 0 20px;
+      border-bottom: 1px solid var(--line);
+    }
+    .title-block-eyebrow {
+      margin-bottom: 10px;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .title-block h1 {
+      margin: 0 0 10px;
+      color: var(--deep);
+      font-family: "Georgia", "Palatino Linotype", serif;
+      font-size: clamp(2.2rem, 4vw, 3.4rem);
+      line-height: 1.04;
+      letter-spacing: -0.03em;
+      max-width: 14ch;
+    }
+    .title-block p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.04rem;
+      max-width: 60ch;
+    }
+    .article-top-copy p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 60ch;
+    }
+    .marker {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), #ebb07a);
+      box-shadow: 0 0 0 8px rgba(196, 90, 43, 0.12);
+      flex: 0 0 auto;
+      margin-top: 3px;
+    }
+    .article-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(220px, 270px);
+      gap: 26px;
+      align-items: start;
+    }
+    .content h2,
+    .content h3,
+    .content h4 {
+      color: var(--deep);
+      font-family: "Georgia", "Palatino Linotype", serif;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+    .content h2 {
+      margin: 34px 0 12px;
+      font-size: 1.95rem;
+      page-break-after: avoid;
+    }
+    .content h3 {
+      margin: 26px 0 10px;
+      font-size: 1.28rem;
+    }
+    .content h4 {
+      margin: 20px 0 8px;
+      font-size: 1.08rem;
+    }
+    .content p,
+    .content li,
+    .content blockquote {
+      font-size: 1rem;
+    }
+    .content p {
+      margin: 0 0 14px;
+      max-width: 68ch;
+    }
+    .content ul,
+    .content ol {
+      margin: 0 0 16px;
+      padding-left: 1.25rem;
+    }
+    .content li { margin-bottom: 8px; }
+    .content li::marker {
+      color: var(--accent);
+      font-weight: 700;
+    }
+    .content code {
+      padding: 0.14rem 0.38rem;
+      border-radius: 0.45rem;
+      background: rgba(31,109,140,0.08);
+      font-family: "Consolas", "Cascadia Mono", monospace;
+      font-size: 0.92em;
+    }
+    .content pre {
+      margin: 0 0 18px;
+      padding: 15px 17px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: #fbfcfd;
+      overflow: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .content blockquote {
+      margin: 0 0 18px;
+      padding: 14px 18px;
+      border-left: 4px solid var(--accent);
+      border-radius: 0 16px 16px 0;
+      background: rgba(196, 90, 43, 0.08);
+      color: var(--deep);
+    }
+    .content blockquote p {
+      margin: 0;
+    }
+    .content blockquote p + p {
+      margin-top: 8px;
+    }
+    .content blockquote p:first-child strong {
+      display: block;
+    }
+    .content img {
+      display: block;
+      width: min(100%, 760px);
+      margin: 14px 0 20px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: white;
+      box-shadow: 0 10px 30px rgba(17, 26, 37, 0.08);
+    }
+    .toc-panel {
+      position: sticky;
+      align-self: start;
+      top: 24px;
+      padding: 18px 18px 22px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: linear-gradient(180deg, rgba(247, 244, 239, 0.94), rgba(255,255,255,0.94));
+    }
+    .panel-label {
+      margin-bottom: 10px;
+      color: var(--muted);
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .toc-list {
+      margin: 0;
+      padding-left: 1rem;
+      display: grid;
+      gap: 8px;
+      font-size: 0.96rem;
+    }
+    .toc-level-3 {
+      margin-left: 10px;
+      color: var(--muted);
+    }
+    a {
+      color: var(--deep);
+      text-decoration-color: rgba(31,109,140,0.35);
+    }
+    @page {
+      margin: 18mm;
+      size: A4;
+    }
+    @media print {
+      html {
+        background: white;
+      }
+      .page {
+        width: auto;
+        margin: 0;
+        display: block;
+      }
+      
+      .hero {
+        display: none;
+      }
+      .article-shell {
+        padding: 0;
+        border: 0;
+        box-shadow: none;
+      }
+      .article-top {
+        margin-bottom: 18px;
+        padding-bottom: 18px;
+      }
+    
+      .article-layout {
+        display: block;
+      }
+      .title-block {
+        margin: 0 0 16px;
+        padding-bottom: 14px;
+      }
+      .title-block h1 {
+        font-size: 24pt;
+      }
+      .title-block p {
+        font-size: 11pt;
+      }
+      .toc-panel {
+        display: none;
+      }
+    }
+    @media (max-width: 980px) {
+      .page {
+        grid-template-columns: 1fr;
+      }
+      .hero,
+      .toc-panel {
+        position: relative;
+        top: auto;
+      }
+      .article-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page no-cover">
+    
+    <section class="article-shell">
+      
+      <div class="title-block">
+        <div class="title-block-eyebrow">stm32-ai-flow</div>
+        <h1>Human-Agent Prompt Guide</h1>
+        <p>Short guide for writing useful prompts and getting better workflow results from the agent.</p>
+      </div>
+    
+      <div class="article-top">
+        <div class="article-top-copy">
+          <p>Short guide for writing useful prompts and getting better workflow results from the agent.</p>
+        </div>
+        <div class="marker" aria-hidden="true"></div>
+      </div>
+      <div class="article-layout">
+        <article class="content">
+          <p>This is a short guide for talking to the agent productively in this workflow.</p>
+<p>The basic rule is simple:</p>
+<ul><li>ask for outcomes, not random commands</li><li>state the scope and constraints</li><li>ask for honest reporting about what passed, failed, or was skipped</li></ul>
+<h2 id="ask-for-outcomes">Ask For Outcomes</h2>
+<p>Prefer:</p>
+<ul><li>&quot;Check whether the toolchain, workflow config, and board connection are healthy.&quot;</li><li>&quot;Build, flash, and validate the current firmware.&quot;</li><li>&quot;Regenerate from <code>.ioc</code>, reconcile, rebuild, and tell me what changed.&quot;</li></ul>
+<p>Less useful:</p>
+<ul><li>&quot;Run some scripts.&quot;</li><li>&quot;Do STM32 stuff.&quot;</li></ul>
+<h2 id="give-the-agent-the-important-constraint">Give The Agent The Important Constraint</h2>
+<p>If something matters, say it up front.</p>
+<p>Useful constraints:</p>
+<ul><li>&quot;Do not flash the board.&quot;</li><li>&quot;Keep this change minimal.&quot;</li><li>&quot;Use <code>.ioc</code> as the source of truth.&quot;</li><li>&quot;Explain first, do not change files yet.&quot;</li><li>&quot;Only fix the CI workflow.&quot;</li><li>&quot;Treat CubeIDE as debug-only.&quot;</li></ul>
+<h2 id="one-main-task-per-prompt">One Main Task Per Prompt</h2>
+<p>Good prompts usually have one primary goal.</p>
+<p>Prefer:</p>
+<ul><li>&quot;Find why the build failed and fix it.&quot;</li><li>&quot;Add a short user-facing doc for this workflow step.&quot;</li><li>&quot;Check whether this repo is ready for a new session.&quot;</li></ul>
+<p>Avoid stacking many unrelated goals into one prompt unless they are part of the same workflow loop.</p>
+<h2 id="ask-for-honest-validation">Ask For Honest Validation</h2>
+<p>When you want execution, ask for validation explicitly.</p>
+<p>Good examples:</p>
+<ul><li>&quot;Build and tell me exactly what passed.&quot;</li><li>&quot;Flash and validate, and state clearly if serial validation was skipped.&quot;</li><li>&quot;Fix the issue and rerun the relevant checks.&quot;</li></ul>
+<p>This workflow is designed to report blocked or skipped steps honestly. Prompt for that explicitly when it matters.</p>
+<h2 id="tell-the-agent-what-kind-of-answer-you-want">Tell The Agent What Kind Of Answer You Want</h2>
+<p>Examples:</p>
+<ul><li>&quot;Give me the short answer only.&quot;</li><li>&quot;Explain the tradeoffs before changing anything.&quot;</li><li>&quot;Patch it directly and summarize the result.&quot;</li><li>&quot;Review this like a code review and list the main risks first.&quot;</li></ul>
+<h2 id="good-prompt-patterns">Good Prompt Patterns</h2>
+<p>Startup:</p>
+<ul><li>&quot;Check whether this machine, repo, and board are ready for the normal workflow.&quot;</li></ul>
+<p>Normal loop:</p>
+<ul><li>&quot;Run the normal development workflow and summarize the result.&quot;</li></ul>
+<p>CubeMX change:</p>
+<ul><li>&quot;I changed the <code>.ioc</code> in CubeMX. Reconcile the repo, rebuild, and tell me if anything drifted.&quot;</li></ul>
+<p>Targeted build work:</p>
+<ul><li>&quot;Make the smallest change needed to fix the build error, then rebuild.&quot;</li></ul>
+<p>Investigation:</p>
+<ul><li>&quot;The workflow passed locally but failed in GitHub Actions. Find the failing step and fix only that.&quot;</li></ul>
+<p>Explanation:</p>
+<ul><li>&quot;This part of the workflow is unclear to me. Explain how it works in this repo and what I should do next.&quot;</li></ul>
+<h2 id="when-to-mention-repo-specific-facts">When To Mention Repo-Specific Facts</h2>
+<p>Mention these when relevant:</p>
+<ul><li>board connected or not connected</li><li>whether flashing is allowed</li><li>whether serial validation should run</li><li>whether CubeMX GUI was used manually</li><li>whether the task is starter-kit maintenance or project-specific work</li></ul>
+<p>These details help the agent avoid the wrong workflow path.</p>
+<h2 id="a-good-default-style">A Good Default Style</h2>
+<p>If you are unsure how to phrase something, use this pattern:</p>
+<ol><li>goal</li><li>important constraint</li><li>expected validation or output</li></ol>
+<p>Example:</p>
+<ul><li>&quot;Fix the CI failure without changing firmware behavior, then rerun the relevant checks and summarize what changed.&quot;</li></ul>
+<h2 id="final-rule">Final Rule</h2>
+<p>If the docs are unclear, ask the agent directly and make the question concrete.</p>
+<p>Good example:</p>
+<ul><li>&quot;This workflow step is unclear to me. Explain it using this repo&#x27;s current files and tell me the next action.&quot;</li></ul>
+        </article>
+        
+      <aside class="toc-panel">
+        <div class="panel-label">On this page</div>
+        <ol class="toc-list"><li class="toc-level-2"><a href="#ask-for-outcomes">Ask For Outcomes</a></li><li class="toc-level-2"><a href="#give-the-agent-the-important-constraint">Give The Agent The Important Constraint</a></li><li class="toc-level-2"><a href="#one-main-task-per-prompt">One Main Task Per Prompt</a></li><li class="toc-level-2"><a href="#ask-for-honest-validation">Ask For Honest Validation</a></li><li class="toc-level-2"><a href="#tell-the-agent-what-kind-of-answer-you-want">Tell The Agent What Kind Of Answer You Want</a></li><li class="toc-level-2"><a href="#good-prompt-patterns">Good Prompt Patterns</a></li><li class="toc-level-2"><a href="#when-to-mention-repo-specific-facts">When To Mention Repo-Specific Facts</a></li><li class="toc-level-2"><a href="#a-good-default-style">A Good Default Style</a></li><li class="toc-level-2"><a href="#final-rule">Final Rule</a></li></ol>
+      </aside>
+    
+      </div>
+    </section>
+  </div>
+</body>
+</html>

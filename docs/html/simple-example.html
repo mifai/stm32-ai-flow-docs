@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>STM32 AI Flow Simple Example</title>
+  <style>
+    :root {
+      --accent: #1f6d8c;
+      --accent-soft: #d8edf2;
+      --ink: #15212f;
+      --muted: #5f6d7b;
+      --paper: #f7f4ef;
+      --deep: #20364b;
+      --line: rgba(21, 33, 47, 0.12);
+      --shadow: 0 20px 55px rgba(17, 26, 37, 0.11);
+      --radius: 28px;
+    }
+
+    * { box-sizing: border-box; }
+    html {
+      background:
+        radial-gradient(circle at top left, rgba(246, 211, 184, 0.8), transparent 28%),
+        linear-gradient(160deg, #f5efe5 0%, #f4f0ea 46%, #eef3f6 100%);
+      color: var(--ink);
+      font-family: "Aptos", "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+    body { margin: 0; }
+    .page {
+      width: min(1240px, calc(100vw - 48px));
+      margin: 28px auto;
+      display: grid;
+      grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
+      gap: 24px;
+      align-items: start;
+    }
+    .page.no-cover {
+      display: block;
+      width: min(1100px, calc(100vw - 48px));
+    }
+    .hero {
+      position: sticky;
+      top: 24px;
+      padding: 26px 24px;
+      border: 1px solid rgba(255,255,255,0.5);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(160deg, rgba(255,255,255,0.88), rgba(247,244,239,0.9)),
+        linear-gradient(135deg, rgba(31,109,140,0.08), rgba(196,90,43,0.06));
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -30px;
+      top: -22px;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(246, 211, 184, 0.75), rgba(246, 211, 184, 0));
+    }
+    .eyebrow {
+      display: inline-flex;
+      padding: 6px 11px;
+      border-radius: 999px;
+      background: rgba(31,109,140,0.09);
+      color: var(--deep);
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .hero h1 {
+      margin: 16px 0 12px;
+      font-family: "Georgia", "Palatino Linotype", serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.03;
+      letter-spacing: -0.02em;
+      max-width: 12ch;
+    }
+    .hero p {
+      margin: 0 0 16px;
+      color: var(--deep);
+      font-size: 1.02rem;
+    }
+    .meta {
+      display: grid;
+      gap: 10px;
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+    .meta strong { color: var(--ink); }
+    .article-shell {
+      padding: 34px 40px;
+      border: 1px solid rgba(255,255,255,0.52);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.9);
+      box-shadow: var(--shadow);
+    }
+    .article-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 24px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line);
+    }
+    .title-block {
+      margin: 0 0 24px;
+      padding: 0 0 20px;
+      border-bottom: 1px solid var(--line);
+    }
+    .title-block-eyebrow {
+      margin-bottom: 10px;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .title-block h1 {
+      margin: 0 0 10px;
+      color: var(--deep);
+      font-family: "Georgia", "Palatino Linotype", serif;
+      font-size: clamp(2.2rem, 4vw, 3.4rem);
+      line-height: 1.04;
+      letter-spacing: -0.03em;
+      max-width: 14ch;
+    }
+    .title-block p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.04rem;
+      max-width: 60ch;
+    }
+    .article-top-copy p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 60ch;
+    }
+    .marker {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), #ebb07a);
+      box-shadow: 0 0 0 8px rgba(196, 90, 43, 0.12);
+      flex: 0 0 auto;
+      margin-top: 3px;
+    }
+    .article-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(220px, 270px);
+      gap: 26px;
+      align-items: start;
+    }
+    .content h2,
+    .content h3,
+    .content h4 {
+      color: var(--deep);
+      font-family: "Georgia", "Palatino Linotype", serif;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+    .content h2 {
+      margin: 34px 0 12px;
+      font-size: 1.95rem;
+      page-break-after: avoid;
+    }
+    .content h3 {
+      margin: 26px 0 10px;
+      font-size: 1.28rem;
+    }
+    .content h4 {
+      margin: 20px 0 8px;
+      font-size: 1.08rem;
+    }
+    .content p,
+    .content li,
+    .content blockquote {
+      font-size: 1rem;
+    }
+    .content p {
+      margin: 0 0 14px;
+      max-width: 68ch;
+    }
+    .content ul,
+    .content ol {
+      margin: 0 0 16px;
+      padding-left: 1.25rem;
+    }
+    .content li { margin-bottom: 8px; }
+    .content li::marker {
+      color: var(--accent);
+      font-weight: 700;
+    }
+    .content code {
+      padding: 0.14rem 0.38rem;
+      border-radius: 0.45rem;
+      background: rgba(31,109,140,0.08);
+      font-family: "Consolas", "Cascadia Mono", monospace;
+      font-size: 0.92em;
+    }
+    .content pre {
+      margin: 0 0 18px;
+      padding: 15px 17px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: #fbfcfd;
+      overflow: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .content blockquote {
+      margin: 0 0 18px;
+      padding: 14px 18px;
+      border-left: 4px solid var(--accent);
+      border-radius: 0 16px 16px 0;
+      background: rgba(196, 90, 43, 0.08);
+      color: var(--deep);
+    }
+    .content blockquote p {
+      margin: 0;
+    }
+    .content blockquote p + p {
+      margin-top: 8px;
+    }
+    .content blockquote p:first-child strong {
+      display: block;
+    }
+    .content img {
+      display: block;
+      width: min(100%, 760px);
+      margin: 14px 0 20px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: white;
+      box-shadow: 0 10px 30px rgba(17, 26, 37, 0.08);
+    }
+    .toc-panel {
+      position: sticky;
+      align-self: start;
+      top: 24px;
+      padding: 18px 18px 22px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: linear-gradient(180deg, rgba(247, 244, 239, 0.94), rgba(255,255,255,0.94));
+    }
+    .panel-label {
+      margin-bottom: 10px;
+      color: var(--muted);
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .toc-list {
+      margin: 0;
+      padding-left: 1rem;
+      display: grid;
+      gap: 8px;
+      font-size: 0.96rem;
+    }
+    .toc-level-3 {
+      margin-left: 10px;
+      color: var(--muted);
+    }
+    a {
+      color: var(--deep);
+      text-decoration-color: rgba(31,109,140,0.35);
+    }
+    @page {
+      margin: 18mm;
+      size: A4;
+    }
+    @media print {
+      html {
+        background: white;
+      }
+      .page {
+        width: auto;
+        margin: 0;
+        display: block;
+      }
+      
+      .hero {
+        display: none;
+      }
+      .article-shell {
+        padding: 0;
+        border: 0;
+        box-shadow: none;
+      }
+      .article-top {
+        margin-bottom: 18px;
+        padding-bottom: 18px;
+      }
+    
+      .article-layout {
+        display: block;
+      }
+      .title-block {
+        margin: 0 0 16px;
+        padding-bottom: 14px;
+      }
+      .title-block h1 {
+        font-size: 24pt;
+      }
+      .title-block p {
+        font-size: 11pt;
+      }
+      .toc-panel {
+        display: none;
+      }
+    }
+    @media (max-width: 980px) {
+      .page {
+        grid-template-columns: 1fr;
+      }
+      .hero,
+      .toc-panel {
+        position: relative;
+        top: auto;
+      }
+      .article-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page no-cover">
+    
+    <section class="article-shell">
+      
+      <div class="title-block">
+        <div class="title-block-eyebrow">stm32-ai-flow</div>
+        <h1>STM32 AI Flow Simple Example</h1>
+        <p>Smallest realistic first bring-up scenario for a new STM32 project on a Nucleo board.</p>
+      </div>
+    
+      <div class="article-top">
+        <div class="article-top-copy">
+          <p>Smallest realistic first bring-up scenario for a new STM32 project on a Nucleo board.</p>
+        </div>
+        <div class="marker" aria-hidden="true"></div>
+      </div>
+      <div class="article-layout">
+        <article class="content">
+          <p>This is the recommended first hands-on scenario for a new STM32 project created from the starter kit.</p>
+<p>Use it to take a real board, create a real <code>.ioc</code>, generate a real STM32 project, and reach one visible result:</p>
+<ul><li>the user LED blinks</li><li>optionally, the user button changes the blink rate</li></ul>
+<p>For a larger real-project growth example, use <code>docs/project-case-study.md</code>.</p>
+<h2 id="example-flow">Example Flow</h2>
+<p><img src="../assets/simple-example-flow.svg" alt="Simple example flow"></p>
+<h2 id="before-phase-1-check-prerequisites">Before Phase 1: Check Prerequisites</h2>
+<p>Do this before creating the project or opening STM32CubeMX.</p>
+<p>Use <code>docs/prerequisites.md</code> for the actual prerequisite list and installation guidance.</p>
+<p>Recommended prompt:</p>
+<pre><code class="language-text">Check whether this machine has the prerequisites required for the STM32 AI Flow starter kit.
+Use `docs/prerequisites.md` as the reference,
+tell me what is already installed,
+what is missing,
+and what still needs to be configured before I start the simple example.</code></pre>
+<h2 id="phase-1-create-the-project-from-the-starter-kit">Phase 1: Create the Project from the Starter Kit</h2>
+<p>Create a normal project from the public starter repo.</p>
+<p>Recommended prompt:</p>
+<pre><code class="language-text">Create a normal production project from the public starter.
+Project name: &lt;NAME&gt;
+Target root: &lt;PATH&gt;
+Workflow mode: vendored</code></pre>
+<p>After creation, the new repo should already contain the workflow layer, including:</p>
+<ul><li><code>AGENTS.md</code></li><li><code>README.md</code></li><li><code>scripts/</code></li><li><code>skills/</code></li><li><code>.github/</code></li><li>workflow docs under <code>docs/</code></li></ul>
+<p>At this stage, a new STM32 project usually does not yet have generated <code>Core/</code>, <code>Drivers/</code>, or a real <code>.ioc</code>.</p>
+<h2 id="phase-2-determine-board-facts">Phase 2: Determine Board Facts</h2>
+<h3 id="recommended-path-let-the-agent-search-first">Recommended Path: Let the Agent Search First</h3>
+<p>Start by asking the agent to identify the board facts from official ST sources.</p>
+<p>Recommended prompt:</p>
+<pre><code class="language-text">I have a NUCLEO-&lt;MODEL&gt; board. Find the board facts from official ST sources:
+MCU, user LED pin, user button pin, whether ST-LINK is present, and the recommended flashing path.
+First show the findings briefly, cite the sources, and flag any uncertainty.
+Do not generate anything until I confirm the board facts.</code></pre>
+<p>Expected result:</p>
+<pre><code class="language-text">Board: NUCLEO-...
+MCU: STM32...
+User LED: GPIOx Pin y
+User Button: GPIOx Pin y
+Flash path: ST-LINK
+Notes: ...</code></pre>
+<h3 id="fallback-path-enter-board-facts-manually">Fallback Path: Enter Board Facts Manually</h3>
+<p>If the lookup is incomplete or uncertain, provide the board facts manually.</p>
+<p>Recommended prompt:</p>
+<pre><code class="language-text">The board facts could not be determined reliably automatically.
+Use these board facts manually:
+Board: NUCLEO-&lt;MODEL&gt;
+MCU: STM32...
+LED: GPIOx Pin y
+Button: GPIOx Pin y
+Flash path: ST-LINK
+Keep these facts as the basis for the next step and prepare the CubeMX guidance.</code></pre>
+<h2 id="phase-3-create-the-real-ioc-in-stm32cubemx">Phase 3: Create the Real <code>.ioc</code> in STM32CubeMX</h2>
+<p>Use the confirmed board facts to create the STM32CubeMX project.</p>
+<p>Recommended prompt:</p>
+<pre><code class="language-text">The board facts are confirmed. Suggest the minimal STM32CubeMX setup
+for a bring-up project with LED blink and a button for the NUCLEO-&lt;MODEL&gt; board.
+Describe only the practical steps needed for this bring-up:
+board selection,
+LED and button check,
+toolchain/project generation settings,
+and code generation.</code></pre>
+<p>In STM32CubeMX:</p>
+<ol><li>Open STM32CubeMX and select your exact Nucleo board.</li><li>Check which pins are assigned to the user LED and the user button.</li><li>Most likely the LED GPIO and the Button GPIO are already configured correctly.</li><li>If one of them is not configured as expected, fix only that GPIO assignment.</li><li>Keep the board&#x27;s working clock configuration unless you have a reason to change it.</li><li>In <code>Project Manager</code>, set <code>Toolchain / IDE</code> to <code>CMake</code>.</li><li>Save the <code>.ioc</code> in the project repo.</li><li>Generate code.</li></ol>
+<p>After generation, the repo should now contain:</p>
+<ul><li>a real <code>.ioc</code></li><li><code>Core/</code></li><li><code>Drivers/</code></li><li>the normal STM32 generated tree</li></ul>
+<h2 id="phase-4-initialize-the-workflow-against-the-real-ioc">Phase 4: Initialize the Workflow Against the Real <code>.ioc</code></h2>
+<p>After the <code>.ioc</code> exists, initialize and validate the workflow.</p>
+<p>Recommended prompt:</p>
+<pre><code class="language-text">The `.ioc` now exists in the repo.
+Initialize the workflow from this `.ioc`,
+then run the toolchain, config, and doctor checks,
+and summarize anything I should review before writing application code.</code></pre>
+<p>After CubeMX code generation, ask the agent to check that the generated files and the workflow state are still aligned.</p>
+<p>Recommended prompt:</p>
+<pre><code class="language-text">The code was generated in STM32CubeMX.
+Check that the generated files are aligned with the workflow rules
+and tell me whether the generated tree is aligned now.</code></pre>
+<p>If you need the exact wrapper commands behind this step, use <code>docs/workflow-scripts.md</code>.</p>
+<h2 id="phase-5-add-the-minimal-bring-up-logic">Phase 5: Add the Minimal Bring-Up Logic</h2>
+<p>Keep <code>main.c</code> minimal and move behavior into small modules.</p>
+<p>After you ask the agent to add the first bring-up functionality, a small first set of project-owned files can be:</p>
+<pre><code class="language-text">Core/
+  Inc/
+    app.h
+    blink.h
+    board_profile.h
+  Src/
+    app.c
+    blink.c
+    main.c</code></pre>
+<p>Recommended prompt:</p>
+<pre><code class="language-text">The project was already created from the starter kit, and the `.ioc` was generated in CubeMX.
+Now add the minimal bring-up:
+make the user LED blink with a 500 ms period,
+and when the user button is pressed, change the blink period to 200 ms.
+Keep `main.c` minimal, do not break the generated sections,
+and move the logic into separate modules.</code></pre>
+<h2 id="phase-6-build-and-flash">Phase 6: Build and Flash</h2>
+<p>After the minimal bring-up logic is added, build and flash.</p>
+<p>Recommended prompt:</p>
+<pre><code class="language-text">Build the project, flash the board, and summarize the result.
+State clearly what passed, what was skipped, and what still depends on hardware validation.</code></pre>
+<p>If you want the agent to run the broader default workflow instead of only build plus flash:</p>
+<pre><code class="language-text">Run the normal development workflow for this project
+and summarize the result honestly.</code></pre>
+<h2 id="phase-7-verify-the-result">Phase 7: Verify the Result</h2>
+<p>Expected observable behavior:</p>
+<ul><li>the user LED blinks with a 500 ms period</li><li>when the user button is pressed, the blink period changes to 200 ms</li></ul>
+<p>Recommended prompt:</p>
+<pre><code class="language-text">The build and flash steps are complete. Record the minimal bring-up result:
+what should be observed on the board,
+which checks already passed,
+and what still remains unverified without additional hardware or measurements.</code></pre>
+<h2 id="quick-prompt-set">Quick Prompt Set</h2>
+<h3 id="1-board-fact-lookup">1. Board Fact Lookup</h3>
+<pre><code class="language-text">I have a NUCLEO-&lt;MODEL&gt; board. Find the board facts from official ST sources:
+MCU, user LED pin, user button pin, whether ST-LINK is present, and the recommended flashing path.
+First show the findings briefly, cite the sources, and flag any uncertainty.
+Do not generate anything until I confirm the board facts.</code></pre>
+<h3 id="2-manual-board-fact-fallback">2. Manual Board Fact Fallback</h3>
+<pre><code class="language-text">The board facts could not be determined reliably automatically.
+Use these board facts manually:
+Board: NUCLEO-&lt;MODEL&gt;
+MCU: STM32...
+LED: GPIOx Pin y
+Button: GPIOx Pin y
+Flash path: ST-LINK
+Prepare the next step for CubeMX.</code></pre>
+<h3 id="3-cubemx-setup-guidance">3. CubeMX Setup Guidance</h3>
+<pre><code class="language-text">The board facts are confirmed. Suggest the minimal STM32CubeMX setup
+for a bring-up project with LED blink and a button.
+Describe only the required practical steps.</code></pre>
+<h3 id="4-post-generation-minimal-app">4. Post-Generation Minimal App</h3>
+<pre><code class="language-text">The `.ioc` already exists and the code was generated from CubeMX.
+Now add the minimal bring-up:
+LED blink and a button to change the blink rate.
+Keep `main.c` thin and move the logic into separate modules.</code></pre>
+<h3 id="5-result-recording">5. Result Recording</h3>
+<pre><code class="language-text">Record the result of the first bring-up:
+what is already confirmed,
+what is not yet confirmed,
+and which next minimal steps are needed.</code></pre>
+        </article>
+        
+      <aside class="toc-panel">
+        <div class="panel-label">On this page</div>
+        <ol class="toc-list"><li class="toc-level-2"><a href="#example-flow">Example Flow</a></li><li class="toc-level-2"><a href="#before-phase-1-check-prerequisites">Before Phase 1: Check Prerequisites</a></li><li class="toc-level-2"><a href="#phase-1-create-the-project-from-the-starter-kit">Phase 1: Create the Project from the Starter Kit</a></li><li class="toc-level-2"><a href="#phase-2-determine-board-facts">Phase 2: Determine Board Facts</a></li><li class="toc-level-3"><a href="#recommended-path-let-the-agent-search-first">Recommended Path: Let the Agent Search First</a></li><li class="toc-level-3"><a href="#fallback-path-enter-board-facts-manually">Fallback Path: Enter Board Facts Manually</a></li><li class="toc-level-2"><a href="#phase-3-create-the-real-ioc-in-stm32cubemx">Phase 3: Create the Real `.ioc` in STM32CubeMX</a></li><li class="toc-level-2"><a href="#phase-4-initialize-the-workflow-against-the-real-ioc">Phase 4: Initialize the Workflow Against the Real `.ioc`</a></li><li class="toc-level-2"><a href="#phase-5-add-the-minimal-bring-up-logic">Phase 5: Add the Minimal Bring-Up Logic</a></li><li class="toc-level-2"><a href="#phase-6-build-and-flash">Phase 6: Build and Flash</a></li><li class="toc-level-2"><a href="#phase-7-verify-the-result">Phase 7: Verify the Result</a></li><li class="toc-level-2"><a href="#quick-prompt-set">Quick Prompt Set</a></li><li class="toc-level-3"><a href="#1-board-fact-lookup">1. Board Fact Lookup</a></li><li class="toc-level-3"><a href="#2-manual-board-fact-fallback">2. Manual Board Fact Fallback</a></li><li class="toc-level-3"><a href="#3-cubemx-setup-guidance">3. CubeMX Setup Guidance</a></li><li class="toc-level-3"><a href="#4-post-generation-minimal-app">4. Post-Generation Minimal App</a></li><li class="toc-level-3"><a href="#5-result-recording">5. Result Recording</a></li></ol>
+      </aside>
+    
+      </div>
+    </section>
+  </div>
+</body>
+</html>
