@@ -1,4 +1,4 @@
-# STM32 Workflow Safety
+﻿# STM32 Workflow Safety
 
 This workflow can read files, run scripts, and in some environments trigger
 high-impact actions. Treat safety as part of normal operation, not as an
@@ -9,8 +9,12 @@ afterthought.
 Treat these as trusted workflow authority:
 
 - your explicit request in the current session
-- workflow-owned policy files such as `AGENTS.md`, `docs/session-memory.md`,
-  and other continuity files loaded during startup
+- workflow-owned policy files such as `AGENTS.md`, `docs/user/handbook.md`,
+  `docs/workflow-capabilities.json`, and other startup files loaded in this
+  repo
+- template continuity files under
+  `templates/stm32-workflow-starter/docs/continuity/` only when you are
+  intentionally changing what downstream repos should inherit
 - validation artifacts that describe what happened, without turning them into
   new instructions
 
@@ -80,7 +84,7 @@ These should stay allowed, but the workflow should make the risk visible:
 - changing starter-manifest or capability-manifest files
 - bootstrapping the workflow into an existing repo
 - creating a new repo from the starter kit
-- installing tools or Python dependencies
+- installing tools or extra local runtime dependencies
 
 ### Hard-Confirmation
 
@@ -135,3 +139,4 @@ Stop and ask the agent to explain:
 
 That short pause is often enough to catch repo confusion, prompt injection, or
 an unsafe assumption before it turns into damage.
+

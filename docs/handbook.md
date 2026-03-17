@@ -1,4 +1,4 @@
-# STM32 AI Flow Handbook
+﻿# STM32 AI Flow Handbook
 
 > WORKFLOW-OWNED: This handbook is part of the STM32 workflow layer. Edit it
 > intentionally and keep it aligned with `AGENTS.md` and the workflow skill.
@@ -13,14 +13,14 @@ Use this file when you want the shortest practical answer to:
 - where do I look for evidence
 
 If you want explanation, tradeoffs, and onboarding guidance, use
-`docs/user-manual.md`.
+`docs/user/user-manual.md`.
 
 If you want the short safety rules for trusted input, repo boundaries, and
-high-risk actions, use `docs/workflow-safety.md`.
+high-risk actions, use `docs/reference/workflow-safety.md`.
 
 > **Use this file as the task view**
 > Read this handbook when you want the shortest operational path.
-> Read `docs/user-manual.md` when you need explanation, tradeoffs, or onboarding context.
+> Read `docs/user/user-manual.md` when you need explanation, tradeoffs, or onboarding context.
 
 ## The Quickest First Win
 
@@ -35,10 +35,10 @@ That first pass is enough to prove whether the machine, repo, and workflow path
 are coherent before you invest in product work.
 
 If you want the smallest practical first bring-up, read
-`docs/simple-example.md`.
+`docs/user/simple-example.md`.
 
 If you want one concrete example of what that kind of workflow can later grow
-into, read `docs/project-case-study.md`.
+into, read `docs/user/project-case-study.md`.
 
 ## Environment Assumption
 
@@ -72,10 +72,9 @@ Keep the active context small:
 
 - `README.md`
 - `AGENTS.md`
-- `docs/handbook.md`
-- `docs/current-state.md`
-- `docs/session-memory.md`
-- `docs/progress.md`
+- `docs/user/handbook.md`
+- `docs/reference/workflow-safety.md`
+- `docs/workflow-capabilities.json`
 - `skills/stm32-agent-mode/SKILL.md`
 
 Everything else is reference material.
@@ -106,10 +105,10 @@ Operator note:
   confirmation, or the intended action is genuinely unclear
 
 If you want a short guide for writing better prompts, use
-`docs/agent-communication-guide.md`.
+`docs/user/agent-communication-guide.md`.
 
 Before high-risk actions such as installs, bootstrap, cross-repo edits, or
-pushes, review `docs/workflow-safety.md`.
+pushes, review `docs/reference/workflow-safety.md`.
 
 If code was generated manually in CubeMX, insert this before the normal loop:
 
@@ -129,7 +128,7 @@ Core user workflow:
 - `.ioc` initialization and consistency checks
 - build and flash
 - reconcile after manual CubeMX generation
-- continuity files and run evidence
+- seeded downstream continuity files and run evidence
 
 Because this repo is itself the public starter kit, maintainers also keep
 packaging safeguards such as lint, starter self-test, and hardware-light CI in
@@ -170,8 +169,14 @@ Practical note:
 - some projects may choose a different flashing backend such as the MCU's
   built-in bootloader over DFU/UART/USB, but that is a project-specific
   workflow decision rather than the default path here
+- the public starter no longer carries the removed non-core helper tooling or
+  its local refresh commands; keep starter use centered on the core workflow
+  plus CLI monitoring when needed
 - docs-only public export now belongs to the maintainer repo rather than this
   public starter surface
+- in `central` mode, downstream repos still keep local startup docs,
+  continuity files, capability metadata, and skills; only the workflow script
+  implementation stays centralized behind local wrappers
 
 CubeIDE coexistence note:
 
@@ -190,7 +195,7 @@ That means:
 - project behavior stays in modules, not generated glue
 
 If you need the full generated-file contract, use
-`docs/cubemx-user-code-contract.md`.
+`docs/reference/cubemx-user-code-contract.md`.
 
 ## What Counts As Success
 
@@ -214,26 +219,31 @@ They are advisory, not a passing build result.
 
 ## Where To Look After A Run
 
-Primary evidence:
+Primary evidence in this public starter repo:
 
-- `docs/current-state.md`
-- `docs/progress.md`
+- `docs/workflow-capabilities.json`
+- `scripts/stm32-starter-manifest.json`
 
 Workflow metadata:
 
 - `docs/workflow-capabilities.json`
 
+Seeded downstream repos then use:
+
+- `docs/agent-state.json`
+- `docs/agent-history.jsonl`
+
 ## When To Open Other Docs
 
 Open these only when the task needs them:
 
-- `docs/user-manual.md` for onboarding and decision guidance
-- `docs/simple-example.md` for the smallest concrete first-run scenario
-- `docs/project-case-study.md` for a larger real-project growth example
-- `docs/optional-modules.md` for core-versus-optional choices
-- `docs/workflow-topology.md` for vendored-versus-central layout
-- `docs/workflow-scripts.md` for exact commands
-- `docs/cubemx-new-project-onboarding.md` for new-project setup
-- `docs/migrating-existing-cubeide-cubemx-projects.md` for adoption work
-- `docs/maintainer-guide.md` for maintainer-only workflow operations
-- `docs/decisions.md`, `docs/open-issues.md`, and `docs/board-notes.md` only when the task needs deeper context
+- `docs/user/user-manual.md` for onboarding and decision guidance
+- `docs/user/simple-example.md` for the smallest concrete first-run scenario
+- `docs/user/project-case-study.md` for a larger real-project growth example
+- `docs/reference/optional-modules.md` for core-versus-optional choices
+- `docs/guides/workflow-topology.md` for vendored-versus-central layout
+- `docs/reference/workflow-scripts.md` for exact commands
+- `docs/guides/cubemx-new-project-onboarding.md` for new-project setup
+- `docs/guides/migrating-existing-cubeide-cubemx-projects.md` for adoption work
+- `templates/stm32-workflow-starter/docs/agent-state.json` and `templates/stm32-workflow-starter/docs/agent-history.jsonl` only when you are changing what seeded downstream repos should inherit
+

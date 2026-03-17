@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>STM32 AI Flow Simple Example</title>
+  <title>Document</title>
   <style>
     :root {
       --accent: #1f6d8c;
@@ -340,7 +340,7 @@
       
       <div class="title-block">
         <div class="title-block-eyebrow">stm32-ai-flow</div>
-        <h1>STM32 AI Flow Simple Example</h1>
+        <h1>Document</h1>
         <p>Smallest realistic first bring-up scenario for a new STM32 project on a Nucleo board.</p>
       </div>
     
@@ -352,18 +352,19 @@
       </div>
       <div class="article-layout">
         <article class="content">
-          <p>This is the recommended first hands-on scenario for a new STM32 project created from the starter kit.</p>
+          <p>﻿# STM32 AI Flow Simple Example</p>
+<p>This is the recommended first hands-on scenario for a new STM32 project created from the starter kit.</p>
 <p>Use it to take a real board, create a real <code>.ioc</code>, generate a real STM32 project, and reach one visible result:</p>
 <ul><li>the user LED blinks</li><li>optionally, the user button changes the blink rate</li></ul>
-<p>For a larger real-project growth example, use <code>docs/project-case-study.md</code>.</p>
+<p>For a larger real-project growth example, use <code>docs/user/project-case-study.md</code>.</p>
 <h2 id="example-flow">Example Flow</h2>
-<p><img src="../assets/simple-example-flow.svg" alt="Simple example flow"></p>
+<p><img src="../user/assets/simple-example-flow.svg" alt="Simple example flow"></p>
 <h2 id="before-phase-1-check-prerequisites">Before Phase 1: Check Prerequisites</h2>
 <p>Do this before creating the project or opening STM32CubeMX.</p>
-<p>Use <code>docs/prerequisites.md</code> for the actual prerequisite list and installation guidance.</p>
+<p>Use <code>docs/user/prerequisites.md</code> for the actual prerequisite list and installation guidance.</p>
 <p>Recommended prompt:</p>
 <pre><code class="language-text">Check whether this machine has the prerequisites required for the STM32 AI Flow starter kit.
-Use `docs/prerequisites.md` as the reference,
+Use `docs/user/prerequisites.md` as the reference,
 tell me what is already installed,
 what is missing,
 and what still needs to be configured before I start the simple example.</code></pre>
@@ -429,7 +430,7 @@ and summarize anything I should review before writing application code.</code></
 <pre><code class="language-text">The code was generated in STM32CubeMX.
 Check that the generated files are aligned with the workflow rules
 and tell me whether the generated tree is aligned now.</code></pre>
-<p>If you need the exact wrapper commands behind this step, use <code>docs/workflow-scripts.md</code>.</p>
+<p>If you need the exact wrapper commands behind this step, use <code>docs/reference/workflow-scripts.md</code>.</p>
 <h2 id="phase-5-add-the-minimal-bring-up-logic">Phase 5: Add the Minimal Bring-Up Logic</h2>
 <p>Keep <code>main.c</code> minimal and move behavior into small modules.</p>
 <p>After you ask the agent to add the first bring-up functionality, a small first set of project-owned files can be:</p>

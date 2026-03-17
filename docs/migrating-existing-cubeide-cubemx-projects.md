@@ -81,12 +81,11 @@ If you want CubeIDE debug features without dual-build drift:
 5. If board defaults injected unrelated IP, ask the agent to prune the unused `.ioc` defaults.
 6. Ask the agent to run the generated-user-code guard before DONE.
 7. If `.ioc` update is blocked, stop before non-USER-block config edits and notify user.
-8. Follow `docs/cubemx-user-code-contract.md`.
+8. Follow `docs/reference/cubemx-user-code-contract.md`.
 9. Enable optional modules one at a time:
 - `cubemx-prebuild`
 - `serial-validation`
 - `live-serial-cli`
-- `live-serial-dashboard`
 
 ## Validation Milestones
 
@@ -117,5 +116,6 @@ If CubeMX reports that your `.ioc` requires a version earlier than 6.5:
 - set `artifact.path` to an existing firmware artifact built by your current toolchain
 - ask the agent to run validation and flashing against that existing artifact
 
-For exact commands, use `docs/workflow-scripts.md`.
+For exact commands, use `docs/reference/workflow-scripts.md`.
+
 

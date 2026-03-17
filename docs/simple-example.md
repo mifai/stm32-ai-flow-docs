@@ -1,4 +1,4 @@
-# STM32 AI Flow Simple Example
+﻿# STM32 AI Flow Simple Example
 
 This is the recommended first hands-on scenario for a new STM32 project
 created from the starter kit.
@@ -9,7 +9,7 @@ project, and reach one visible result:
 - the user LED blinks
 - optionally, the user button changes the blink rate
 
-For a larger real-project growth example, use `docs/project-case-study.md`.
+For a larger real-project growth example, use `docs/user/project-case-study.md`.
 
 ## Example Flow
 
@@ -19,14 +19,14 @@ For a larger real-project growth example, use `docs/project-case-study.md`.
 
 Do this before creating the project or opening STM32CubeMX.
 
-Use `docs/prerequisites.md` for the actual prerequisite list and installation
+Use `docs/user/prerequisites.md` for the actual prerequisite list and installation
 guidance.
 
 Recommended prompt:
 
 ```text
 Check whether this machine has the prerequisites required for the STM32 AI Flow starter kit.
-Use `docs/prerequisites.md` as the reference,
+Use `docs/user/prerequisites.md` as the reference,
 tell me what is already installed,
 what is missing,
 and what still needs to be configured before I start the simple example.
@@ -160,7 +160,7 @@ and tell me whether the generated tree is aligned now.
 ```
 
 If you need the exact wrapper commands behind this step, use
-`docs/workflow-scripts.md`.
+`docs/reference/workflow-scripts.md`.
 
 ## Phase 5: Add the Minimal Bring-Up Logic
 
@@ -276,3 +276,4 @@ what is already confirmed,
 what is not yet confirmed,
 and which next minimal steps are needed.
 ```
+

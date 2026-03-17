@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>STM32 AI Flow Handbook</title>
+  <title>Document</title>
   <style>
     :root {
       --accent: #1f6d8c;
@@ -340,7 +340,7 @@
       
       <div class="title-block">
         <div class="title-block-eyebrow">stm32-ai-flow</div>
-        <h1>STM32 AI Flow Handbook</h1>
+        <h1>Document</h1>
         <p>Compact operator reference for the STM32 workflow starter kit.</p>
       </div>
     
@@ -352,19 +352,20 @@
       </div>
       <div class="article-layout">
         <article class="content">
-          <blockquote><p>WORKFLOW-OWNED: This handbook is part of the STM32 workflow layer. Edit it</p><p>intentionally and keep it aligned with <code>AGENTS.md</code> and the workflow skill.</p></blockquote>
+          <p>﻿# STM32 AI Flow Handbook</p>
+<blockquote><p>WORKFLOW-OWNED: This handbook is part of the STM32 workflow layer. Edit it</p><p>intentionally and keep it aligned with <code>AGENTS.md</code> and the workflow skill.</p></blockquote>
 <p>This is the operator guide for the starter kit.</p>
 <p>Use this file when you want the shortest practical answer to:</p>
 <ul><li>what should I read first</li><li>what does a normal session look like</li><li>what is core</li><li>where do I look for evidence</li></ul>
-<p>If you want explanation, tradeoffs, and onboarding guidance, use <code>docs/user-manual.md</code>.</p>
-<p>If you want the short safety rules for trusted input, repo boundaries, and high-risk actions, use <code>docs/workflow-safety.md</code>.</p>
-<blockquote><p><strong>Use this file as the task view</strong></p><p>Read this handbook when you want the shortest operational path.</p><p>Read <code>docs/user-manual.md</code> when you need explanation, tradeoffs, or onboarding context.</p></blockquote>
+<p>If you want explanation, tradeoffs, and onboarding guidance, use <code>docs/user/user-manual.md</code>.</p>
+<p>If you want the short safety rules for trusted input, repo boundaries, and high-risk actions, use <code>docs/reference/workflow-safety.md</code>.</p>
+<blockquote><p><strong>Use this file as the task view</strong></p><p>Read this handbook when you want the shortest operational path.</p><p>Read <code>docs/user/user-manual.md</code> when you need explanation, tradeoffs, or onboarding context.</p></blockquote>
 <h2 id="the-quickest-first-win">The Quickest First Win</h2>
 <p>If you want the fastest proof that this workflow is worth using:</p>
 <ol><li>check toolchain and board readiness</li><li>initialize config from <code>.ioc</code></li><li>run the normal development workflow once</li><li>review the recorded evidence</li></ol>
 <p>That first pass is enough to prove whether the machine, repo, and workflow path are coherent before you invest in product work.</p>
-<p>If you want the smallest practical first bring-up, read <code>docs/simple-example.md</code>.</p>
-<p>If you want one concrete example of what that kind of workflow can later grow into, read <code>docs/project-case-study.md</code>.</p>
+<p>If you want the smallest practical first bring-up, read <code>docs/user/simple-example.md</code>.</p>
+<p>If you want one concrete example of what that kind of workflow can later grow into, read <code>docs/user/project-case-study.md</code>.</p>
 <h2 id="environment-assumption">Environment Assumption</h2>
 <p>This workflow is repo-native, not VS Code specific. It is intended primarily for Windows today.</p>
 <p>It works best in an agent environment that can:</p>
@@ -376,7 +377,7 @@
 <ul><li>build-oriented use can be ported to Linux or macOS</li><li>full parity still needs the Windows-specific install, discovery, and export assumptions to be replaced</li><li>the workflow is git-host neutral; <code>.github/workflows/ci.yml</code> is the provided CI example, not a GitHub lock-in</li></ul>
 <h2 id="read-these-first">Read These First</h2>
 <p>Keep the active context small:</p>
-<ul><li><code>README.md</code></li><li><code>AGENTS.md</code></li><li><code>docs/handbook.md</code></li><li><code>docs/current-state.md</code></li><li><code>docs/session-memory.md</code></li><li><code>docs/progress.md</code></li><li><code>skills/stm32-agent-mode/SKILL.md</code></li></ul>
+<ul><li><code>README.md</code></li><li><code>AGENTS.md</code></li><li><code>docs/user/handbook.md</code></li><li><code>docs/reference/workflow-safety.md</code></li><li><code>docs/workflow-capabilities.json</code></li><li><code>skills/stm32-agent-mode/SKILL.md</code></li></ul>
 <p>Everything else is reference material.</p>
 <blockquote><p><strong>Do not load everything by default</strong></p><p>The startup set is intentionally small. Open deeper docs only when the task actually needs them.</p></blockquote>
 <h2 id="normal-session">Normal Session</h2>
@@ -386,27 +387,27 @@
 <ul><li>&quot;Check whether the STM32 workflow prerequisites and board connection are ready.&quot;</li><li>&quot;Initialize workflow config from this <code>.ioc</code>.&quot;</li><li>&quot;Run the normal development workflow for this project.&quot;</li></ul>
 <p>Operator note:</p>
 <ul><li>when the agent has shell access to this repo, it should run the relevant scripts and checks itself rather than asking the user to do that work</li><li>ask the user only when the agent is blocked, a high-risk action needs confirmation, or the intended action is genuinely unclear</li></ul>
-<p>If you want a short guide for writing better prompts, use <code>docs/agent-communication-guide.md</code>.</p>
-<p>Before high-risk actions such as installs, bootstrap, cross-repo edits, or pushes, review <code>docs/workflow-safety.md</code>.</p>
+<p>If you want a short guide for writing better prompts, use <code>docs/user/agent-communication-guide.md</code>.</p>
+<p>Before high-risk actions such as installs, bootstrap, cross-repo edits, or pushes, review <code>docs/reference/workflow-safety.md</code>.</p>
 <p>If code was generated manually in CubeMX, insert this before the normal loop:</p>
 <pre><code class="language-powershell">powershell -NoProfile -ExecutionPolicy Bypass -File scripts/stm32.ps1 reconcile -ConfigPath .\stm32-workflow.local.json</code></pre>
 <blockquote><p><strong>Important</strong></p><p>Manual CubeMX generation is not the end of the workflow step. Reconcile before you build, flash, or claim the generated tree is aligned.</p></blockquote>
 <h2 id="what-the-workflow-covers">What The Workflow Covers</h2>
 <p>Core user workflow:</p>
-<ul><li>toolchain and config validation</li><li>doctor preflight</li><li><code>.ioc</code> initialization and consistency checks</li><li>build and flash</li><li>reconcile after manual CubeMX generation</li><li>continuity files and run evidence</li></ul>
+<ul><li>toolchain and config validation</li><li>doctor preflight</li><li><code>.ioc</code> initialization and consistency checks</li><li>build and flash</li><li>reconcile after manual CubeMX generation</li><li>seeded downstream continuity files and run evidence</li></ul>
 <p>Because this repo is itself the public starter kit, maintainers also keep packaging safeguards such as lint, starter self-test, and hardware-light CI in place. Treat those as repo-level protection for the kit, not as part of the normal downstream user loop.</p>
 <p>Optional modules:</p>
 <ul><li>serial validation and live monitoring</li><li>IOC profile automation</li><li>debug tooling</li><li>migration aids and other heavier helpers</li></ul>
 <p>Use the core by default. Add optional modules only when they remove real repeated work in a downstream repo.</p>
 <p>Practical note:</p>
-<ul><li><code>scripts/stm32.ps1 doctor</code> now does a short STM32/ST-LINK rescan when the first hardware probe is empty and reports last-known hardware context from <code>docs/last-device-state.json</code> or workflow run history when available</li><li><code>validation_policy</code> in workflow config now makes flash and serial gates explicit, so missing targets can either fail early with a clear message or skip cleanly for hardware-light runs</li><li><code>scripts/stm32.ps1 hal-suggest</code> now checks <code>.ioc</code>-enabled peripherals against the local HAL driver tree and suggests exact <code>hal-sync</code> commands after <code>reconcile</code> and before <code>build</code> when likely module gaps are found</li><li><code>scripts/stm32.ps1 browser-diag</code> now classifies live browser processes so it is easy to tell normal Edge usage from Edge headless PDF export and STM32CubeMX JxBrowser Chromium trees</li><li><code>scripts/stm32-ioc-consistency-check.ps1</code> now accepts valid CubeMX PLL source alias variants when the present keys agree, reducing false-positive clock warnings</li><li><code>scripts/stm32.ps1 reconcile</code> now reports what it actually restored versus what was already aligned, plus the current <code>.ioc</code> warning/error summary</li><li>the default <code>flash</code> stage requires a connected supported programming probe visible to STM32CubeProgrammer; in this workflow today that means ST-LINK unless a project deliberately adds another flash path</li><li>some projects may choose a different flashing backend such as the MCU&#x27;s built-in bootloader over DFU/UART/USB, but that is a project-specific workflow decision rather than the default path here</li><li>docs-only public export now belongs to the maintainer repo rather than this public starter surface</li></ul>
+<ul><li><code>scripts/stm32.ps1 doctor</code> now does a short STM32/ST-LINK rescan when the first hardware probe is empty and reports last-known hardware context from <code>docs/last-device-state.json</code> or workflow run history when available</li><li><code>validation_policy</code> in workflow config now makes flash and serial gates explicit, so missing targets can either fail early with a clear message or skip cleanly for hardware-light runs</li><li><code>scripts/stm32.ps1 hal-suggest</code> now checks <code>.ioc</code>-enabled peripherals against the local HAL driver tree and suggests exact <code>hal-sync</code> commands after <code>reconcile</code> and before <code>build</code> when likely module gaps are found</li><li><code>scripts/stm32.ps1 browser-diag</code> now classifies live browser processes so it is easy to tell normal Edge usage from Edge headless PDF export and STM32CubeMX JxBrowser Chromium trees</li><li><code>scripts/stm32-ioc-consistency-check.ps1</code> now accepts valid CubeMX PLL source alias variants when the present keys agree, reducing false-positive clock warnings</li><li><code>scripts/stm32.ps1 reconcile</code> now reports what it actually restored versus what was already aligned, plus the current <code>.ioc</code> warning/error summary</li><li>the default <code>flash</code> stage requires a connected supported programming probe visible to STM32CubeProgrammer; in this workflow today that means ST-LINK unless a project deliberately adds another flash path</li><li>some projects may choose a different flashing backend such as the MCU&#x27;s built-in bootloader over DFU/UART/USB, but that is a project-specific workflow decision rather than the default path here</li><li>the public starter no longer carries the removed non-core helper tooling or its local refresh commands; keep starter use centered on the core workflow plus CLI monitoring when needed</li><li>docs-only public export now belongs to the maintainer repo rather than this public starter surface</li><li>in <code>central</code> mode, downstream repos still keep local startup docs, continuity files, capability metadata, and skills; only the workflow script implementation stays centralized behind local wrappers</li></ul>
 <p>CubeIDE coexistence note:</p>
 <ul><li>coexistence is supported</li><li>the preferred hybrid mode is CMake/workflow for build outputs and CubeIDE for debug/inspection</li><li>avoid running two separate build systems in parallel unless the project really needs that complexity</li></ul>
 <h2 id="ioc-rule"><code>.ioc</code> Rule</h2>
 <p>If the project is CubeMX-managed, <code>.ioc</code> is the configuration source of truth.</p>
 <p>That means:</p>
 <ul><li>configuration changes start in <code>.ioc</code></li><li>generated code is regenerated rather than hand-edited outside USER CODE blocks</li><li>project behavior stays in modules, not generated glue</li></ul>
-<p>If you need the full generated-file contract, use <code>docs/cubemx-user-code-contract.md</code>.</p>
+<p>If you need the full generated-file contract, use <code>docs/reference/cubemx-user-code-contract.md</code>.</p>
 <h2 id="what-counts-as-success">What Counts As Success</h2>
 <p>A clean result says which enabled stages passed:</p>
 <ul><li>validation</li><li>build</li><li>flash</li><li>serial validation</li></ul>
@@ -415,13 +416,15 @@
 <p>If <code>reconcile</code> or <code>workflow</code> reports HAL sync suggestions, report those too. They are advisory, not a passing build result.</p>
 <blockquote><p><strong>Reporting rule</strong></p><p>Do not compress &quot;build passed&quot; into &quot;workflow passed&quot; unless the other enabled stages also passed.</p></blockquote>
 <h2 id="where-to-look-after-a-run">Where To Look After A Run</h2>
-<p>Primary evidence:</p>
-<ul><li><code>docs/current-state.md</code></li><li><code>docs/progress.md</code></li></ul>
+<p>Primary evidence in this public starter repo:</p>
+<ul><li><code>docs/workflow-capabilities.json</code></li><li><code>scripts/stm32-starter-manifest.json</code></li></ul>
 <p>Workflow metadata:</p>
 <ul><li><code>docs/workflow-capabilities.json</code></li></ul>
+<p>Seeded downstream repos then use:</p>
+<ul><li><code>docs/agent-state.json</code></li><li><code>docs/agent-history.jsonl</code></li></ul>
 <h2 id="when-to-open-other-docs">When To Open Other Docs</h2>
 <p>Open these only when the task needs them:</p>
-<ul><li><code>docs/user-manual.md</code> for onboarding and decision guidance</li><li><code>docs/simple-example.md</code> for the smallest concrete first-run scenario</li><li><code>docs/project-case-study.md</code> for a larger real-project growth example</li><li><code>docs/optional-modules.md</code> for core-versus-optional choices</li><li><code>docs/workflow-topology.md</code> for vendored-versus-central layout</li><li><code>docs/workflow-scripts.md</code> for exact commands</li><li><code>docs/cubemx-new-project-onboarding.md</code> for new-project setup</li><li><code>docs/migrating-existing-cubeide-cubemx-projects.md</code> for adoption work</li><li><code>docs/maintainer-guide.md</code> for maintainer-only workflow operations</li><li><code>docs/decisions.md</code>, <code>docs/open-issues.md</code>, and <code>docs/board-notes.md</code> only when the task needs deeper context</li></ul>
+<ul><li><code>docs/user/user-manual.md</code> for onboarding and decision guidance</li><li><code>docs/user/simple-example.md</code> for the smallest concrete first-run scenario</li><li><code>docs/user/project-case-study.md</code> for a larger real-project growth example</li><li><code>docs/reference/optional-modules.md</code> for core-versus-optional choices</li><li><code>docs/guides/workflow-topology.md</code> for vendored-versus-central layout</li><li><code>docs/reference/workflow-scripts.md</code> for exact commands</li><li><code>docs/guides/cubemx-new-project-onboarding.md</code> for new-project setup</li><li><code>docs/guides/migrating-existing-cubeide-cubemx-projects.md</code> for adoption work</li><li><code>templates/stm32-workflow-starter/docs/agent-state.json</code> and <code>templates/stm32-workflow-starter/docs/agent-history.jsonl</code> only when you are changing what seeded downstream repos should inherit</li></ul>
         </article>
         
       <aside class="toc-panel">

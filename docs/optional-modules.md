@@ -39,15 +39,14 @@ Do not enable it just because it is available.
 
 | Module | Purpose | When To Choose It | Docs |
 |---|---|---|---|
-| `cubemx-prebuild` | Regenerate project code from `.ioc` before build | Choose it when `.ioc` should drive each build automatically and the repo accepts regeneration in the loop. | `docs/cubemx-new-project-onboarding.md` |
+| `cubemx-prebuild` | Regenerate project code from `.ioc` before build | Choose it when `.ioc` should drive each build automatically and the repo accepts regeneration in the loop. | `docs/guides/cubemx-new-project-onboarding.md` |
 | `ioc-profile-automation` | Reusable `.ioc` feature rollouts via learned profiles | Choose it when you repeat the same peripheral or middleware patterns across repos or boards. | `docs/ioc-profiles/README.md` |
-| `firmware-quality-gates` | Design-time quality gates for timer math, mode semantics, ISR safety, and integer overflow handling | Choose it when you want a stricter engineering checklist without making it mandatory for every seed consumer. | `docs/firmware-quality-gates.md` |
-| `serial-validation` | Validate runtime serial response in workflow | Choose it when the board exposes a stable serial contract worth gating. | `docs/serial-troubleshooting.md` |
-| `live-serial-cli` | Stream serial output to terminal and log | Choose it when bring-up and diagnosis benefit from continuous serial observation. | `docs/workflow-scripts.md` |
-| `live-serial-dashboard` | Browser-based live serial UI with send API | Choose it when a lightweight operator dashboard is more useful than a plain terminal. | `docs/workflow-scripts.md` |
-| `openocd-gdb-debug` | Interactive halt/step/breakpoint debugging over ST-LINK | Choose it when logs and protocol checks are no longer enough to find the problem. | `docs/workflow-scripts.md` |
-| `freertos-cubemx-flow` | FreeRTOS projects managed via CubeMX generation | Choose it when the project really uses FreeRTOS and wants CubeMX to stay authoritative. | `docs/cubemx-new-project-onboarding.md` |
-| `existing-project-migration` | Adopt workflow in an existing CubeIDE/CubeMX repository in phases | Choose it when you need to introduce the workflow without a disruptive full migration. | `docs/migrating-existing-cubeide-cubemx-projects.md` |
+| `firmware-quality-gates` | Design-time quality gates for timer math, mode semantics, ISR safety, and integer overflow handling | Choose it when you want a stricter engineering checklist without making it mandatory for every seed consumer. | `docs/reference/firmware-quality-gates.md` |
+| `serial-validation` | Validate runtime serial response in workflow | Choose it when the board exposes a stable serial contract worth gating. | `docs/reference/serial-troubleshooting.md` |
+| `live-serial-cli` | Stream serial output to terminal and log | Choose it when bring-up and diagnosis benefit from continuous serial observation. | `docs/reference/workflow-scripts.md` |
+| `openocd-gdb-debug` | Interactive halt/step/breakpoint debugging over ST-LINK | Choose it when logs and protocol checks are no longer enough to find the problem. | `docs/reference/workflow-scripts.md` |
+| `freertos-cubemx-flow` | FreeRTOS projects managed via CubeMX generation | Choose it when the project really uses FreeRTOS and wants CubeMX to stay authoritative. | `docs/guides/cubemx-new-project-onboarding.md` |
+| `existing-project-migration` | Adopt workflow in an existing CubeIDE/CubeMX repository in phases | Choose it when you need to introduce the workflow without a disruptive full migration. | `docs/guides/migrating-existing-cubeide-cubemx-projects.md` |
 
 ## What To Choose
 
@@ -69,4 +68,5 @@ Add optional modules when:
 2. Add module usage notes in docs.
 3. Add one row to this registry with `Module`, `Purpose`, `When To Choose It`, and `Docs`.
 4. Keep module opt-in by default unless it belongs in the core workflow.
+
 

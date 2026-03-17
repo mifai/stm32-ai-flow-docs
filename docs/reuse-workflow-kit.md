@@ -43,7 +43,7 @@ For an existing repository, the normal flow is:
 3. Ask the agent to bootstrap the STM32 workflow kit into the current repo from
    that local starter-kit copy.
 4. If the target repo already has its own `AGENTS.md`, merge the copied
-   `AGENTS.stm32-agentic.md` guidance intentionally instead of overwriting local
+   `stm32-workflow-agents-fragment.md` guidance intentionally instead of overwriting local
    policy blindly.
 
 The normal request is:
@@ -59,21 +59,17 @@ Options:
 
 ## Post-Install Checklist
 
-1. Merge `AGENTS.stm32-agentic.md` into target `AGENTS.md`.
+1. Merge `stm32-workflow-agents-fragment.md` into target `AGENTS.md`.
 2. Confirm grouped docs are present:
    - `docs/README.md`
-   - `docs/current-state.md`
-   - `docs/session-memory.md`
-   - `docs/progress.md`
-   - `docs/decisions.md`
-   - `docs/open-issues.md`
-   - `docs/board-notes.md`
+   - `docs/agent-state.json`
+   - `docs/agent-history.jsonl`
 3. Validate prerequisites in target repo.
 4. Generate target config from `.ioc`.
 5. Run minimal workflow and confirm artifacts.
-6. Enable optional modules from `docs/optional-modules.md` only as needed.
+6. Enable optional modules from `docs/reference/optional-modules.md` only as needed.
 7. If target repo is an existing CubeIDE/CubeMX project, follow:
-   `docs/migrating-existing-cubeide-cubemx-projects.md`
+   `docs/guides/migrating-existing-cubeide-cubemx-projects.md`
 8. If using central mode, pin and review `.stm32-agentic-central.json`.
 
 ## Update Strategy
@@ -83,7 +79,8 @@ Options:
 3. In vendored mode projects, re-run bootstrap with `-Overwrite`.
 4. Keep downstream board-specific configs and firmware local to each project.
 
-For exact bootstrap and creation commands, use `docs/workflow-scripts.md`.
+For exact bootstrap and creation commands, use `docs/reference/workflow-scripts.md`.
 
-For maintainer-only workflow update policy, use `docs/maintainer-guide.md`.
+For maintainer-only workflow update policy, use the separate maintainer repo rather than this public starter repo.
+
 

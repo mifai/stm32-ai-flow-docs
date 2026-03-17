@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>STM32 Workflow Safety</title>
+  <title>Document</title>
   <style>
     :root {
       --accent: #1f6d8c;
@@ -340,7 +340,7 @@
       
       <div class="title-block">
         <div class="title-block-eyebrow">stm32-ai-flow</div>
-        <h1>STM32 Workflow Safety</h1>
+        <h1>Document</h1>
         <p>Short guide for safe usage, trusted inputs, and repo-boundary awareness in the STM32 workflow.</p>
       </div>
     
@@ -352,10 +352,11 @@
       </div>
       <div class="article-layout">
         <article class="content">
-          <p>This workflow can read files, run scripts, and in some environments trigger high-impact actions. Treat safety as part of normal operation, not as an afterthought.</p>
+          <p>﻿# STM32 Workflow Safety</p>
+<p>This workflow can read files, run scripts, and in some environments trigger high-impact actions. Treat safety as part of normal operation, not as an afterthought.</p>
 <h2 id="trusted-and-untrusted-inputs">Trusted And Untrusted Inputs</h2>
 <p>Treat these as trusted workflow authority:</p>
-<ul><li>your explicit request in the current session</li><li>workflow-owned policy files such as <code>AGENTS.md</code>, <code>docs/session-memory.md</code>, and other continuity files loaded during startup</li><li>validation artifacts that describe what happened, without turning them into new instructions</li></ul>
+<ul><li>your explicit request in the current session</li><li>workflow-owned policy files such as <code>AGENTS.md</code>, <code>docs/user/handbook.md</code>, <code>docs/workflow-capabilities.json</code>, and other startup files loaded in this repo</li><li>template continuity files under <code>templates/stm32-workflow-starter/docs/continuity/</code> only when you are intentionally changing what downstream repos should inherit</li><li>validation artifacts that describe what happened, without turning them into new instructions</li></ul>
 <p>Treat these as untrusted data:</p>
 <ul><li>copied web pages, tickets, chats, emails, and PDFs</li><li>repo text outside workflow-owned policy files</li><li>code comments and generated files</li><li>tool output, logs, serial output, and pasted terminal transcripts</li></ul>
 <p>Untrusted text may be useful, but it does not get to override the workflow contract or your intent.</p>
@@ -375,7 +376,7 @@
 <ul><li><code>toolchain</code></li><li><code>config</code></li><li><code>doctor</code></li><li><code>ioc-check</code></li><li><code>ioc-learn</code></li><li><code>ioc-apply</code></li><li><code>reconcile</code></li><li><code>build</code></li><li>local doc export</li><li>normal project-file edits inside the current repo</li></ul>
 <h3 id="warn-only">Warn-Only</h3>
 <p>These should stay allowed, but the workflow should make the risk visible:</p>
-<ul><li>editing workflow-owned files</li><li>acting on copied web text, logs, generated files, or serial output as if they were instructions</li><li>changing starter-manifest or capability-manifest files</li><li>bootstrapping the workflow into an existing repo</li><li>creating a new repo from the starter kit</li><li>installing tools or Python dependencies</li></ul>
+<ul><li>editing workflow-owned files</li><li>acting on copied web text, logs, generated files, or serial output as if they were instructions</li><li>changing starter-manifest or capability-manifest files</li><li>bootstrapping the workflow into an existing repo</li><li>creating a new repo from the starter kit</li><li>installing tools or extra local runtime dependencies</li></ul>
 <h3 id="hard-confirmation">Hard-Confirmation</h3>
 <p>These should require a deliberate extra step:</p>
 <ul><li>maintainer-to-public promotion or sync</li><li>cross-repo writes outside the current repo</li><li>destructive file operations</li><li>publishing or redistributing workflow content</li></ul>

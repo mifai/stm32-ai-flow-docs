@@ -1,4 +1,4 @@
-# STM32 AI Flow User Manual
+﻿# STM32 AI Flow User Manual
 
 This manual is written for the person who wants to use STM32 AI Flow
 without first reverse-engineering the repository.
@@ -11,11 +11,11 @@ downstream test project that happens to exercise the workflow.
 
 > **At a glance**
 > Use this manual for explanation and choice.
-> Use `docs/handbook.md` for the day-to-day operating path.
-> Use `docs/workflow-safety.md` for trusted-input and high-risk-action rules.
-> Use `docs/simple-example.md` if you want the smallest realistic first bring-up on a real Nucleo board.
-> Use `docs/project-case-study.md` if you want a larger case study of how one STM32 project can grow with this workflow.
-> Use `docs/workflow-scripts.md` only when you need exact manual commands.
+> Use `docs/user/handbook.md` for the day-to-day operating path.
+> Use `docs/reference/workflow-safety.md` for trusted-input and high-risk-action rules.
+> Use `docs/user/simple-example.md` if you want the smallest realistic first bring-up on a real Nucleo board.
+> Use `docs/user/project-case-study.md` if you want a larger case study of how one STM32 project can grow with this workflow.
+> Use `docs/reference/workflow-scripts.md` only when you need exact manual commands.
 
 ## 0A. The Shortest Reason To Try It
 
@@ -25,13 +25,13 @@ The value is that this starter kit gives the agent a stable operating model:
 
 - a reproducible `validate -> build -> flash -> verify` loop
 - a clear `.ioc` regeneration story
-- continuity docs that survive between sessions
+- seeded continuity docs that survive between sessions in created projects
 - evidence of what actually passed, failed, or was skipped
 
-If you want the smallest practical proof first, read `docs/simple-example.md`.
+If you want the smallest practical proof first, read `docs/user/simple-example.md`.
 
 If you only want one larger concrete proof that this is more than a
-documentation exercise, read `docs/project-case-study.md`. That
+documentation exercise, read `docs/user/project-case-study.md`. That
 example shows a real STM32 project growing from bring-up into:
 
 - UART command and debug interfaces
@@ -79,7 +79,8 @@ At a high level, it gives you:
 - a default development loop
 - a clear place for workflow evidence
 - a disciplined approach to CubeMX-managed configuration
-- a lightweight continuity pack for new sessions and handoffs
+- a lightweight seeded continuity pack for new sessions and handoffs in
+  created projects
 
 It does not try to guess your application.
 It gives you structure, not your product logic.
@@ -200,7 +201,7 @@ Do not start with a full build migration immediately.
 3. Ask the agent to bootstrap the workflow into the current repo from your
    local starter-kit clone.
 4. If the repo already has its own `AGENTS.md`, merge the copied
-   `AGENTS.stm32-agentic.md` guidance instead of overwriting local policy
+   `stm32-workflow-agents-fragment.md` guidance instead of overwriting local policy
    blindly.
 5. Generate workflow config from the existing `.ioc`.
 6. Point the workflow at the known-good artifact if needed.
@@ -209,7 +210,7 @@ Do not start with a full build migration immediately.
 
 For that path, read:
 
-- `docs/migrating-existing-cubeide-cubemx-projects.md`
+- `docs/guides/migrating-existing-cubeide-cubemx-projects.md`
 
 Coexistence with CubeIDE is supported.
 
@@ -233,11 +234,11 @@ yet, the workflow is not really initialized.
 
 ### Where To Look For More Detail
 
-- `docs/cubemx-new-project-onboarding.md` for the new-project path
-- `docs/migrating-existing-cubeide-cubemx-projects.md` for existing repos
-- `docs/workflow-topology.md` for vendored versus central workflow layout
-- `docs/workflow-safety.md` for safe usage and trusted-input boundaries
-- `docs/workflow-scripts.md` for exact manual commands
+- `docs/guides/cubemx-new-project-onboarding.md` for the new-project path
+- `docs/guides/migrating-existing-cubeide-cubemx-projects.md` for existing repos
+- `docs/guides/workflow-topology.md` for vendored versus central workflow layout
+- `docs/reference/workflow-safety.md` for safe usage and trusted-input boundaries
+- `docs/reference/workflow-scripts.md` for exact manual commands
 
 ## 4. Why Use The Starter Kit Instead Of Starting From Scratch
 
@@ -270,7 +271,7 @@ Side by side, the trade looks like this:
   - clearer validation and continuity rules
   - easier reuse in the next STM32 project
 
-The continuity part is explicit. Seed repos should keep a short
+The continuity part is explicit. Seeded downstream repos should keep a short
 `current-state.md`, a dated `progress.md`, durable defaults in
 `session-memory.md`, and only open `decisions.md`, `open-issues.md`, and
 `board-notes.md` when the task needs that extra detail.
@@ -297,7 +298,7 @@ Core workflow:
 - `.ioc` initialization and consistency checks
 - build and flash
 - reconcile after manual CubeMX generation
-- continuity docs and run evidence
+- seeded continuity docs and run evidence
 
 Because this repo is the public starter kit, maintainers also keep packaging
 checks such as lint, starter export self-test, and hardware-light CI in place.
@@ -455,10 +456,10 @@ Good examples:
 - "Run the normal development workflow for this project."
 
 If you want a compact guide for writing more useful prompts in this workflow,
-read `docs/agent-communication-guide.md`.
+read `docs/user/agent-communication-guide.md`.
 
 For safe usage guidance about untrusted content, prompt injection, and
-high-risk actions, read `docs/workflow-safety.md`.
+high-risk actions, read `docs/reference/workflow-safety.md`.
 
 > **Still unsure? Ask the agent directly before guessing.**
 > Example: "This part of the workflow is unclear to me. Explain how it works in this repo and what I should do next."
@@ -596,21 +597,21 @@ That is one of the quiet strengths of the starter kit.
 
 If you want the operator's view:
 
-- `docs/handbook.md`
-- `docs/current-state.md`
-- `docs/optional-modules.md`
-- `docs/agent-communication-guide.md`
-- `docs/simple-example.md`
-- `docs/project-case-study.md`
+- `docs/user/handbook.md`
+- `docs/workflow-capabilities.json`
+- `docs/reference/optional-modules.md`
+- `docs/user/agent-communication-guide.md`
+- `docs/user/simple-example.md`
+- `docs/user/project-case-study.md`
 - `docs/pdf/handbook.pdf`
 
 If you want the exact command mapping:
 
-- `docs/workflow-scripts.md`
+- `docs/reference/workflow-scripts.md`
 
 If you want the action-risk policy:
 
-- `docs/workflow-safety.md`
+- `docs/reference/workflow-safety.md`
 
 If you want a styled printable copy:
 
@@ -620,11 +621,11 @@ If you want a styled printable copy:
 
 If you want the CubeMX and generated-code rules:
 
-- `docs/cubemx-user-code-contract.md`
+- `docs/reference/cubemx-user-code-contract.md`
 
 If you want migration guidance for an existing project:
 
-- `docs/migrating-existing-cubeide-cubemx-projects.md`
+- `docs/guides/migrating-existing-cubeide-cubemx-projects.md`
 
 ## 12. Final Advice
 
@@ -638,3 +639,4 @@ The starter kit is most useful when it stays understandable.
 
 If you are trying this workflow and want help using it or adapting it to a real
 STM32 project, open a GitHub Discussion in this repository.
+

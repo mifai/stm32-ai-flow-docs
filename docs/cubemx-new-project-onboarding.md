@@ -11,7 +11,7 @@ Use this flow when starting a new STM32 board/MCU project.
   - central toolkit for generic workflow,
   - local repo for project-specific files.
 
-See: `docs/workflow-topology.md`
+See: `docs/guides/workflow-topology.md`
 
 ## Step 0: Choose Workflow Topology
 
@@ -58,13 +58,12 @@ Normal prompt:
 Useful prompts:
 
 - "Monitor the board's serial output for a minute."
-- "Start the live serial dashboard for this port."
 
 ## Daily Loop
 
 1. Update `.ioc` and firmware.
 2. Ask the agent to run the workflow.
-3. Review artifacts/logs/dashboard.
+3. Review artifacts and logs.
 4. Commit `.ioc`, firmware, config, and docs updates.
 
 Notes:
@@ -72,5 +71,6 @@ Notes:
 - Keep project requirements in project repo; keep generic workflow logic in central toolkit.
 
 If you need the exact wrapper commands behind these steps, use
-`docs/workflow-scripts.md`.
+`docs/reference/workflow-scripts.md`.
+
 

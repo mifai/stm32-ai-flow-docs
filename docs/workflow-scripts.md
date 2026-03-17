@@ -1,4 +1,4 @@
-# STM32 Workflow Scripts
+﻿# STM32 Workflow Scripts
 
 This is the compact script index for the reusable STM32 starter kit.
 
@@ -111,10 +111,8 @@ Optional module commands:
 - `powershell -NoProfile -ExecutionPolicy Bypass -File scripts/stm32.ps1 reconcile -ConfigPath .\stm32-workflow.local.json`
 - `powershell -NoProfile -ExecutionPolicy Bypass -File scripts/stm32.ps1 hal-suggest -IocPath C:\path\to\project.ioc`
 - `powershell -NoProfile -ExecutionPolicy Bypass -File scripts/stm32.ps1 monitor ...`
-- `python scripts/serial-live-dashboard.py --port COMx --http-port 8765`
 - `powershell -NoProfile -ExecutionPolicy Bypass -File scripts/stm32.ps1 context-budget -Profile startup`
 - `powershell -NoProfile -ExecutionPolicy Bypass -File scripts/stm32.ps1 browser-diag`
-- `powershell -NoProfile -ExecutionPolicy Bypass -File scripts/export-user-docs.ps1`
 
 Notes:
 
@@ -164,29 +162,25 @@ Notes:
   restored deterministically.
 - Starter creation now follows `scripts/stm32-starter-manifest.json` so new
   repos get workflow assets by default instead of maintainer-repo state.
+- Central create/bootstrap now also uses manifest-declared local startup docs,
+  capability metadata, safety docs, and skills so downstream repos keep the
+  same startup surface while script execution stays in the central toolkit.
 - `scripts/stm32.ps1 context-budget -Profile startup` reports an approximate
   token budget for the startup read set; use `-Profile all` when reviewing
   broader prompt-facing doc growth.
-- `scripts/export-user-docs.ps1` refreshes the styled HTML/PDF copies of the
-  starter-kit user manual, handbook, and agent communication guide, using the
-  Edge DevTools print path so PDF bookmarks/outlines are generated when
-  supported by the local Edge build.
-- The same export set now also includes `docs/simple-example.md`, so the
+- The published reading-copy set now also includes `docs/user/simple-example.md`, so the
   smallest first-run scenario is available in Markdown, HTML, and PDF.
 - Docs-only public export now lives in the separate maintainer repo rather than
   this public starter repo.
 - `scripts/install-stm32-prereqs.ps1` now exports winget-installed tool
   directories to `GITHUB_PATH` when it is running inside GitHub Actions and the
   installed command is not yet visible in `PATH`.
-- Microsoft Edge is optional for the starter kit itself. If Edge is missing,
-  `scripts/export-user-docs.ps1` still refreshes the HTML copies and simply
-  skips PDF generation.
 - `docs/workflow-capabilities.json` is the machine-readable summary of the
   starter-kit workflow surface, automation, and starter export contract.
-- `docs/workflow-safety.md` is the short safe-usage guide for trusted inputs,
+- `docs/reference/workflow-safety.md` is the short safe-usage guide for trusted inputs,
   prompt-injection awareness, and high-risk actions.
-- `docs/maintainer-guide.md` is the maintainer-only reference for starter-kit
-  updates and export policy.
+- maintainer-only update policy and product-continuity guidance now live in the
+  separate maintainer repo, not in this public starter repo.
 - CI now runs from `.github/workflows/ci.yml` and currently covers example
   config validation, workflow-script linting, and starter packaging self-tests
   on `windows-latest`.
@@ -202,3 +196,4 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts/create-new-project-f
   -WorkflowMode central `
   -CentralToolkitPath C:\path\to\stm32-agentic-template-maintainer
 ```
+

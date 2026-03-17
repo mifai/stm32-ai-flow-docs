@@ -1,4 +1,4 @@
-# STM32 Workflow Prerequisites
+﻿# STM32 Workflow Prerequisites
 
 This page defines prerequisites for the reusable STM32 agentic workflow.
 
@@ -11,7 +11,6 @@ This page defines prerequisites for the reusable STM32 agentic workflow.
   - `ninja`
   - `arm-none-eabi-gcc` toolchain
   - optional `openocd`
-  - optional Python dependency `pyserial` for dashboard
 - Manual install required from ST:
   - STM32CubeProgrammer (`STM32_Programmer_CLI`)
   - STM32CubeMX
@@ -32,7 +31,7 @@ Useful prompts are:
 - "Install the missing workflow prerequisites and then verify the environment."
 - "Check whether CubeMX and CubeProgrammer are visible to the workflow."
 
-If you want the exact installer commands, use `docs/workflow-scripts.md`.
+If you want the exact installer commands, use `docs/reference/workflow-scripts.md`.
 
 ## Manual ST Tool Installation
 
@@ -56,3 +55,4 @@ After install, ask the agent to verify that the toolchain is healthy.
 - Build requires matching headers/sources for the selected MCU family.
 - If using CubeMX as source-of-truth, keep `cubemx.enabled=true` so generated code stays synchronized.
 - For FreeRTOS projects, ensure generated middleware paths are part of the build system.
+
