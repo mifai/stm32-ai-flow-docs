@@ -2,6 +2,11 @@
 
 This starter kit is intentionally split into a thin core and opt-in extras.
 
+The core workflow is ready to use today. The modules listed here are a
+carefully curated early set of optional capabilities for common extensions,
+with room for deliberate expansion as additional reusable patterns prove their
+value.
+
 Core workflow:
 
 - validate machine and config
@@ -34,6 +39,8 @@ Why the modules below stay optional:
 
 Choose an optional module when it removes repeated work for a real project.
 Do not enable it just because it is available.
+Do not read this registry as a promise that every STM32-specific need already
+has a starter-kit module.
 
 ## Active Modules
 

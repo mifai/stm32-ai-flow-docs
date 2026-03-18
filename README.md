@@ -18,6 +18,10 @@ repo a clean operating model from day one:
 - workflow evidence lives in the repo instead of memory
 - later sessions can restart from repo truth instead of reconstructing context
 
+The core workflow is ready to use today. Beyond that core, STM32 AI Flow also
+includes a carefully curated early set of optional capabilities for common
+extensions, with room for deliberate expansion over time.
+
 ![STM32 AI Flow structure and workflow](docs/assets/readme-workflow-structure-preview.svg)
 
 ## Why Use It

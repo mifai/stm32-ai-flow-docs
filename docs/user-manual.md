@@ -332,6 +332,11 @@ Why keep the others optional:
 - not every project needs the same debug surface
 - every default capability becomes another thing to maintain and explain
 
+The current optional set is intentionally an early curated set, not a claim
+that the starter kit already provides a broad finished catalog for every STM32
+scenario. The core workflow is ready to use now, and optional capabilities are
+added deliberately as reusable patterns prove their value.
+
 Choose only the core when you want the smallest stable path.
 Choose optional modules only when they remove work you are already repeating.
 
@@ -573,6 +578,10 @@ The starter kit supports extra capabilities such as serial checks, monitoring, C
 automation, and reusable IOC profiles.
 
 These are useful, but they are not the main story.
+
+Treat the current list as a carefully curated early set of supported
+extensions. It is meant to be useful today without pretending to cover every
+possible STM32 project need already.
 
 The main story is still a stable loop:
 
