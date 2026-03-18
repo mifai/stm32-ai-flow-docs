@@ -3,9 +3,6 @@
 STM32 AI Flow is a starter kit for STM32 development teams who want
 AI-assisted work to stay reproducible instead of ad hoc.
 
-A starter kit for teams who want AI-assisted STM32 development to be
-reproducible instead of ad hoc.
-
 STM32 AI Flow helps teams use AI for STM32 work without letting build logic,
 CubeMX ownership, and validation discipline dissolve into chat history.
 

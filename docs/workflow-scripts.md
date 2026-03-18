@@ -124,9 +124,11 @@ Notes:
   normal Edge usage from Edge PDF export automation and STM32CubeMX JxBrowser
   process trees.
 - when the agent has shell access, these wrapper commands are meant to be run
-  by the agent directly; they should not be pushed back onto the user unless
-  the agent is blocked, a high-risk action needs confirmation, or intent is
-  genuinely unclear.
+  by the agent directly; they should not be pushed back onto the user by
+  default.
+- behavioral rules about question prompts, authorization, and ambiguous
+  boundary-crossing actions live in `AGENTS.md` and
+  `docs/reference/workflow-safety.md`.
 - `scripts/stm32-ioc-consistency-check.ps1` now accepts valid CubeMX PLL source
   alias variants when the present keys agree, so one omitted metadata alias no
   longer produces a false-positive warning by itself.

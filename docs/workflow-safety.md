@@ -55,6 +55,15 @@ Use extra care before:
 When in doubt, ask the agent to explain the action first, then do it
 deliberately.
 
+If the prompt is a question, the agent should answer the question first. A
+question by itself is not authorization to edit files, commit, push, publish,
+or propagate changes unless the user also clearly asks for action.
+
+If a request leaves the intended scope, propagation target, or action sequence
+ambiguous, the agent should stop for one short clarifying question before
+commits, pushes, publication, or other boundary-crossing steps. It should not
+infer those steps from an ambiguous prompt.
+
 ## Action Tiers
 
 Use this simple working policy:

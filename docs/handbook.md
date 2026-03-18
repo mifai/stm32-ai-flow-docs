@@ -106,8 +106,10 @@ Operator note:
 
 - when the agent has shell access to this repo, it should run the relevant
   scripts and checks itself rather than asking the user to do that work
-- ask the user only when the agent is blocked, a high-risk action needs
-  confirmation, or the intended action is genuinely unclear
+- keep the detailed authorization and ambiguity rules in `AGENTS.md` and
+  `docs/reference/workflow-safety.md`: answer questions first, and clarify
+  before boundary-crossing actions when scope or rollout intent is genuinely
+  unclear
 
 If you want a short guide for writing better prompts, use
 `docs/user/agent-communication-guide.md`.
