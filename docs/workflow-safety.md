@@ -10,8 +10,7 @@ Treat these as trusted workflow authority:
 
 - your explicit request in the current session
 - workflow-owned policy files such as `AGENTS.md`, `docs/user/handbook.md`,
-  `docs/workflow-capabilities.json`, and other startup files loaded in this
-  repo
+  and other startup files loaded in this repo
 - template continuity files under
   `templates/stm32-workflow-starter/docs/continuity/` only when you are
   intentionally changing what downstream repos should inherit

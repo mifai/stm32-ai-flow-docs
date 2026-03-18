@@ -192,8 +192,8 @@ the new project repo.
 
 1. Open that project repo in your AI workspace.
 2. Create and save the project's `.ioc` if it does not exist yet.
-3. Review and replace placeholder project identity fields in
-   `docs/workflow-capabilities.json` if they are still generic.
+3. Review and replace any placeholder project identity fields if they are
+   still generic.
 4. Ask the agent to initialize workflow config from the `.ioc`.
 5. Add or generate the project-specific firmware tree if it is not present yet.
 6. Ask the agent to check environment and hardware visibility.
@@ -607,7 +607,6 @@ If you want the operator's view:
 
 - `docs/user/handbook.md`
 - `docs/user/understanding-ioc-and-cubemx.md`
-- `docs/workflow-capabilities.json`
 - `docs/reference/optional-modules.md`
 - `docs/user/agent-communication-guide.md`
 - `docs/user/simple-example.md`

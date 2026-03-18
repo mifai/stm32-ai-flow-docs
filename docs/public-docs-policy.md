@@ -14,6 +14,8 @@ The maintainer repo owns the export policy and publication flow.
 - publish onboarding and evaluation material safely
 - keep the reusable starter implementation private while it is still being
   refined
+- let the docs-only public repo act as the current public-facing introduction
+  to `STM32 AI Flow`
 - mirror the working starter's user-facing documentation instead of maintaining
   a heavily reduced alternate manual set
 
@@ -22,8 +24,8 @@ The maintainer repo owns the export policy and publication flow.
 - repository-level reuse and mark-use files such as `LICENSE`, `NOTICE`, and
   `TRADEMARKS.md`
 - canonical user-facing Markdown guides from the working starter repo
-- a small public-specific front door that explains the current publication
-  boundary
+- a public-facing README that may closely mirror the working starter README
+  while staying honest about the current docs-only publication boundary
 - diagrams and image assets used by those guides
 - HTML reading copies
 - PDF reading copies
@@ -46,6 +48,8 @@ The maintainer repo owns the export policy and publication flow.
 - the public README source lives at `docs/public/README.md`
 - canonical user-facing docs are exported from the working starter repo
 - public-only variants should be the exception, not the normal model
+- public README differences should be limited to what is needed to stay honest
+  about the current publication boundary, not to create a separate product story
 
 ## Export Rules
 
@@ -58,3 +62,5 @@ The maintainer repo owns the export policy and publication flow.
   approved top-level license, notice, and trademark files alongside the docs
 - keep public docs close to the working starter docs even when some referenced
   operational files are not yet published in the docs-only repo
+- avoid making the public docs depend on files that are not exported; mentions
+  of private surfaces should be explanatory, not required for navigation

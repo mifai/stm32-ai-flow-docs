@@ -19,8 +19,6 @@ Start here by goal:
   [Workflow Scripts](reference/workflow-scripts.md)
 - want to see what a larger real project can grow into:
   [Project Case Study](user/project-case-study.md)
-- want the machine-readable public summary of the starter surface:
-  [Workflow Capabilities](workflow-capabilities.json)
 
 Core reading paths:
 

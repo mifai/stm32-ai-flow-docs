@@ -175,8 +175,6 @@ Notes:
 - `scripts/install-stm32-prereqs.ps1` now exports winget-installed tool
   directories to `GITHUB_PATH` when it is running inside GitHub Actions and the
   installed command is not yet visible in `PATH`.
-- `docs/workflow-capabilities.json` is the machine-readable summary of the
-  starter-kit workflow surface, automation, and starter export contract.
 - `docs/reference/workflow-safety.md` is the short safe-usage guide for trusted inputs,
   prompt-injection awareness, and high-risk actions.
 - maintainer-only update policy and product-continuity guidance now live in the

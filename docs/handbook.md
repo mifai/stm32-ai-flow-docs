@@ -80,7 +80,6 @@ Keep the active context small:
 - `AGENTS.md`
 - `docs/user/handbook.md`
 - `docs/reference/workflow-safety.md`
-- `docs/workflow-capabilities.json`
 - `skills/stm32-agent-mode/SKILL.md`
 
 Everything else is reference material.
@@ -227,12 +226,7 @@ They are advisory, not a passing build result.
 
 Primary evidence in this public starter repo:
 
-- `docs/workflow-capabilities.json`
 - `scripts/stm32-starter-manifest.json`
-
-Workflow metadata:
-
-- `docs/workflow-capabilities.json`
 
 Seeded downstream repos then use:
 
