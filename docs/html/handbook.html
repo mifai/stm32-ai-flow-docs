@@ -354,11 +354,12 @@
         <article class="content">
           <blockquote><p>WORKFLOW-OWNED: This handbook is part of the STM32 workflow layer. Edit it intentionally and keep it aligned with <code>AGENTS.md</code> and the workflow skill.</p></blockquote>
 <p>This is the operator guide for the starter kit.</p>
+<p>Use it after you already accept the basic workflow model and want the shortest practical path for day-to-day operation.</p>
 <p>Use this file when you want the shortest practical answer to:</p>
 <ul><li>what should I read first</li><li>what does a normal session look like</li><li>what is core</li><li>where do I look for evidence</li></ul>
-<p>If you want explanation, tradeoffs, and onboarding guidance, use <code>docs/user/user-manual.md</code>.</p>
+<p>If you want explanation, tradeoffs, adoption guidance, or onboarding context, use <code>docs/user/user-manual.md</code>.</p>
 <p>If you want the short safety rules for trusted input, repo boundaries, and high-risk actions, use <code>docs/reference/workflow-safety.md</code>.</p>
-<blockquote><p><strong>Use this file as the task view</strong> Read this handbook when you want the shortest operational path. Read <code>docs/user/user-manual.md</code> when you need explanation, tradeoffs, or onboarding context.</p></blockquote>
+<blockquote><p><strong>Use this file as the task view</strong> Read this handbook when you want the shortest operational path after the workflow model already makes sense to you. Read <code>docs/user/user-manual.md</code> when you need explanation, tradeoffs, adoption guidance, or onboarding context.</p></blockquote>
 <h2 id="the-quickest-first-win">The Quickest First Win</h2>
 <p>If you want the fastest proof that this workflow is worth using:</p>
 <ol><li>check toolchain and board readiness</li><li>initialize config from <code>.ioc</code></li><li>run the normal development workflow once</li><li>review the recorded evidence</li></ol>
@@ -376,7 +377,7 @@
 <ul><li>build-oriented use can be ported to Linux or macOS</li><li>full parity still needs the Windows-specific install, discovery, and export assumptions to be replaced</li><li>the workflow is git-host neutral; <code>.github/workflows/ci.yml</code> is the provided CI example, not a GitHub lock-in</li></ul>
 <h2 id="read-these-first">Read These First</h2>
 <p>Keep the active context small:</p>
-<ul><li><code>README.md</code></li><li><code>AGENTS.md</code></li><li><code>docs/user/handbook.md</code></li><li><code>docs/reference/workflow-safety.md</code></li><li><code>docs/workflow-capabilities.json</code></li><li><code>skills/stm32-agent-mode/SKILL.md</code></li></ul>
+<ul><li><code>README.md</code></li><li><code>AGENTS.md</code></li><li><code>docs/user/handbook.md</code></li><li><code>docs/reference/workflow-safety.md</code></li><li><code>skills/stm32-agent-mode/SKILL.md</code></li></ul>
 <p>Everything else is reference material.</p>
 <blockquote><p><strong>Do not load everything by default</strong> The startup set is intentionally small. Open deeper docs only when the task actually needs them.</p></blockquote>
 <h2 id="normal-session">Normal Session</h2>
@@ -385,7 +386,7 @@
 <p>Typical prompts:</p>
 <ul><li>&quot;Check whether the STM32 workflow prerequisites and board connection are ready.&quot;</li><li>&quot;Initialize workflow config from this <code>.ioc</code>.&quot;</li><li>&quot;Run the normal development workflow for this project.&quot;</li></ul>
 <p>Operator note:</p>
-<ul><li>when the agent has shell access to this repo, it should run the relevant scripts and checks itself rather than asking the user to do that work</li><li>ask the user only when the agent is blocked, a high-risk action needs confirmation, or the intended action is genuinely unclear</li></ul>
+<ul><li>when the agent has shell access to this repo, it should run the relevant scripts and checks itself rather than asking the user to do that work</li><li>keep the detailed authorization and ambiguity rules in <code>AGENTS.md</code> and <code>docs/reference/workflow-safety.md</code>: answer questions first, and clarify before boundary-crossing actions when scope or rollout intent is genuinely unclear</li></ul>
 <p>If you want a short guide for writing better prompts, use <code>docs/user/agent-communication-guide.md</code>.</p>
 <p>Before high-risk actions such as installs, bootstrap, cross-repo edits, or pushes, review <code>docs/reference/workflow-safety.md</code>.</p>
 <p>If code was generated manually in CubeMX, insert this before the normal loop:</p>
@@ -416,9 +417,7 @@
 <blockquote><p><strong>Reporting rule</strong> Do not compress &quot;build passed&quot; into &quot;workflow passed&quot; unless the other enabled stages also passed.</p></blockquote>
 <h2 id="where-to-look-after-a-run">Where To Look After A Run</h2>
 <p>Primary evidence in this public starter repo:</p>
-<ul><li><code>docs/workflow-capabilities.json</code></li><li><code>scripts/stm32-starter-manifest.json</code></li></ul>
-<p>Workflow metadata:</p>
-<ul><li><code>docs/workflow-capabilities.json</code></li></ul>
+<ul><li><code>scripts/stm32-starter-manifest.json</code></li></ul>
 <p>Seeded downstream repos then use:</p>
 <ul><li><code>docs/agent-state.json</code></li><li><code>docs/agent-history.jsonl</code></li></ul>
 <h2 id="when-to-open-other-docs">When To Open Other Docs</h2>

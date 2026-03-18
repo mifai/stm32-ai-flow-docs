@@ -484,7 +484,7 @@ Typical project changes:
 
 One example UI result from this kind of workflow-guided project:
 
-![Example Windows host UI for motion control, live status, calibration, and event logging](assets/example-project-stepper-control-ui.png)
+![Example Windows host UI for motion control, live status, calibration, and event logging](../assets/example-project-stepper-control-ui.png)
 
 Caption:
 One later project outcome was a Windows operator panel for USB-based motion

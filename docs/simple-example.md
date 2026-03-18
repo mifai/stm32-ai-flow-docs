@@ -13,7 +13,7 @@ For a larger real-project growth example, use `docs/user/project-case-study.md`.
 
 ## Example Flow
 
-![Simple example flow](assets/simple-example-flow.svg)
+![Simple example flow](../assets/simple-example-flow.svg)
 
 ## Before Phase 1: Check Prerequisites
 

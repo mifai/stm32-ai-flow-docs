@@ -354,8 +354,9 @@
         <article class="content">
           <p>This manual is written for the person who wants to use STM32 AI Flow without first reverse-engineering the repository.</p>
 <p>It explains the workflow as a human process, not just as a list of scripts.</p>
+<p>Use this file when you are new to the starter kit, still deciding whether it fits your project, or want the fuller explanation before switching to the shorter operator handbook.</p>
 <p>This manual is for the public starter-kit repo. It is not the maintainer-governance manual, and it is not written for a downstream test project that happens to exercise the workflow.</p>
-<blockquote><p><strong>At a glance</strong> Use this manual for explanation and choice. Use <code>docs/user/handbook.md</code> for the day-to-day operating path. Use <code>docs/reference/workflow-safety.md</code> for trusted-input and high-risk-action rules. Use <code>docs/user/simple-example.md</code> if you want the smallest realistic first bring-up on a real Nucleo board. Use <code>docs/user/project-case-study.md</code> if you want a larger case study of how one STM32 project can grow with this workflow. Use <code>docs/reference/workflow-scripts.md</code> only when you need exact manual commands.</p></blockquote>
+<blockquote><p><strong>At a glance</strong> Use this manual for explanation, onboarding, and choice. Use <code>docs/user/handbook.md</code> for the day-to-day operating path. Use <code>docs/user/understanding-ioc-and-cubemx.md</code> for a focused guide to the role of <code>.ioc</code>, the role of CubeMX, workflow-side <code>.ioc</code> changes, and how to check integrity after a change. Use <code>docs/reference/workflow-safety.md</code> for trusted-input and high-risk-action rules. Use <code>docs/user/simple-example.md</code> if you want the smallest realistic first bring-up on a real Nucleo board. Use <code>docs/user/project-case-study.md</code> if you want a larger case study of how one STM32 project can grow with this workflow. Use <code>docs/reference/workflow-scripts.md</code> only when you need exact manual commands.</p></blockquote>
 <h2 id="0a-the-shortest-reason-to-try-it">0A. The Shortest Reason To Try It</h2>
 <p>The value is not just that the agent can generate code.</p>
 <p>The value is that this starter kit gives the agent a stable operating model:</p>
@@ -406,7 +407,7 @@
 <ul><li>&quot;Create a new STM32 project from the starter kit under <code>C:\work</code> in central mode.&quot;</li><li>&quot;Create a new STM32 project from the starter kit under <code>C:\work</code> in vendored mode.&quot;</li><li>&quot;Initialize the workflow config from this <code>.ioc</code>.&quot;</li><li>&quot;Check the toolchain, config, and board connection.&quot;</li><li>&quot;Run the normal development workflow for this new project.&quot;</li></ul>
 <h3 id="case-b-you-already-have-a-repo-with-the-starter-kit-in-it">Case B: You Already Have A Repo With The Starter Kit In It</h3>
 <p>This means the starter export already happened and you are now working inside the new project repo.</p>
-<ol><li>Open that project repo in your AI workspace.</li><li>Create and save the project&#x27;s <code>.ioc</code> if it does not exist yet.</li><li>Review and replace placeholder project identity fields in <code>docs/workflow-capabilities.json</code> if they are still generic.</li><li>Ask the agent to initialize workflow config from the <code>.ioc</code>.</li><li>Add or generate the project-specific firmware tree if it is not present yet.</li><li>Ask the agent to check environment and hardware visibility.</li><li>Ask the agent to run the normal workflow.</li></ol>
+<ol><li>Open that project repo in your AI workspace.</li><li>Create and save the project&#x27;s <code>.ioc</code> if it does not exist yet.</li><li>Review and replace any placeholder project identity fields if they are still generic.</li><li>Ask the agent to initialize workflow config from the <code>.ioc</code>.</li><li>Add or generate the project-specific firmware tree if it is not present yet.</li><li>Ask the agent to check environment and hardware visibility.</li><li>Ask the agent to run the normal workflow.</li></ol>
 <h3 id="case-c-you-are-adopting-the-workflow-in-an-existing-stm32-repo">Case C: You Are Adopting The Workflow In An Existing STM32 Repo</h3>
 <p>Do not start with a full build migration immediately.</p>
 <ol><li>Clone the starter-kit repo locally if you do not already have it.</li><li>Open your existing STM32 repo in your AI workspace.</li><li>Ask the agent to bootstrap the workflow into the current repo from your local starter-kit clone.</li><li>If the repo already has its own <code>AGENTS.md</code>, merge the copied <code>stm32-workflow-agents-fragment.md</code> guidance instead of overwriting local policy blindly.</li><li>Generate workflow config from the existing <code>.ioc</code>.</li><li>Point the workflow at the known-good artifact if needed.</li><li>Run config validation and doctor preflight first.</li><li>Run the workflow in non-invasive mode before attempting a broader migration.</li></ol>
@@ -444,6 +445,7 @@
 <ul><li>it lowers startup friction</li><li>it keeps docs and prompts shorter</li><li>it avoids forcing one style of product architecture</li></ul>
 <p>Why keep the others optional:</p>
 <ul><li>not every board exposes the same transports</li><li>not every project needs the same debug surface</li><li>every default capability becomes another thing to maintain and explain</li></ul>
+<p>The current optional set is intentionally an early curated set, not a claim that the starter kit already provides a broad finished catalog for every STM32 scenario. The core workflow is ready to use now, and optional capabilities are added deliberately as reusable patterns prove their value.</p>
 <p>Choose only the core when you want the smallest stable path. Choose optional modules only when they remove work you are already repeating.</p>
 <blockquote><p><strong>Important</strong> The default <code>flash</code> stage requires a connected supported programming probe that STM32CubeProgrammer can see. In this workflow today, that means ST-LINK unless a project deliberately adds another flash path.</p><p>Some STM32 projects may instead use the MCU&#x27;s built-in bootloader over transports such as DFU, UART, or USB. That can be a valid project-specific workflow, but it is not the default flash path in this repo today.</p></blockquote>
 <p>The starter kit now also supports explicit gate policy in workflow config:</p>
@@ -464,7 +466,7 @@
 <blockquote><p><strong>What the topology choice does not mean</strong> It does not mean the shared core should absorb product code, board-specific assumptions, or every local convenience. Project growth still belongs in the project repo.</p></blockquote>
 <h2 id="5-what-you-should-remember">5. What You Should Remember</h2>
 <p>This starter kit is repo-based, not editor-specific.</p>
-<p>While it was developed with VS Code and the Codex extension, it is not tied to them or to one exact model. It is still intended primarily for Windows today.</p>
+<p>This starter kit was developed and tested mainly with VS Code and the Codex extension. However, it is not tied to any specific editor, agent environment, or exact model. It is still intended primarily for Windows today.</p>
 <p>It should work in other agent environments when they can:</p>
 <ul><li>read the repo</li><li>run the workflow scripts</li><li>edit files safely</li><li>follow repo-native instructions such as <code>AGENTS.md</code></li></ul>
 <p>If an environment is chat-only and cannot inspect files or run commands, only the documentation part transfers cleanly, not the full workflow behavior.</p>
@@ -525,10 +527,11 @@
 <h2 id="9-optional-modules-are-optional-on-purpose">9. Optional Modules Are Optional On Purpose</h2>
 <p>The starter kit supports extra capabilities such as serial checks, monitoring, CubeMX automation, and reusable IOC profiles.</p>
 <p>These are useful, but they are not the main story.</p>
+<p>Treat the current list as a carefully curated early set of supported extensions. It is meant to be useful today without pretending to cover every possible STM32 project need already.</p>
 <p>The main story is still a stable loop:</p>
 <ul><li>validate</li><li>build</li><li>flash</li><li>verify honestly</li></ul>
 <p>Everything else should earn its place.</p>
-<p>If you are unsure, start with the core and add one optional module at a time.</p>
+<p>The core workflow is the default starting point. Additional capabilities only matter where the project clearly benefits from them.</p>
 <blockquote><p><strong>Good default</strong> If you are uncertain whether a helper belongs in the workflow, leave it out until a real repeated task proves that it should exist.</p></blockquote>
 <h2 id="10-what-makes-a-good-success-claim">10. What Makes A Good Success Claim</h2>
 <p>&quot;The build passed&quot; is not the same as &quot;the workflow succeeded.&quot;</p>
@@ -537,7 +540,7 @@
 <p>That is one of the quiet strengths of the starter kit.</p>
 <h2 id="11-which-documents-to-read-next">11. Which Documents To Read Next</h2>
 <p>If you want the operator&#x27;s view:</p>
-<ul><li><code>docs/user/handbook.md</code></li><li><code>docs/workflow-capabilities.json</code></li><li><code>docs/reference/optional-modules.md</code></li><li><code>docs/user/agent-communication-guide.md</code></li><li><code>docs/user/simple-example.md</code></li><li><code>docs/user/project-case-study.md</code></li><li><code>docs/pdf/handbook.pdf</code></li></ul>
+<ul><li><code>docs/user/handbook.md</code></li><li><code>docs/user/understanding-ioc-and-cubemx.md</code></li><li><code>docs/reference/optional-modules.md</code></li><li><code>docs/user/agent-communication-guide.md</code></li><li><code>docs/user/simple-example.md</code></li><li><code>docs/user/project-case-study.md</code></li><li><code>docs/pdf/handbook.pdf</code></li></ul>
 <p>If you want the exact command mapping:</p>
 <ul><li><code>docs/reference/workflow-scripts.md</code></li></ul>
 <p>If you want the action-risk policy:</p>

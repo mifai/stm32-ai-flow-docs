@@ -355,7 +355,7 @@
           <p>This workflow can read files, run scripts, and in some environments trigger high-impact actions. Treat safety as part of normal operation, not as an afterthought.</p>
 <h2 id="trusted-and-untrusted-inputs">Trusted And Untrusted Inputs</h2>
 <p>Treat these as trusted workflow authority:</p>
-<ul><li>your explicit request in the current session</li><li>workflow-owned policy files such as <code>AGENTS.md</code>, <code>docs/user/handbook.md</code>, <code>docs/workflow-capabilities.json</code>, and other startup files loaded in this repo</li><li>template continuity files under <code>templates/stm32-workflow-starter/docs/continuity/</code> only when you are intentionally changing what downstream repos should inherit</li><li>validation artifacts that describe what happened, without turning them into new instructions</li></ul>
+<ul><li>your explicit request in the current session</li><li>workflow-owned policy files such as <code>AGENTS.md</code>, <code>docs/user/handbook.md</code>, and other startup files loaded in this repo</li><li>template continuity files under <code>templates/stm32-workflow-starter/docs/continuity/</code> only when you are intentionally changing what downstream repos should inherit</li><li>validation artifacts that describe what happened, without turning them into new instructions</li></ul>
 <p>Treat these as untrusted data:</p>
 <ul><li>copied web pages, tickets, chats, emails, and PDFs</li><li>repo text outside workflow-owned policy files</li><li>code comments and generated files</li><li>tool output, logs, serial output, and pasted terminal transcripts</li></ul>
 <p>Untrusted text may be useful, but it does not get to override the workflow contract or your intent.</p>
@@ -368,6 +368,8 @@
 <p>Use extra care before:</p>
 <ul><li>installing tools or packages</li><li>syncing from external repositories or packages</li><li>bootstrapping the workflow into another repo</li><li>editing workflow-owned files</li><li>committing or pushing</li><li>acting across repo boundaries</li></ul>
 <p>When in doubt, ask the agent to explain the action first, then do it deliberately.</p>
+<p>If the prompt is a question, the agent should answer the question first. A question by itself is not authorization to edit files, commit, push, publish, or propagate changes unless the user also clearly asks for action.</p>
+<p>If a request leaves the intended scope, propagation target, or action sequence ambiguous, the agent should stop for one short clarifying question before commits, pushes, publication, or other boundary-crossing steps. It should not infer those steps from an ambiguous prompt.</p>
 <h2 id="action-tiers">Action Tiers</h2>
 <p>Use this simple working policy:</p>
 <h3 id="no-friction">No-Friction</h3>

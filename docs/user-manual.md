@@ -378,12 +378,12 @@ There are two valid ways to organize the workflow layer.
 
 `vendored` means the workflow core is copied into the same repo as the project.
 
-![Vendored topology diagram](assets/topology-vendored.svg)
+![Vendored topology diagram](../assets/topology-vendored.svg)
 
 `central` means the generic workflow core stays in one toolkit repo, while
 project repos keep only their local layer plus wrappers.
 
-![Central topology diagram](assets/topology-central.svg)
+![Central topology diagram](../assets/topology-central.svg)
 
 The practical difference is simple:
 
@@ -592,7 +592,8 @@ The main story is still a stable loop:
 
 Everything else should earn its place.
 
-If you are unsure, start with the core and add one optional module at a time.
+The core workflow is the default starting point. Additional capabilities only
+matter where the project clearly benefits from them.
 
 > **Good default**
 > If you are uncertain whether a helper belongs in the workflow, leave it out until a real repeated task proves that it should exist.

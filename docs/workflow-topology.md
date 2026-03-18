@@ -10,7 +10,7 @@ This workflow supports two valid ways to carry the workflow core.
 - project-specific code grows around that local workflow copy
 - reusable workflow improvements can still be promoted later into a maintainer repo
 
-![Vendored topology diagram](assets/topology-vendored.svg)
+![Vendored topology diagram](../assets/topology-vendored.svg)
 
 ### `central`
 
@@ -20,7 +20,7 @@ This workflow supports two valid ways to carry the workflow core.
 - project-specific needs stay local until they prove they are generic enough to
   promote into the central toolkit
 
-![Central topology diagram](assets/topology-central.svg)
+![Central topology diagram](../assets/topology-central.svg)
 
 ## The Principal Difference
 
