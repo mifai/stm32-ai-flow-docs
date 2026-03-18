@@ -5,12 +5,16 @@ without first reverse-engineering the repository.
 
 It explains the workflow as a human process, not just as a list of scripts.
 
+Use this file when you are new to the starter kit, still deciding whether it
+fits your project, or want the fuller explanation before switching to the
+shorter operator handbook.
+
 This manual is for the public starter-kit repo.
 It is not the maintainer-governance manual, and it is not written for a
 downstream test project that happens to exercise the workflow.
 
 > **At a glance**
-> Use this manual for explanation and choice.
+> Use this manual for explanation, onboarding, and choice.
 > Use `docs/user/handbook.md` for the day-to-day operating path.
 > Use `docs/user/understanding-ioc-and-cubemx.md` for a focused guide to the
 > role of `.ioc`, the role of CubeMX, workflow-side `.ioc` changes, and how to
@@ -393,8 +397,9 @@ project need should be pushed into the shared core.
 
 This starter kit is repo-based, not editor-specific.
 
-While it was developed with VS Code and the Codex extension, it is not tied to
-them or to one exact model. It is still intended primarily for Windows today.
+This starter kit was developed and tested mainly with VS Code and the Codex
+extension. However, it is not tied to any specific editor, agent environment,
+or exact model. It is still intended primarily for Windows today.
 
 It should work in other agent environments when they can:
 

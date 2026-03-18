@@ -1,28 +1,47 @@
 # Documentation Map
 
-Primary entry points:
+Start here by goal:
 
-- [User Handbook](user/handbook.md)
-- [User Manual](user/user-manual.md)
-- [Understanding `.ioc`, CubeMX, and Workflow Changes](user/understanding-ioc-and-cubemx.md)
-- [Simple Example](user/simple-example.md)
-- [Project Case Study](user/project-case-study.md)
-- [Workflow Capabilities](workflow-capabilities.json)
+- new to the starter kit and want the main explanation:
+  [User Manual](user/user-manual.md)
+- want the shortest practical operating path:
+  [User Handbook](user/handbook.md)
+- want the fastest real first success on a board:
+  [Simple Example](user/simple-example.md)
+- already have an STM32 repo and want adoption guidance:
+  [Migration Guide](guides/migrating-existing-cubeide-cubemx-projects.md)
+- need to understand `.ioc`, CubeMX, and workflow boundaries:
+  [Understanding `.ioc`, CubeMX, and Workflow Changes](user/understanding-ioc-and-cubemx.md)
+- want to understand starter reuse and central versus vendored topology:
+  [Reuse Workflow Kit](guides/reuse-workflow-kit.md)
+  [Workflow Topology](guides/workflow-topology.md)
+- need exact manual commands:
+  [Workflow Scripts](reference/workflow-scripts.md)
+- want to see what a larger real project can grow into:
+  [Project Case Study](user/project-case-study.md)
+- want the machine-readable public summary of the starter surface:
+  [Workflow Capabilities](workflow-capabilities.json)
 
-Use `user/handbook.md` for workflow operation and `user/user-manual.md` for
-the human-facing explanation of how the starter kit is meant to be used.
-Use `user/understanding-ioc-and-cubemx.md` when you want a focused explanation
-of `.ioc`, CubeMX, workflow-side `.ioc` changes, and integrity checks.
-Use `user/simple-example.md` for the smallest realistic first bring-up
-scenario on a real Nucleo board.
-Use `workflow-capabilities.json` for the machine-readable public summary of the
-starter surface.
+Core reading paths:
+
+- new project path:
+  [User Manual](user/user-manual.md) ->
+  [Simple Example](user/simple-example.md) ->
+  [User Handbook](user/handbook.md)
+- existing repo adoption path:
+  [User Manual](user/user-manual.md) ->
+  [Migration Guide](guides/migrating-existing-cubeide-cubemx-projects.md) ->
+  [Workflow Scripts](reference/workflow-scripts.md)
+- `.ioc` and generated-code ownership path:
+  [Understanding `.ioc`, CubeMX, and Workflow Changes](user/understanding-ioc-and-cubemx.md) ->
+  [CubeMX User Code Contract](reference/cubemx-user-code-contract.md)
+
 Seeded downstream continuity lives only in
 `templates/stm32-workflow-starter/docs/agent-state.json`,
 `templates/stm32-workflow-starter/docs/agent-history.jsonl`, and in downstream
 repos created from that template.
 
-Folders:
+Documentation folders:
 
 - [User Docs](user/README.md)
 - [Agent Docs](agent/README.md)

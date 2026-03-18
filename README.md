@@ -1,16 +1,43 @@
 # STM32 AI Flow
 
 STM32 AI Flow is a documentation-first public surface for a reusable STM32
-workflow that is currently being refined through real project work and active
-testing.
+workflow.
 
-This public docs repository now mirrors the canonical user-facing
-documentation from the working STM32 AI Flow starter kit as closely as
-practical.
+Use this docs set when you want to understand what the workflow is, evaluate
+whether it fits a real STM32 project, and see how the starter kit is meant to
+be used before the full working kit is broadly published.
 
-The working starter kit and some operational or workflow-owned surfaces are
-still under active development and are not yet broadly published here as a
-general public package.
+This public docs repository mirrors the canonical user-facing documentation
+from the working STM32 AI Flow starter kit as closely as practical.
+
+## Why Read It
+
+These docs are most useful when you want:
+
+- a clear explanation of the STM32 AI Flow workflow model
+- a practical picture of how `.ioc`, CubeMX, and generated code are meant to fit together
+- a realistic first bring-up path on a real STM32 board
+- a way to evaluate the workflow before asking for early access to the full kit
+
+## Choose Your Path
+
+Start from the path that matches your goal:
+
+- shortest practical operator path:
+  `docs/handbook.md`
+- fuller explanation and onboarding:
+  `docs/user-manual.md`
+- understanding `.ioc`, CubeMX, and workflow-side changes:
+  `docs/understanding-ioc-and-cubemx.md`
+- smallest realistic first bring-up:
+  `docs/simple-example.md`
+- larger growth story:
+  `docs/project-case-study.md`
+- workflow boundaries and trusted-input rules:
+  `docs/workflow-safety.md`
+- new-project and migration guidance:
+  `docs/cubemx-new-project-onboarding.md`
+  `docs/migrating-existing-cubeide-cubemx-projects.md`
 
 If you are interested in early access, would like to evaluate the workflow for
 a real STM32 project, or would be happy to participate as an early adopter or

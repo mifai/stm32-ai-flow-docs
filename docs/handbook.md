@@ -5,6 +5,9 @@
 
 This is the operator guide for the starter kit.
 
+Use it after you already accept the basic workflow model and want the shortest
+practical path for day-to-day operation.
+
 Use this file when you want the shortest practical answer to:
 
 - what should I read first
@@ -12,15 +15,18 @@ Use this file when you want the shortest practical answer to:
 - what is core
 - where do I look for evidence
 
-If you want explanation, tradeoffs, and onboarding guidance, use
+If you want explanation, tradeoffs, adoption guidance, or onboarding context,
+use
 `docs/user/user-manual.md`.
 
 If you want the short safety rules for trusted input, repo boundaries, and
 high-risk actions, use `docs/reference/workflow-safety.md`.
 
 > **Use this file as the task view**
-> Read this handbook when you want the shortest operational path.
-> Read `docs/user/user-manual.md` when you need explanation, tradeoffs, or onboarding context.
+> Read this handbook when you want the shortest operational path after the
+> workflow model already makes sense to you.
+> Read `docs/user/user-manual.md` when you need explanation, tradeoffs,
+> adoption guidance, or onboarding context.
 
 ## The Quickest First Win
 
