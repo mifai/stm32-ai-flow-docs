@@ -1,5 +1,5 @@
 ﻿{
-    "generated_at":  "2026-03-17T18:43:09",
+    "generated_at":  "2026-03-18T07:38:18",
     "source_repo":  "C:\\tests\\stm32-agentic-template-maintainer",
     "managed_files":  [
                           "docs/agent-communication-guide.md",
@@ -14,6 +14,7 @@
                           "docs/README.md",
                           "docs/reuse-workflow-kit.md",
                           "docs/simple-example.md",
+                          "docs/understanding-ioc-and-cubemx.md",
                           "docs/user-manual.md",
                           "docs/workflow-safety.md",
                           "docs/workflow-scripts.md",

@@ -12,6 +12,9 @@ downstream test project that happens to exercise the workflow.
 > **At a glance**
 > Use this manual for explanation and choice.
 > Use `docs/user/handbook.md` for the day-to-day operating path.
+> Use `docs/user/understanding-ioc-and-cubemx.md` for a focused guide to the
+> role of `.ioc`, the role of CubeMX, workflow-side `.ioc` changes, and how to
+> check integrity after a change.
 > Use `docs/reference/workflow-safety.md` for trusted-input and high-risk-action rules.
 > Use `docs/user/simple-example.md` if you want the smallest realistic first bring-up on a real Nucleo board.
 > Use `docs/user/project-case-study.md` if you want a larger case study of how one STM32 project can grow with this workflow.
@@ -598,6 +601,7 @@ That is one of the quiet strengths of the starter kit.
 If you want the operator's view:
 
 - `docs/user/handbook.md`
+- `docs/user/understanding-ioc-and-cubemx.md`
 - `docs/workflow-capabilities.json`
 - `docs/reference/optional-modules.md`
 - `docs/user/agent-communication-guide.md`

@@ -21,6 +21,7 @@ Start here:
 
 - `docs/handbook.md`
 - `docs/user-manual.md`
+- `docs/understanding-ioc-and-cubemx.md`
 - `docs/simple-example.md`
 - `docs/project-case-study.md`
 - `docs/workflow-safety.md`

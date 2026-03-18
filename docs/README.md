@@ -4,12 +4,15 @@ Primary entry points:
 
 - [User Handbook](user/handbook.md)
 - [User Manual](user/user-manual.md)
+- [Understanding `.ioc`, CubeMX, and Workflow Changes](user/understanding-ioc-and-cubemx.md)
 - [Simple Example](user/simple-example.md)
 - [Project Case Study](user/project-case-study.md)
 - [Workflow Capabilities](workflow-capabilities.json)
 
 Use `user/handbook.md` for workflow operation and `user/user-manual.md` for
 the human-facing explanation of how the starter kit is meant to be used.
+Use `user/understanding-ioc-and-cubemx.md` when you want a focused explanation
+of `.ioc`, CubeMX, workflow-side `.ioc` changes, and integrity checks.
 Use `user/simple-example.md` for the smallest realistic first bring-up
 scenario on a real Nucleo board.
 Use `workflow-capabilities.json` for the machine-readable public summary of the
