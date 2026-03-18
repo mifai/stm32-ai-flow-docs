@@ -54,7 +54,7 @@ Options:
 - `-Overwrite`: replace existing copied files in target repo.
 - `-IncludeFirmwareTemplate`: also copy the `firmware/` folder if present.
 - `-WorkflowMode central|vendored`: choose thin-wrapper or full-copy installation.
-- `-CentralToolkitPath`: path to maintainer-controlled toolkit root (used in central mode).
+- `-CentralToolkitPath`: path to an approved shared toolkit root (used in central mode).
 - `-Json`: machine-readable summary.
 
 ## Post-Install Checklist
@@ -74,7 +74,7 @@ Options:
 
 ## Update Strategy
 
-1. Improve scripts/docs in central maintainer repo.
+1. Improve scripts/docs in the central toolkit repo.
 2. In central mode projects, update central toolkit only (no mass copy).
 3. In vendored mode projects, re-run bootstrap with `-Overwrite`.
 4. Keep downstream board-specific configs and firmware local to each project.

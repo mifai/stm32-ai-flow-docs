@@ -46,5 +46,5 @@ Documentation folders:
 - [Guides](guides/)
 - [Reference](reference/)
 - [IOC Profiles](ioc-profiles/README.md)
-- [Modules](modules/README.md)
+- [Pattern Notes](modules/README.md)
 - [Artifacts](artifacts/README.md)

@@ -194,6 +194,6 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts/create-new-project-f
   -ProjectName my-stm32-project `
   -TargetRoot C:\path\to\repos `
   -WorkflowMode central `
-  -CentralToolkitPath C:\path\to\stm32-agentic-template-maintainer
+  -CentralToolkitPath C:\path\to\approved-central-workflow-toolkit
 ```
 

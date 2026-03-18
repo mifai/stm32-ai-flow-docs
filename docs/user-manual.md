@@ -35,7 +35,8 @@ The value is that this starter kit gives the agent a stable operating model:
 - seeded continuity docs that survive between sessions in created projects
 - evidence of what actually passed, failed, or was skipped
 
-If you want the smallest practical proof first, read `docs/user/simple-example.md`.
+If you want the smallest realistic bring-up first, read
+`docs/user/simple-example.md`.
 
 If you only want one larger concrete proof that this is more than a
 documentation exercise, read `docs/user/project-case-study.md`. That
@@ -108,9 +109,10 @@ Without a workflow like this, the agent still needs to be taught:
 So the starter kit is not trying to replace AI assistance.
 It is trying to give that assistance a stable operating model.
 
-## 2B. The Fastest First Win
+## 2B. The Smallest Real First Win
 
-If you want the quickest useful trial, do only this first:
+If you want the quickest useful trial, think of it as the smallest realistic
+bring-up path, not as a toy proof:
 
 1. Clone the starter-kit repo and open it in your AI workspace.
 2. Create a new project repo from it.
@@ -337,6 +339,14 @@ that the starter kit already provides a broad finished catalog for every STM32
 scenario. The core workflow is ready to use now, and optional capabilities are
 added deliberately as reusable patterns prove their value.
 
+That also means not every useful note belongs in the supported optional-module
+registry:
+
+- supported optional modules are listed in
+  `docs/reference/optional-modules.md`
+- broader pattern notes live under `docs/modules/`
+- project-specific solutions belong in downstream repos and case studies
+
 Choose only the core when you want the smallest stable path.
 Choose optional modules only when they remove work you are already repeating.
 
@@ -370,7 +380,9 @@ The starter kit now also supports suggestion-first HAL sync guidance:
   the repo
 
 > **Practical rule**
-> Start with the core only. Add optional modules one at a time, and only when they replace work you already do often enough to justify the extra surface.
+> Let the core workflow be the default. Additional capabilities only matter
+> when they replace work the project is already repeating often enough to
+> justify the extra surface.
 
 ## 4B. Vendored And Central: Two Ways To Carry The Workflow
 

@@ -14,7 +14,8 @@ This workflow supports two valid ways to carry the workflow core.
 
 ### `central`
 
-- the workflow core stays in one central toolkit repo
+- the workflow core stays in one approved central toolkit repo or shared
+  workflow repo
 - project repos keep only a thin local layer plus wrappers that call the
   central toolkit
 - project-specific needs stay local until they prove they are generic enough to
@@ -75,7 +76,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts/create-new-project-f
   -ProjectName MyProject `
   -TargetRoot C:\tests `
   -WorkflowMode central `
-  -CentralToolkitPath C:\path\to\stm32-agentic-template-maintainer
+  -CentralToolkitPath C:\path\to\approved-central-workflow-toolkit
 ```
 
 ## Daily Work In Central Mode

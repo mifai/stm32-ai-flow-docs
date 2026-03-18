@@ -42,6 +42,25 @@ Do not enable it just because it is available.
 Do not read this registry as a promise that every STM32-specific need already
 has a starter-kit module.
 
+## Supported Modules Versus Other Guidance
+
+This registry is only for supported optional modules.
+
+That is not the same thing as every useful note the starter kit may carry.
+
+- supported optional modules:
+  reusable opt-in capabilities the starter kit already treats as part of its
+  supported surface
+- pattern notes:
+  reusable guidance and tradeoff notes under `docs/modules/` that help with
+  design choices but are not, by themselves, supported starter-kit modules
+- example-project material:
+  project-specific solutions that belong in downstream repos or case studies
+
+This distinction is intentional. It lets the starter kit stay honest about
+what is already supported, while still preserving useful engineering notes that
+may later mature into better-defined optional modules.
+
 ## Active Modules
 
 | Module | Purpose | When To Choose It | Docs |
@@ -75,5 +94,7 @@ Add optional modules when:
 2. Add module usage notes in docs.
 3. Add one row to this registry with `Module`, `Purpose`, `When To Choose It`, and `Docs`.
 4. Keep module opt-in by default unless it belongs in the core workflow.
+5. If the material is only a pattern note or design guide, keep it in
+   `docs/modules/` instead of adding it here prematurely.
 
 

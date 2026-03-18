@@ -3,11 +3,17 @@
 This is the recommended first hands-on scenario for a new STM32 project
 created from the starter kit.
 
+Treat it as the smallest realistic bring-up path, not as an instant toy proof.
+
 Use it to take a real board, create a real `.ioc`, generate a real STM32
 project, and reach one visible result:
 
 - the user LED blinks
 - optionally, the user button changes the blink rate
+
+It still includes real board facts, real CubeMX work, real code generation,
+and a real firmware change. That is what makes it useful as an honest first
+win rather than just a scripted demo.
 
 For a larger real-project growth example, use `docs/user/project-case-study.md`.
 

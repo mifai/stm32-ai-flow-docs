@@ -35,10 +35,40 @@ If you want the exact installer commands, use `docs/reference/workflow-scripts.m
 
 ## Manual ST Tool Installation
 
-1. STM32CubeProgrammer
-2. STM32CubeMX
+These ST tools still need manual installation:
 
-After install, ask the agent to verify that the toolchain is healthy.
+1. STM32CubeProgrammer
+   - ST page:
+     `https://www.st.com/en/development-tools/stm32cubeprog.html`
+   - command the workflow expects to find:
+     `STM32_Programmer_CLI`
+   - typical Windows path:
+     `C:\Program Files\STMicroelectronics\STM32Cube\STM32CubeProgrammer\bin\STM32_Programmer_CLI.exe`
+2. STM32CubeMX
+   - ST page:
+     `https://www.st.com/en/development-tools/stm32cubemx.html`
+   - typical Windows path:
+     `C:\Program Files\STMicroelectronics\STM32Cube\STM32CubeMX\STM32CubeMX.exe`
+
+Paths can vary if you choose a custom install location, but these are the
+default Windows locations the current workflow most naturally aligns with.
+
+## Minimal Verification Checklist
+
+After installation, ask the agent to verify the environment. A good result
+should confirm:
+
+- the Arm toolchain is visible
+- `cmake` and `ninja` are visible
+- STM32CubeProgrammer is visible to the workflow
+- STM32CubeMX is visible to the workflow
+- the repo can pass toolchain/config/doctor checks
+
+Useful prompts:
+
+- "Check whether the STM32 workflow prerequisites are installed on this machine."
+- "Verify that STM32CubeMX and STM32CubeProgrammer are visible to the workflow."
+- "Run the toolchain, config, and doctor checks and tell me what is still missing."
 
 ## Flash Hardware Expectation
 

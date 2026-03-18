@@ -3,8 +3,8 @@
 STM32 AI Flow is a starter kit for STM32 development teams who want
 AI-assisted work to stay reproducible instead of ad hoc.
 
-STM32 AI Flow helps teams use AI for STM32 work without letting build logic,
-CubeMX ownership, and validation discipline dissolve into chat history.
+It helps teams use AI for STM32 work without letting build logic, CubeMX
+ownership, and validation discipline dissolve into chat history.
 
 This public repository is currently the main public STM32 AI Flow surface. It
 publishes the user-facing documentation for the starter kit while the full
@@ -37,33 +37,31 @@ What it adds on top of a generic chat-first approach:
 - continuity docs so the next session starts from repo truth, not guesswork
 - a workflow surface that stays small enough to learn and inspect
 
-## The Fastest Reason To Care
+## The Smallest Real First Win
 
-If you want to know whether this is worth trying, the smallest useful proof is
-not a long setup exercise.
-
-It is this:
+If you want to know whether this is worth trying, the smallest realistic first
+win is not a toy demo. It is an honest first bring-up path:
 
 1. create a new STM32 project repo from the starter kit
 2. save the board `.ioc`
 3. initialize workflow config from that `.ioc`
 4. run toolchain, config, and doctor checks once
 
-That is enough to prove something important very early:
+That first pass already proves something important:
 
 - the machine can run the workflow
 - the repo has a coherent startup path
 - `.ioc` can be made authoritative before the project gets messy
 
-If you want exactly that smallest real first run, start with
+If you want exactly that smallest realistic bring-up, start with
 `docs/simple-example.md`.
 
 ## What This Can Grow Into
 
 The starter kit is intentionally generic, but it is not hypothetical.
 
-The case study in `docs/project-case-study.md` shows this
-workflow growing into a real STM32 stepper-control project with:
+The case study in `docs/project-case-study.md` shows this workflow growing into
+a real STM32 stepper-control project with:
 
 - interrupt-driven UART command handling and debug output
 - stepper pulse generation and motion-control logic
@@ -72,9 +70,9 @@ workflow growing into a real STM32 stepper-control project with:
 - a USB binary control path beside the human UART CLI
 - a C# desktop operator UI
 
-That example matters because it shows the workflow is not just about generating
-files. It can support a real firmware path from early bring-up to a usable host
-tool.
+That example matters because it shows the workflow is not just about
+generating files. It can support a real firmware path from early bring-up to a
+usable host tool.
 
 ## Best Fit
 
@@ -95,7 +93,7 @@ Less compelling:
 If you are evaluating STM32 AI Flow for the first time, start from the path
 that matches your current goal:
 
-- fastest practical proof on a real board:
+- smallest realistic first bring-up on a real board:
   `docs/simple-example.md`
 - shortest operator path once the model already makes sense:
   `docs/handbook.md`
@@ -118,28 +116,24 @@ The starter kit gives you a practical baseline:
 - validation, build, flash, and optional serial workflow steps
 - a doctor preflight that retries STM32/ST-LINK detection briefly and reports
   last-known hardware context when the current scan is empty
-- explicit `validation_policy` gates in workflow config so a starter project
-  can make missing flash or serial targets fail early with a clear gate
-  message or skip cleanly for hardware-light runs
-- HAL module suggestion mode driven from `.ioc`, so the workflow can point out
-  likely missing `hal-sync` actions after manual CubeMX reconciliation or
-  before build instead of waiting for a missing-driver surprise
-- `.ioc` consistency checks that accept valid CubeMX PLL-source alias variants
-  instead of warning just because one metadata alias is omitted
 - a clear `.ioc`-first story for CubeMX-managed projects
 - documentation that explains both how to use the workflow and how to extend it
 
-Flash note:
+## Optional Capabilities
 
-- the default `flash` stage requires a connected supported programming probe
-  visible to STM32CubeProgrammer; in this workflow today that means ST-LINK
-  unless a project deliberately adds a different flash path
-- some STM32 projects may choose a different flashing backend such as the MCU's
-  built-in bootloader over DFU/UART/USB, but that is a project-specific choice
-  rather than the default path in this workflow
-- when a project wants hardware-light behavior to be explicit, put that choice
-  in `validation_policy` inside workflow config rather than relying only on
-  ad-hoc skip flags
+The optional layer is meant to be useful without pretending to be a finished
+catalog for every STM32 scenario.
+
+What exists today is a curated early set of supported optional modules. Beyond
+that, the starter kit also carries pattern notes and example-derived guidance
+for topics that are useful but not yet part of the supported optional-module
+surface.
+
+That split matters:
+
+- supported optional modules live in `docs/optional-modules.md`
+- pattern notes live under `docs/modules/`
+- project-specific logic belongs in downstream repos, not in the starter core
 
 ## Environment Compatibility
 
@@ -165,74 +159,30 @@ several Windows-specific assumptions:
 - many examples assume `COMx` naming
 - styled PDF export currently uses Microsoft Edge
 
-Linux and macOS are realistic targets for the build-oriented core, but they are
-not yet first-class environments for the full workflow.
+Linux and macOS are realistic targets for the build-oriented core, but they
+are not yet first-class environments for the full workflow.
 
 This implementation is designed for STM32 today, with STM32CubeMX and `.ioc`
 as the current configuration source-of-truth path.
 
-The underlying workflow ideas are more general:
+## Create A New Project From This Starter
 
-- one clear configuration authority
-- one reproducible build/flash/validate loop
-- repo-native continuity between sessions
-- honest reporting about what passed, failed, or was skipped
+When you have access to the working starter repo, the normal requests are:
 
-In practice, adapting the same approach to another microcontroller family would
-mean replacing the STM32-specific generation, toolchain, and validation layer
-with equivalents for that ecosystem. Portability is easiest when the target
-platform has a stable project/configuration artifact comparable to STM32
-`.ioc`.
+- "Create a new STM32 project from this starter kit in central mode."
+- "Create a new STM32 project from this starter kit in vendored mode."
 
-## Why Use A Seed Like This
+Use `vendored` mode when you want the workflow files copied into the project
+repo itself. Use `central` mode when you want projects to share one approved
+central toolkit.
 
-Most STM32 projects start with the same problems:
-
-- environment setup is inconsistent
-- build and flash steps live in tribal memory
-- `.ioc` and source code drift apart
-- onboarding takes longer than it should
-
-This starter kit is designed to make those problems smaller on day one.
-
-## Why Not Just Use A Generic AI Chat
-
-You can absolutely build an STM32 project with a generic AI assistant and no
-starter kit.
-
-What tends to go missing in that model is not coding ability. It is the
-surrounding discipline:
-
-- where workflow evidence is written
-- how `.ioc` stays aligned with generated code
-- how a new session rebuilds context
-- how "build passed" is kept separate from broader workflow success
-
-The starter kit is meant to make those rules explicit instead of rediscovering
-them prompt by prompt.
-
-## The First Useful Ten Minutes
-
-If you want the fastest proof that this starter kit is worth trying, do only
-this first:
-
-1. get access to the STM32 AI Flow starter kit or a repo created from it
-2. save the new project's `.ioc`
-3. initialize workflow config from that `.ioc`
-4. run toolchain, config, and doctor checks
-
-That first pass is enough to prove that:
-
-- the machine can run the workflow
-- the new repo has a coherent startup path
-- `.ioc` can become the source of truth cleanly before product code grows
-
-If you need exact command mapping, use `docs/workflow-scripts.md`.
+For the full step-by-step creation and bootstrap paths, use
+`docs/user-manual.md` and `docs/reuse-workflow-kit.md`.
 
 ## Need Help Using It
 
-If you are trying this workflow and want help using it or adapting it to a real
-STM32 project, open a GitHub Discussion in this repository.
+If you are trying this workflow and want help using it or adapting it to a
+real STM32 project, open a GitHub Discussion in this repository.
 
 If you want early access to the full working starter kit while the public
 surface is still documentation-first, ask there as well.
@@ -241,13 +191,13 @@ surface is still documentation-first, ask there as well.
 
 Start with one of these depending on your goal:
 
-- `docs/simple-example.md` for the fastest concrete first success
-- `docs/handbook.md` for the shortest practical operating path
-- `docs/user-manual.md` for fuller explanation and onboarding
-- `docs/understanding-ioc-and-cubemx.md` for `.ioc` and CubeMX ownership
-- `docs/migrating-existing-cubeide-cubemx-projects.md` for existing repos
-- `docs/project-case-study.md` for a larger growth story
-- `docs/workflow-safety.md` for trusted-input and high-risk-action policy
+- `docs/simple-example.md`
+- `docs/handbook.md`
+- `docs/user-manual.md`
+- `docs/understanding-ioc-and-cubemx.md`
+- `docs/migrating-existing-cubeide-cubemx-projects.md`
+- `docs/project-case-study.md`
+- `docs/workflow-safety.md`
 
 Reading copies:
 
@@ -263,14 +213,3 @@ Reading copies:
 - `docs/html/simple-example.html`
 - `docs/html/project-case-study.html`
 - `docs/html/workflow-safety.html`
-
-## License And Marks
-
-This public docs export carries:
-
-- `LICENSE`
-- `NOTICE`
-- `TRADEMARKS.md`
-
-Use those files as the source of truth for reuse and mark-use guidance in the
-exported public repository.
