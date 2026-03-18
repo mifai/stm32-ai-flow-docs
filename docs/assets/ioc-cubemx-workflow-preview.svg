@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="700" viewBox="0 0 1280 700" role="img" aria-labelledby="title desc">
+  <title id="title">IOC, CubeMX, and Workflow Relationship Preview</title>
+  <desc id="desc">A preview diagram showing .ioc as the central source of truth, CubeMX and Workflow acting on .ioc, and Generated Files plus Project Logic shown as a related pair of project working files influenced by .ioc.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f6f2e9; }
+      .panel { stroke: #263226; stroke-width: 3; rx: 20; ry: 20; }
+      .ioc { fill: #ffe39a; }
+      .tool { fill: #ddebdc; }
+      .workflow { fill: #dbe8f6; }
+      .work { fill: #f7f3ed; }
+      .group { fill: none; stroke: #9a8f7e; stroke-width: 2.5; stroke-dasharray: 10 8; rx: 28; ry: 28; }
+      .head { font: 700 28px Georgia, "Times New Roman", serif; fill: #1f281f; }
+      .subhead { font: 700 23px Georgia, "Times New Roman", serif; fill: #1f281f; }
+      .body { font: 400 18px Georgia, "Times New Roman", serif; fill: #253025; }
+      .small { font: 400 16px Georgia, "Times New Roman", serif; fill: #425042; }
+      .label { font: 600 16px Georgia, "Times New Roman", serif; fill: #223122; }
+      .note { font: 600 15px Georgia, "Times New Roman", serif; fill: #6a3131; }
+      .arrow { stroke: #263226; stroke-width: 3.5; fill: none; marker-end: url(#arrow); }
+      .soft { stroke: #596759; stroke-width: 2.6; fill: none; marker-end: url(#arrowSoft); }
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#263226"/>
+    </marker>
+    <marker id="arrowSoft" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#596759"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1280" height="700"/>
+
+  <rect class="panel tool" x="120" y="185" width="250" height="160"/>
+  <text class="subhead" x="150" y="235">CubeMX</text>
+  <text class="body" x="150" y="273">Native editor and generator</text>
+  <text class="small" x="150" y="307">Best for new, broad, or</text>
+  <text class="small" x="150" y="331">uncertain config work</text>
+
+  <rect class="panel workflow" x="910" y="185" width="250" height="180"/>
+  <text class="subhead" x="940" y="235">Workflow</text>
+  <text class="body" x="940" y="273">Apply known changes</text>
+  <text class="body" x="940" y="301">Check integrity</text>
+  <text class="body" x="940" y="329">Reconcile generated files</text>
+
+  <rect class="panel ioc" x="445" y="130" width="390" height="250"/>
+  <text class="head" x="485" y="193">.ioc</text>
+  <text class="body" x="485" y="240">Central source of truth for</text>
+  <text class="body" x="485" y="272">CubeMX-managed hardware and</text>
+  <text class="body" x="485" y="304">middleware configuration</text>
+  <text class="small" x="485" y="344">pins, clocks, DMA, interrupts,</text>
+  <text class="small" x="485" y="369">middleware, virtual pins, task metadata</text>
+
+  <rect class="group" x="300" y="445" width="680" height="220"/>
+
+  <rect class="panel work" x="350" y="490" width="250" height="130"/>
+  <text class="subhead" x="380" y="537">Generated Files</text>
+  <text class="body" x="380" y="573">Init and glue produced</text>
+  <text class="body" x="380" y="597">from the current .ioc</text>
+
+  <rect class="panel work" x="680" y="490" width="250" height="130"/>
+  <text class="subhead" x="710" y="537">Project Logic</text>
+  <text class="body" x="710" y="573">App behavior, modules,</text>
+  <text class="body" x="710" y="597">protocols, runtime logic</text>
+
+  <path class="arrow" d="M 370 265 L 445 265"/>
+  <text class="label" x="214" y="164">edits and generates</text>
+
+  <path class="arrow" d="M 910 275 L 835 275"/>
+  <text class="label" x="950" y="164">applies known changes</text>
+
+  <path class="arrow" d="M 585 380 L 515 490"/>
+  <text class="label" x="398" y="438">strong direct influence</text>
+
+  <path class="soft" d="M 695 380 L 765 490"/>
+  <text class="label" x="742" y="438">indirectly shapes behavior</text>
+
+  <path class="soft" d="M 600 555 L 680 555"/>
+  <text class="label" x="609" y="530">calls into</text>
+
+  <path class="soft" d="M 1035 365 L 1035 455 L 980 455"/>
+  <text class="label" x="1048" y="411">reconcile / validate</text>
+</svg>

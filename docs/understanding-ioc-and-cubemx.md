@@ -25,6 +25,10 @@ The workflow can work with `.ioc`, but it should treat `.ioc` with respect:
 
 That is the core idea.
 
+The relationship is easier to grasp visually:
+
+![How `.ioc`, CubeMX, the workflow, generated files, and project logic fit together](assets/ioc-cubemx-workflow-preview.svg)
+
 ## What The `.ioc` File Really Is
 
 The `.ioc` file is not just a settings file in the casual sense.
