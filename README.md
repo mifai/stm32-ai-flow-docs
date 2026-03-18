@@ -1,6 +1,7 @@
 # STM32 AI Flow
 
-STM32 AI Flow is meant to be a good starting point for a new STM32 project.
+STM32 AI Flow is a starter kit for STM32 development teams who want
+AI-assisted work to stay reproducible instead of ad hoc.
 
 A starter kit for teams who want AI-assisted STM32 development to be
 reproducible instead of ad hoc.
