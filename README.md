@@ -10,6 +10,8 @@ be used before the full working kit is broadly published.
 This public docs repository mirrors the canonical user-facing documentation
 from the working STM32 AI Flow starter kit as closely as practical.
 
+![STM32 AI Flow structure and workflow](docs/assets/readme-workflow-structure-preview.svg)
+
 ## Why Read It
 
 These docs are most useful when you want:
